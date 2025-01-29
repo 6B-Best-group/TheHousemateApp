@@ -17,8 +17,8 @@ class _log_inState extends State<log_In> {
       body: Form(
         child: ListView(
           children: [
-            TextField(decoration: InputDecoration()),
-            TextField(decoration: InputDecoration()),
+            const TextField(decoration: InputDecoration()),
+            const TextField(decoration: InputDecoration()),
             TextButton.icon(
               onPressed: () {},
               icon: Icon(Icons.check_rounded),
