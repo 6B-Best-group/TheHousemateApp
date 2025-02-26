@@ -20,7 +20,7 @@ class _UserProfileState extends State<UserProfile> {
             Container(
               width: double.infinity,
               height: 150,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: Colors.blue,
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(30),
