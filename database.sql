@@ -24,6 +24,7 @@ CREATE TABLE chores(
     chore_id SERIAL PRIMARY KEY,
     user_id INT REFERENCES user_info(user_id) NOT NULL,
     chore_name VARCHAR(15) NOT NULL,
+    chore_description VARCHAR(50) NOT NULL,
     due_date DATE NOT NULL,
     assigned_date DATE NOT NULL,
     completed BOOLEAN NOT NULL DEFAULT FALSE
