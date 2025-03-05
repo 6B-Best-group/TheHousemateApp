@@ -56,3 +56,16 @@ CREATE TABLE messages(
 );
 
 -- End of Message Information
+
+-- Shopping List
+
+CREATE TABLE shopping_list(
+    item_id SERIAL PRIMARY KEY,
+    house_id INT REFERENCES house_info(house_id) NOT NULL,
+    item_name VARCHAR(20) NOT NULL,
+    item_quantity INT NOT NULL,
+    item_price DECIMAL(10,2) NOT NULL,
+    item_bought BOOLEAN NOT NULL DEFAULT FALSE
+);
+
+-- End of Shopping List
