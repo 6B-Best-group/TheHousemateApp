@@ -14,7 +14,7 @@ class _shopping_listState extends State<shopping_list> {
       TextButton.icon(
           onPressed: () {
             Navigator.pop(context);
-          }, //To be added
+          },
           icon: const Icon(Icons.delete),
           label: const Text("discard")),
       TextButton.icon(
@@ -59,7 +59,7 @@ class _shopping_listState extends State<shopping_list> {
                 TextField(
                     maxLength: 90, //placeholder limit
                     decoration: InputDecoration(
-                      label: Text("Item name:"),
+                      label: Text("Item cost:"),
                     )),
               ],
             ),
@@ -84,7 +84,8 @@ class _shopping_listState extends State<shopping_list> {
                       onPressed: () {
                         removeItemPopUp(context);
                       }),
-                  IconButton(icon: const Icon(Icons.remove), onPressed: () {}),
+                  IconButton(
+                      icon: const Icon(Icons.delete_forever), onPressed: () {}),
                 ]));
           }),
       floatingActionButton: FloatingActionButton(
