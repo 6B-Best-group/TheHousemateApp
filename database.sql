@@ -10,8 +10,8 @@ CREATE TABLE user_info(
     user_id SERIAL PRIMARY KEY,
     house_id INT REFERENCES house_info(house_id) NOT NULL,
     user_name VARCHAR(15) NOT NULL UNIQUE,
-    first_name VARCHAR(15) NOT NULL,
-    last_name VARCHAR(15) NOT NULL,
+    first_name VARCHAR(30) NOT NULL,
+    last_name VARCHAR(30) NOT NULL,
     phone_number VARCHAR(15) NOT NULL,
     date_of_birth DATE NOT NULL
 );
