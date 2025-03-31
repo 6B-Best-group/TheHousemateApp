@@ -13,7 +13,7 @@ class _UserProfileState extends State<UserProfile> {
     return Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue,
-          title: Text('My Profile'),
+          title: const Text('My Profile'),
         ),
         body: Column(
           children: [
@@ -26,7 +26,7 @@ class _UserProfileState extends State<UserProfile> {
                     bottomRight: Radius.circular(30),
                     bottomLeft: Radius.circular(30),
                   )),
-              child: Row(
+              child: const Row(
                 children: [
                   CircleAvatar(
                     maxRadius: 50.0,
@@ -66,13 +66,13 @@ class _UserProfileState extends State<UserProfile> {
                   color: Colors.black,
                   width: 2.0,
                 )),
-                child: Row(
+                child: const Row(
                   children: [
                     Expanded(
                       child: Column(
                         children: [
                           Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: EdgeInsets.all(10.0),
                             child: Text(
                               'Phone Number Here',
                               textAlign: TextAlign.center,
@@ -81,7 +81,7 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: EdgeInsets.all(10.0),
                             child: Text(
                               'Email Address Goes Here',
                               textAlign: TextAlign.center,
@@ -90,7 +90,7 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(10.0),
+                            padding: EdgeInsets.all(10.0),
                             child: Text(
                               'Data Of Birth',
                               textAlign: TextAlign.center,
@@ -99,7 +99,7 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                           ),
                           Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: EdgeInsets.all(10.0),
                               child: Text(
                                 'Rent p/m',
                                 textAlign: TextAlign.center,
@@ -107,7 +107,7 @@ class _UserProfileState extends State<UserProfile> {
                                     fontSize: 18, color: Colors.black),
                               )),
                           Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: EdgeInsets.all(10.0),
                               child: Text(
                                 'Payment Date',
                                 textAlign: TextAlign.center,
