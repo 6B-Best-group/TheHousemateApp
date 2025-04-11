@@ -1,4 +1,4 @@
-import 'package:calender_demo/utils/calender_utils.dart';
+import 'package:housemate_app/utils/calender_utils.dart';
 import 'package:flutter/material.dart';
 
 class OtherChoreTile extends StatelessWidget {

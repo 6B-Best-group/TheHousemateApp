@@ -1,10 +1,10 @@
-import 'package:calender_demo/utils/calender_utils.dart';
-import 'package:calender_demo/widgets/add_chore.dart';
-import 'package:calender_demo/widgets/chore_widgets/other_chore/other_chore_lists.dart';
-import 'package:calender_demo/widgets/chore_widgets/user_chore_tile.dart';
-import 'package:calender_demo/widgets/heat_map_calender.dart';
+import 'package:housemate_app/utils/calender_utils.dart';
+import 'package:housemate_app/calender-page/widgets/add_chore.dart';
+import 'package:housemate_app/calender-page/widgets/chore_widgets/other_chore/other_chore_lists.dart';
+import 'package:housemate_app/calender-page/widgets/chore_widgets/user_chore_tile.dart';
+import 'package:housemate_app/calender-page//widgets/heat_map_calender.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/classes/event.dart';
+//import 'package:flutter_calendar_carousel/classes/event.dart';
 
 class CalenderHomePage extends StatefulWidget {
   const CalenderHomePage({super.key});

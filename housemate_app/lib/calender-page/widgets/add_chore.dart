@@ -1,4 +1,4 @@
-import 'package:calender_demo/widgets/date_selector.dart';
+import 'package:housemate_app/calender-page/widgets/date_selector.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
