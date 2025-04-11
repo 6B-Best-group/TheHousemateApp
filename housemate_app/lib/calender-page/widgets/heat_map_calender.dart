@@ -1,10 +1,10 @@
-import 'package:calender_demo/utils/calender_utils.dart';
+import 'package:housemate_app/utils/calender_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_calendar_carousel/classes/marked_date.dart';
 import 'package:flutter_calendar_carousel/classes/multiple_marked_dates.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
-import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
-import 'package:google_fonts/google_fonts.dart';
+//import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+//import 'package:google_fonts/google_fonts.dart';
 
 class MyHeatMap extends StatelessWidget {
   final DateTime currentDate;
@@ -47,8 +47,9 @@ class MyHeatMap extends StatelessWidget {
             children: [
               Text(
                 currentMonth,
-                style: GoogleFonts.inter(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
+                  fontFamily: 'Inter',
                   fontSize: 30,
                 ),
               ),

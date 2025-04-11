@@ -1,6 +1,6 @@
-import 'package:calender_demo/utils/calender_utils.dart';
-import 'package:calender_demo/widgets/chore_widgets/chore_tile.dart';
-import 'package:calender_demo/widgets/chore_widgets/other_chore/other_chore_tile.dart';
+import 'package:housemate_app/utils/calender_utils.dart';
+import 'package:housemate_app/calender-page/widgets/chore_widgets/chore_tile.dart';
+import 'package:housemate_app/calender-page//widgets/chore_widgets/other_chore/other_chore_tile.dart';
 import 'package:flutter/material.dart';
 
 class OtherChoreLists extends StatelessWidget {

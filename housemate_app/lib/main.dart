@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      // home: const MyHomePage(title: 'Housemate App'),
+      home: const MyHomePage(title: 'Housemate App'),
       initialRoute: '/',
       routes: {
         '/': (context) => const MyHomePage(title: 'Housemate App'),
