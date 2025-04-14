@@ -1,5 +1,3 @@
-import 'package:housemate_app/calender-page/widgets/date_selector.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddChoreWidget extends StatelessWidget {
@@ -19,10 +17,10 @@ class AddChoreWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
       backgroundColor: Colors.white,
       content: Container(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         height: 250,
         width: 350,
         child: Column(
@@ -31,15 +29,15 @@ class AddChoreWidget extends StatelessWidget {
           children: [
             Column(
               children: [
-                Text(
+                const Text(
                   "NEW CHORE",
                   style: TextStyle(fontWeight: FontWeight.bold),
                 ),
 
-                Divider(),
+                const Divider(),
 
                 TextField(
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
                     hintText: "Enter New Chore Here",
                   ),
@@ -47,7 +45,7 @@ class AddChoreWidget extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
 
             Row(
               // make a seperate button class
@@ -59,12 +57,12 @@ class AddChoreWidget extends StatelessWidget {
                   style: OutlinedButton.styleFrom(
                     //backgroundColor: Colors.grey.shade300,
                     foregroundColor: Colors.green,
-                    side: BorderSide(color: Colors.black, width: 1),
-                    shape: RoundedRectangleBorder(
+                    side: const BorderSide(color: Colors.black, width: 1),
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
                     ),
                   ),
-                  child: Text("SAVE"),
+                  child: const Text("SAVE"),
                 ),
                 //SizedBox(width: 20),
 
@@ -72,13 +70,13 @@ class AddChoreWidget extends StatelessWidget {
                 OutlinedButton(
                   onPressed: onCancel,
                   style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: Colors.black, width: 1),
+                    side: const BorderSide(color: Colors.black, width: 1),
                     foregroundColor: Colors.red,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
                     ),
                   ),
-                  child: Text("CANCEL"),
+                  child: const Text("CANCEL"),
                 ),
               ],
             ),

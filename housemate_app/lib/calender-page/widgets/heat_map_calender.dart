@@ -1,7 +1,4 @@
-import 'package:housemate_app/utils/calender_utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_calendar_carousel/classes/marked_date.dart';
-import 'package:flutter_calendar_carousel/classes/multiple_marked_dates.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 //import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 //import 'package:google_fonts/google_fonts.dart';
@@ -59,19 +56,19 @@ class MyHeatMap extends StatelessWidget {
                   calendarChange!(DateTime(targetDate.year,targetDate.month -1));
                 }, 
                 iconSize: 20,
-                icon: Icon(Icons.arrow_back_ios),
+                icon: const Icon(Icons.arrow_back_ios),
                 ),
               IconButton(
                 onPressed: (){
                   calendarChange!(DateTime(targetDate.year,targetDate.month + 1));
                 }, 
                 iconSize: 20,
-                icon: Icon(Icons.arrow_forward_ios),
+                icon: const Icon(Icons.arrow_forward_ios),
               ),],),
             ],
           ),
         ),
-        SizedBox(
+        const SizedBox(
           height: 10,
         ),
 
@@ -96,7 +93,7 @@ class MyHeatMap extends StatelessWidget {
               selectedDayBorderColor: Colors.transparent,
               
               selectedDayButtonColor: Colors.grey.shade500,
-              selectedDayTextStyle: TextStyle(
+              selectedDayTextStyle: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 16
               ),

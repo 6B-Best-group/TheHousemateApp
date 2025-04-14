@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:housemate_app/shopping_list.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -22,8 +21,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: MediaQuery.of(context).size.height,
                 width: MediaQuery.of(context).size.width,
                 child: Stack(alignment: Alignment.topLeft, children: [
-                  Align(
-                      alignment: const Alignment(-0.4, -0.6),
+                  const Align(
+                      alignment: Alignment(-0.4, -0.6),
                       child: ElevatedButton(
                           onPressed: null, child: Text("House Info"))),
                   Align(
@@ -32,28 +31,29 @@ class _MyHomePageState extends State<MyHomePage> {
                           onPressed: () {
                             Navigator.pushNamed(context, '/userProfile');
                           },
-                          child: Text("Profile"))),
+                          child: const Text("Profile"))),
                   Align(
                       alignment: const Alignment(0.4, -0.2),
                       child: ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/shoppingList');
                           },
-                          child: Text("Shopping List"))),
-                  Align(
-                      alignment: const Alignment(-0.4, -0.2),
-                      child: ElevatedButton(
-                          onPressed: null, child: Text("Calender"))),
-                  Align(
-                      alignment: const Alignment(0.4, 0.2),
+                          child: const Text("Shopping List"))),
+                  const Align(
+                      alignment: Alignment(-0.4, -0.2),
+                      child: ElevatedButton( 
+                          onPressed: null, 
+                          child: Text("Calender"))),
+                  const Align(
+                      alignment: Alignment(0.4, 0.2),
                       child: ElevatedButton(
                           onPressed: null, child: Text("Chore List"))),
-                  Align(
-                      alignment: const Alignment(-0.4, 0.2),
+                  const Align(
+                      alignment: Alignment(-0.4, 0.2),
                       child: ElevatedButton(
                           onPressed: null, child: Text("Group Chat"))),
-                  Align(
-                      alignment: const Alignment(-0.4, 0.6),
+                  const Align(
+                      alignment: Alignment(-0.4, 0.6),
                       child: ElevatedButton(
                           onPressed: null, child: Text("Action Log"))),
                 ]))));

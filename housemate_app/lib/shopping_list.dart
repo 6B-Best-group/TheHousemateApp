@@ -52,7 +52,7 @@ class _shopping_listState extends State<shopping_list> {
     showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
-            icon: Icon(Icons.money),
+            icon: const Icon(Icons.money),
             title: const Text("Cost log"),
             content: const Wrap(
               children: [
@@ -76,8 +76,8 @@ class _shopping_listState extends State<shopping_list> {
           itemCount: 3,
           itemBuilder: (context, index) {
             return ListTile(
-                title: Text("Dish soap"), //Add database stuff
-                subtitle: Text("Quantity: 3"), //Add database stuff
+                title: const Text("Dish soap"), //Add database stuff
+                subtitle: const Text("Quantity: 3"), //Add database stuff
                 trailing: Wrap(children: [
                   IconButton(
                       icon: const Icon(Icons.check),

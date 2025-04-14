@@ -6,14 +6,14 @@ import 'package:housemate_app/calender-page//widgets/heat_map_calender.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter_calendar_carousel/classes/event.dart';
 
-class CalenderHomePage extends StatefulWidget {
-  const CalenderHomePage({super.key});
+class CalenderPage extends StatefulWidget {
+  const CalenderPage({super.key});
 
   @override
-  State<CalenderHomePage> createState() => _CalenderHomePageState();
+  State<CalenderPage> createState() => _CalenderHomePageState();
 }
 
-class _CalenderHomePageState extends State<CalenderHomePage>
+class _CalenderHomePageState extends State<CalenderPage>
     with TickerProviderStateMixin {
   /*
   TO DO:
@@ -294,7 +294,7 @@ class _CalenderHomePageState extends State<CalenderHomePage>
                               child: Text(
                                 // the title text
                                 selectedDate,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 26,
                                 ),
@@ -303,7 +303,7 @@ class _CalenderHomePageState extends State<CalenderHomePage>
                           ],
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Expanded(
                         flex: 2,
                         child: Container(
@@ -314,10 +314,10 @@ class _CalenderHomePageState extends State<CalenderHomePage>
                                   ? UserChoreTile(
                                     userChores: userDateChores[currentDate]!,
                                   ) // -----
-                                  : UserChoreTile(userChores: []),
+                                  : const UserChoreTile(userChores: []),
                         ),
                       ),
-                      Divider(color: Colors.black),
+                      const Divider(color: Colors.black),
 
                       // otherUserDateChores.containsKey(currentDate) // set a minimum size for this
                       //       ? OtherChoreLists(userName:otherUserDateChores[currentDate]![0][0] ,  userChores: otherUserDateChores[currentDate]![0][1])
@@ -364,17 +364,17 @@ class _CalenderHomePageState extends State<CalenderHomePage>
                               IconButton(
                                 style: IconButton.styleFrom(
                                   backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
+                                  shape: const RoundedRectangleBorder(
                                     borderRadius: BorderRadius.zero,
                                   ),
-                                  side: BorderSide(
+                                  side: const BorderSide(
                                     color: Colors.black,
                                     width: 1,
                                   ),
                                 ),
                                 // ------------------------------- make a rectangle
                                 onPressed: addNewChore,
-                                icon: Icon(Icons.add, color: Colors.black),
+                                icon: const Icon(Icons.add, color: Colors.black),
                               ),
                             ],
                           ),

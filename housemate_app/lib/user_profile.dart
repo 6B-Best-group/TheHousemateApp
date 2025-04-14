@@ -32,7 +32,7 @@ class _UserProfileState extends State<UserProfile> {
                     maxRadius: 50.0,
                     minRadius: 50.0,
                     backgroundColor: Colors.white,
-                    backgroundImage: AssetImage('Insert profile picture here'),
+                    backgroundImage: null,//AssetImage('Insert profile picture here'),
                   ),
                   Column(
                     children: [
