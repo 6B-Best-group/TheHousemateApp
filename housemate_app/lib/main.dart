@@ -3,6 +3,7 @@ import 'package:housemate_app/calender-page/calender.dart';
 import 'package:housemate_app/home.dart';
 import 'package:housemate_app/shopping_list.dart';
 import 'package:housemate_app/user_profile.dart';
+import 'package:housemate_app/utils/theme.dart';
 
 void main() {
   // Test comment.
@@ -20,10 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Dweller',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: defaultTheme,
       //home: const MyHomePage(title: 'Housemate App'),
       initialRoute: '/',
       routes: {
