@@ -221,6 +221,11 @@ class _CalenderHomePageState extends State<CalenderPage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.grey,
+        centerTitle: true,
+        title: const Text('C A L E N D E R'),
+      ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         //crossAxisAlignment: CrossAxisAlignment.start,

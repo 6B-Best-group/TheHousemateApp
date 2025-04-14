@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -17,45 +19,40 @@ class _MyHomePageState extends State<MyHomePage> {
           title: const Text("Dwwlr Home Page"),
         ),
         body: Center(
-            child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: Stack(alignment: Alignment.topLeft, children: [
-                  const Align(
-                      alignment: Alignment(-0.4, -0.6),
-                      child: ElevatedButton(
-                          onPressed: null, child: Text("House Info"))),
-                  Align(
-                      alignment: const Alignment(0.4, -0.6),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/userProfile');
-                          },
-                          child: const Text("Profile"))),
-                  Align(
-                      alignment: const Alignment(0.4, -0.2),
-                      child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/shoppingList');
-                          },
-                          child: const Text("Shopping List"))),
-                  const Align(
-                      alignment: Alignment(-0.4, -0.2),
-                      child: ElevatedButton( 
-                          onPressed: null, 
-                          child: Text("Calender"))),
-                  const Align(
-                      alignment: Alignment(0.4, 0.2),
-                      child: ElevatedButton(
-                          onPressed: null, child: Text("Chore List"))),
-                  const Align(
-                      alignment: Alignment(-0.4, 0.2),
-                      child: ElevatedButton(
-                          onPressed: null, child: Text("Group Chat"))),
-                  const Align(
-                      alignment: Alignment(-0.4, 0.6),
-                      child: ElevatedButton(
-                          onPressed: null, child: Text("Action Log"))),
+            child: SizedBox.square(
+                dimension: MediaQuery.of(context).size.height,
+                child:GridView.count(
+                   //Stack(alignment: Alignment.topLeft, children: [
+                   crossAxisCount: 2,
+                   mainAxisSpacing: 40,
+                   crossAxisSpacing: 30,
+                   childAspectRatio: 4/1,
+                   children: [
+                  ElevatedButton(
+                      onPressed: null, child: Text("House Info")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/userProfile');
+                      },
+                      child: const Text("Profile")),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/shoppingList');
+                      },
+                      child: const Text("Shopping List")),
+
+                          // CALENDER
+                  ElevatedButton( 
+                      onPressed: (){
+                        Navigator.pushNamed(context, '/calenderPage');
+                      }, 
+                      child: Text("Calender")),
+                  ElevatedButton(
+                      onPressed: null, child: Text("Chore List")),
+                  ElevatedButton(
+                      onPressed: null, child: Text("Group Chat")),
+                  ElevatedButton(
+                      onPressed: null, child: Text("Action Log")),
                 ]))));
   }
 }
