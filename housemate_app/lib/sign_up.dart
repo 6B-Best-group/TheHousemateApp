@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class log_In extends StatefulWidget {
-  const log_In({super.key});
+class sign_up extends StatefulWidget {
+  const sign_up({super.key});
 
   @override
-  State<log_In> createState() => _log_inState();
+  State<sign_up> createState() => _log_inState();
 }
 
-class _log_inState extends State<log_In> {
+class _log_inState extends State<sign_up> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,26 +17,25 @@ class _log_inState extends State<log_In> {
       body: Form(
         child: ListView(
           children: [
-            const TextField(decoration: InputDecoration()),
-            const TextField(decoration: InputDecoration()),
+            const TextField(decoration: InputDecoration(labelText: "Email")),
+            const TextField(decoration: InputDecoration(labelText: "Username")),
+            const TextField(decoration: InputDecoration(labelText: "Password")),
+            const TextField(
+                decoration: InputDecoration(labelText: "Confirm password")),
             TextButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.check_rounded),
-              label: Text("Log in!"),
-            ),
-            TextButton.icon(
-              onPressed: () {},
-              icon: Icon(Icons.question_mark),
-              label: Text("Forgot Password"),
-            ),
-            TextButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                createAccount(context);
+              },
               icon: Icon(Icons.add),
-              label: Text("Make an account"),
+              label: Text("Create"),
             )
           ],
         ),
       ),
     );
   }
+}
+
+void createAccount(context){
+  
 }
