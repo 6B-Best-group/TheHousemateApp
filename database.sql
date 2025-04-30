@@ -12,7 +12,9 @@ CREATE TABLE user_info(
     user_name VARCHAR(15) NOT NULL UNIQUE,
     first_name VARCHAR(30) NOT NULL,
     last_name VARCHAR(30) NOT NULL,
-    phone_number VARCHAR(15) NOT NULL,
+    username VARCHAR(30)NOT NULL UNIQUE,
+    password VARCHAR(30) NOT NULL,
+    email VARCHAR(30) NOT NULL,
     date_of_birth DATE NOT NULL
 );
 
@@ -66,6 +68,7 @@ CREATE TABLE shopping_list(
     item_quantity INT NOT NULL,
     item_price DECIMAL(10,2) NOT NULL,
     item_bought BOOLEAN NOT NULL DEFAULT FALSE
+    user_id INT REFERENCES user_info(user_id) NOT NULL,
 );
 
 -- End of Shopping List
