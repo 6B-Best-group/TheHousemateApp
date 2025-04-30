@@ -14,7 +14,7 @@ CREATE TABLE user_info(
     last_name VARCHAR(30) NOT NULL,
     username VARCHAR(30)NOT NULL UNIQUE,
     password VARCHAR(30) NOT NULL,
-    email VARCHAR(30) NOT NULL,
+    email VARCHAR(50) NOT NULL,
     date_of_birth DATE NOT NULL
 );
 
@@ -43,6 +43,7 @@ CREATE TABLE house_info(
     city VARCHAR(50) NOT NULL,
     country VARCHAR(50) NOT NULL,
     postcode char(10)
+    bin_code VARCHAR(30) NOT NULL,
 );
 
 -- End of House Information
@@ -72,3 +73,18 @@ CREATE TABLE shopping_list(
 );
 
 -- End of Shopping List
+
+-- List of Queries to make:
+
+-- set user info
+-- get user info
+-- get chores 
+-- set chores
+-- get house info
+-- set house info
+-- get messages
+-- set messages
+-- get shopping list        
+-- set shopping list
+
+-- Security, Testing
