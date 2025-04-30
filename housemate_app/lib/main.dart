@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/shopping_list.dart';
+
+List<ShoppingItem> shoppingList = [];
+
+List<ShoppingItem> broughItems = [];
+
 
 void main() {
   runApp(const MyApp());
