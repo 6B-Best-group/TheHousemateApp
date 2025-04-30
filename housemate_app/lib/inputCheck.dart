@@ -11,7 +11,7 @@ class DataChecks {
   bool createUserChecks(fname, lname, user, userEmail, date) {
     //string input checks
     List inputs = [fname, lname, user, userEmail];
-    List keys = ["firstName", "lastName", "email", "userName"];
+    List keys = ["firstName", "lastName", "userName", "email"];
     int i = 0;
 
     for (String key in keys) {
@@ -22,7 +22,7 @@ class DataChecks {
       i += 1;
     }
 
-    if (userEmail.contains("@") != 1) {
+    if (!userEmail.contains("@")) {
       return false;
     }
     return true;
