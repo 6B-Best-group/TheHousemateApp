@@ -13,7 +13,7 @@ class _shopping_listState extends State<shopping_list> {
   // List<ShoppingItem> itemList =   []; //this currently resets constantly, needs database loading
   final quantity = TextEditingController();
   final itemName = TextEditingController();
-  final TextEditingController cost = TextEditingController();
+  final cost = TextEditingController();
 
   void addItem() {
     if (itemValid()) {
@@ -32,7 +32,6 @@ class _shopping_listState extends State<shopping_list> {
   bool itemValid() {
     try {
       int.parse(quantity.text);
-      print(shoppingList);
       return true;
     } catch (e) {
       return false;
@@ -130,35 +129,37 @@ class _shopping_listState extends State<shopping_list> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Shopping List"),
-      ),
-      body: ListView.builder(
-          itemCount: shoppingList.length,
-          itemBuilder: (context, i) {
-            return ListTile(
-                title: Text(shoppingList[i].itemName), //Add database stuff
-                subtitle: Text(
-                    "Quantity: ${shoppingList[i].quanity}"), //Add database stuff
-                trailing: Wrap(children: [
-                  IconButton(
-                      icon: const Icon(Icons.check),
-                      onPressed: () {
-                        removeItemPopUp(context, shoppingList[i]);
-                      }),
-                  IconButton(
-                      icon: const Icon(Icons.delete_forever),
-                      onPressed: () {
-                        removeItem(shoppingList[i]);
-                        Navigator.pop(context);
-                      }),
-                ]));
-          }),
-      floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            addItemPopUp(context);
-          },
-          child: const Icon(Icons.add)),
-    );
+        appBar: AppBar(
+          title: const Text("Shopping List"),
+        ),
+        body: Column(children: [
+          TextButton(onPressed: () {}, child: const Text("Spending page")),
+          Flexible(
+              child: ListView.builder(
+                  itemCount: shoppingList.length,
+                  itemBuilder: (context, i) {
+                    return ListTile(
+                        title: Text(shoppingList[i].itemName),
+                        subtitle: Text("Quantity: ${shoppingList[i].quanity}"),
+                        trailing: Wrap(children: [
+                          IconButton(
+                              icon: const Icon(Icons.check),
+                              onPressed: () {
+                                removeItemPopUp(context, shoppingList[i]);
+                              }),
+                          IconButton(
+                              icon: const Icon(Icons.delete_forever),
+                              onPressed: () {
+                                removeItem(shoppingList[i]);
+                                //Navigator.pop(context);
+                              }),
+                        ]));
+                  }))
+        ]),
+        floatingActionButton: FloatingActionButton(
+            onPressed: () {
+              addItemPopUp(context);
+            },
+            child: const Icon(Icons.add)));
   }
 }
