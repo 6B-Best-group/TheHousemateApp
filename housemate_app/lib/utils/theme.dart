@@ -18,10 +18,15 @@ ThemeData defaultTheme = ThemeData(
   ),
   appBarTheme: const AppBarTheme(
     backgroundColor: Colors.grey,
+    shape: Border(bottom: BorderSide(
+      color: Colors.black,
+      width: 2,
+    )),
     titleTextStyle: TextStyle(
       fontWeight: FontWeight.bold, 
       fontSize: 22,
       fontFamily: 'Inter',
+
     )
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
@@ -33,9 +38,9 @@ ThemeData defaultTheme = ThemeData(
       ),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(0),
-        side: BorderSide(color: Colors.black,width: 1)
+        side: const BorderSide(color: Colors.black,width: 1)
       ),
-      padding: EdgeInsets.all(10),
+      padding: const EdgeInsets.all(10),
     )
   ),
   iconButtonTheme: IconButtonThemeData(
@@ -43,6 +48,10 @@ ThemeData defaultTheme = ThemeData(
       foregroundColor: Colors.black,
       //backgroundColor: Colors.white,
     )
+  ),
+  dividerTheme: const DividerThemeData(
+    color: Colors.black,
+    thickness: 1,
   )
 
 );

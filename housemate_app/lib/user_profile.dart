@@ -12,7 +12,7 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          //backgroundColor: Colors.blue,
           title: const Text('My Profile'),
         ),
         body: Column(
@@ -20,40 +20,55 @@ class _UserProfileState extends State<UserProfile> {
             Container(
               width: double.infinity,
               height: 150,
-              decoration: const BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(30),
-                    bottomLeft: Radius.circular(30),
-                  )),
-              child: const Row(
-                children: [
-                  CircleAvatar(
-                    maxRadius: 50.0,
-                    minRadius: 50.0,
-                    backgroundColor: Colors.white,
-                    backgroundImage: null,//AssetImage('Insert profile picture here'),
+              decoration: BoxDecoration(
+                  color: Colors.grey.shade400,
+                  // borderRadius: const BorderRadius.only(
+                  //   bottomRight: const Radius.circular(10),
+                  //   bottomLeft: Radius.circular(10),
+                  // ),
+                  border: const Border(bottom: const BorderSide(color: Colors.black,width: 1))
                   ),
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: 30.0,
+              child: Padding(
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.all(1),
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.black,
                       ),
-                      Text(
-                        'Name Goes Here',
-                        style: TextStyle(
-                          fontSize: 27,
-                        ),
+                      child: const CircleAvatar(
+                        maxRadius: 50.0,
+                        minRadius: 50.0,
+                        backgroundColor: Colors.white,
+                        backgroundImage: null,//AssetImage('Insert profile picture here'),
                       ),
-                      Text(
-                        'Address Goes Here',
-                        style: TextStyle(
-                          fontSize: 23,
-                        ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.only(left: 25,top: 8,bottom:8),
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 30.0,
+                          ),
+                          Text(
+                            'Name Goes Here',
+                            style: TextStyle(
+                              fontSize: 27,
+                            ),
+                          ),
+                          Text(
+                            'Address Goes Here',
+                            style: TextStyle(
+                              fontSize: 23,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
             Padding(
@@ -64,60 +79,63 @@ class _UserProfileState extends State<UserProfile> {
                 decoration: BoxDecoration(
                     border: Border.all(
                   color: Colors.black,
-                  width: 2.0,
+                  width: 1.0,
                 )),
-                child: const Row(
-                  children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              'Phone Number Here',
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              'Email Address Goes Here',
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.all(10.0),
-                            child: Text(
-                              'Data Of Birth',
-                              textAlign: TextAlign.center,
-                              style:
-                                  TextStyle(fontSize: 18, color: Colors.black),
-                            ),
-                          ),
-                          Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Text(
-                                'Rent p/m',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.black),
-                              )),
-                          Padding(
-                              padding: EdgeInsets.all(10.0),
-                              child: Text(
-                                'Payment Date',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    fontSize: 18, color: Colors.black),
-                              )),
-                        ],
+                child: const Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          'Phone - Phone Number Here',
+                          //textAlign: TextAlign.center,
+                          style:
+                              TextStyle(fontSize: 18, color: Colors.black),
+                        ),
                       ),
-                    )
-                  ],
+                      Divider(),
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          'Email - Email Address Goes Here',
+                          //textAlign: TextAlign.center,
+                          style:
+                              TextStyle(fontSize: 18, color: Colors.black),
+                        ),
+                      ),
+                      Divider(),
+                      Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Text(
+                          'DOB - Data Of Birth',
+                          //textAlign: TextAlign.center,
+                          style:
+                              TextStyle(fontSize: 18, color: Colors.black),
+                        ),
+                      ),
+                      Divider(),
+                      Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text(
+                            'Rent p/m',
+                            //textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 18, color: Colors.black),
+                          )),
+                      Divider(),
+                      Padding(
+                          padding: EdgeInsets.all(10.0),
+                          child: Text(
+                            'Payment Date',
+                            //textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 18, color: Colors.black),
+                          )),
+                    ],
+                  ),
                 ),
               ),
             )

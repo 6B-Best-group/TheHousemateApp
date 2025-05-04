@@ -13,7 +13,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
   List<List<String>> pages = [
-    ["Calender", '/calenderPage'],
+    //["Calender", '/calenderPage'],
     ["Shopping List",'/shoppingList'],
     ["Group Chat",' '],
   ];
@@ -23,7 +23,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text("Dweller Home Page"),
+          title: const Text("HOME PAGE"),
         ),
         drawer: Drawer(
           child: Column(
@@ -50,7 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       
                     ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                   Text(
@@ -59,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   )
                 ],
               ),),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               Expanded(
@@ -125,39 +125,85 @@ class _MyHomePageState extends State<MyHomePage> {
                 dimension: MediaQuery.of(context).size.height,
                 child: Container(
                   //width: 100,
-                  padding: const EdgeInsets.only(top: 60,bottom: 40,left: 20,right: 20),
-                  //color: Colors.blue,
-                  child: ListView.builder(
-                    itemCount: pages.length,
-                    shrinkWrap: true,
-                    itemBuilder: (
-                      BuildContext context,
-                      int index,
-                    ) {
-                      
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, pages[index][1]);
-                        },
-                        child: 
-                          Padding(
-                            padding: const EdgeInsets.all(10.0),
-                            child: Text(
-                              pages[index][0],
-                              style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                                fontSize: 18,
-                            
-                              ),
-                                                    ),
-                          ),),
-                      );
-                          
-                      
-                            
-                    }
+                  padding: const EdgeInsets.only(top: 60,bottom: 40,left: 60,right: 60),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    border: const Border(
+                      left: BorderSide(color: Colors.black,width: 1),
+                      right: BorderSide(color: Colors.black,width: 1),
                     ),
+                    
+                  ),
+                  child: Column(
+                    children: [
+                      Flexible(
+                        flex: 2,
+                        child: GestureDetector(
+                          onTap: (){
+                            Navigator.pushNamed(context, '/calenderPage');
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.cyan,
+                              border: Border.all(color: Colors.black, width: 1),
+                            
+                            ),
+                            child: Center(
+                              child: Text(
+                                "Calender",
+                                
+                                style: Theme.of(context).textTheme.displayLarge
+                                //   //color: Colors.white,
+                                // ),
+                              ),
+                            ),
+                           
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 2,
+                        color: Colors.black,
+                      ),
+                      const SizedBox(
+                        height: 50,
+                      ),
+                      Flexible(
+                        flex: 5,
+                        child: ListView.builder(
+                          itemCount: pages.length,
+                          shrinkWrap: true,
+                          itemBuilder: (
+                            BuildContext context,
+                            int index,
+                          ) {
+                            
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.pushNamed(context, pages[index][1]);
+                              },
+                              child: 
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text(
+                                    pages[index][0],
+                                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                      fontSize: 18,
+                                  
+                                    ),
+                                                          ),
+                                ),),
+                            );
+                                
+                            
+                                  
+                          }
+                          ),
+                      ),
+                    ],
+                  ),
                 ),
               
                 ),
