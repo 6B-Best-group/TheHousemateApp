@@ -4,6 +4,12 @@ import 'package:housemate_app/home.dart';
 import 'package:housemate_app/shopping_list.dart';
 import 'package:housemate_app/user_profile.dart';
 import 'package:housemate_app/utils/theme.dart';
+import 'package:housemate_app/log_in.dart';
+import 'package:housemate_app/class/shoppingItem.dart';
+
+List<ShoppingItem> shoppingList = [];
+List<ShoppingItem> broughItems = [];
+List<String> housemates = []; //placeholder code
 
 void main() {
   // Test comment.
