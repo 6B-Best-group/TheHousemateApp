@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/dataInfo.dart';
-import 'package:housemate_app/profile.dart';
+import 'package:housemate_app/main.dart';
+import 'package:housemate_app/class/profile.dart';
 import 'inputCheck.dart';
 
 class sign_up extends StatefulWidget {
@@ -23,10 +24,8 @@ class _log_inState extends State<sign_up> {
     bool userValid = check.createUserChecks(
         fname.text, lname.text, username.text, userEmail.text, DateTime.now());
     if (userValid) {
-      UserProfile user = UserProfile();
-      user.createUser(fname.text, lname.text, username.text, userEmail.text,
-          DateTime.now());
-      print("FUNCTIONS");
+      currentUser.createUser(fname.text, lname.text, username.text,
+          userEmail.text, DateTime.now());
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:housemate_app/inputCheck.dart';
+import 'package:housemate_app/class/profile.dart';
 
 void main() {
   group('Test first name validity', () {
@@ -62,6 +63,14 @@ void main() {
           check.createUserChecks(
               "Steve", "Jones", "Username", "notanemail", DateTime.now()),
           equals(false));
+    });
+
+    group('Test: getting and setting user data', () {
+      test('Test getting and setting a users firstname', () {
+        User user = User();
+        user.setFirstName("Tina");
+        expect(user.getFirstName(), equals("Tina"));
+      });
     });
   });
 }

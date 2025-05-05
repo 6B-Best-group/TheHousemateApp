@@ -1,11 +1,11 @@
-class UserProfile {
+class User {
   bool loggedIn = false;
   String firstName = "";
   String lastName = "";
   String email = "";
   String username = "";
   DateTime dob = DateTime(2025);
-  UserProfile();
+  User();
 
   void logOut() {
     loggedIn = false;
@@ -52,5 +52,9 @@ class UserProfile {
 
   String getUsername() {
     return username;
+  }
+
+  String getDOB() {
+    return '$dob';
   }
 }
