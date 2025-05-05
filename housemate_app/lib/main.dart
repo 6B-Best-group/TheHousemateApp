@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/calender-page/calender.dart';
+import 'package:housemate_app/home.dart';
+import 'package:housemate_app/shopping_list.dart';
+import 'package:housemate_app/user_profile.dart';
+import 'package:housemate_app/utils/theme.dart';
 import 'package:housemate_app/log_in.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
-import 'package:housemate_app/shopping_list.dart';
 
 List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
 List<String> housemates = []; //placeholder code
 
 void main() {
+  // Test comment.
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
@@ -17,13 +23,19 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    debugPrint('Building MyApp....');
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Dweller',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const shopping_list(),
+      theme: defaultTheme,
+      //home: const MyHomePage(title: 'Housemate App'),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => const MyHomePage(title: 'Housemate App'),
+        '/shoppingList': (context) => const shopping_list(),
+        '/userProfile': (context) => const UserProfile(),
+        '/calenderPage': (context) => const CalenderPage(),
+      },
     );
   }
 }
