@@ -52,6 +52,11 @@ ThemeData defaultTheme = ThemeData(
   dividerTheme: const DividerThemeData(
     color: Colors.black,
     thickness: 1,
+  ),
+  drawerTheme: DrawerThemeData(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(0)),
+    
   )
 
 );

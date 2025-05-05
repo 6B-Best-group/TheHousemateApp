@@ -26,96 +26,101 @@ class _MyHomePageState extends State<MyHomePage> {
           title: const Text("HOME PAGE"),
         ),
         drawer: Drawer(
-          child: Column(
-            children: [
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.grey,
-                  border: Border(bottom: const BorderSide(color: Colors.black,width: 1))
-                
-                ),
-                padding: const EdgeInsets.all(8),
-                height: 90,
-                child: Row(
-                children: [
-                  IconButton( // profile button
-                    onPressed: (){
-                      Navigator.pushNamed(context, '/userProfile');
-                    }, 
-                    icon: const Icon(Icons.person),
-                    style: IconButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      side: const BorderSide(color: Colors.black,width: 1),
-                      shape: const CircleBorder(),
-                      
-                    ),
-                    ),
-                    const SizedBox(
-                      width: 20,
-                    ),
-                  Text(
-                    'Garry Giggles',
-                    style: Theme.of(context).textTheme.displayLarge,
-                  )
-                ],
-              ),),
-              const SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: ListView(
+          child: Container(
+            decoration: const BoxDecoration(
+              border: Border(right: const BorderSide(color: Colors.black,width: 1))
+            ),
+            child: Column(
+              children: [
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.grey,
+                    border: Border(bottom: const BorderSide(color: Colors.black,width: 1))
+                  
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  height: 90,
+                  child: Row(
                   children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          leading: const Icon(Icons.house_outlined),
-                          title:  const Text('House Info'),
-                          onTap: (){},
-                        ),
+                    IconButton( // profile button
+                      onPressed: (){
+                        Navigator.pushNamed(context, '/userProfile');
+                      }, 
+                      icon: const Icon(Icons.person),
+                      style: IconButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        side: const BorderSide(color: Colors.black,width: 1),
+                        shape: const CircleBorder(),
+                        
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          leading: const Icon(Icons.hourglass_bottom),
-                          title:  const Text('Action Log'),
-                          onTap: (){},
-                        ),
                       ),
-                ],
-                ),
-              ),
-
-//  DRAWER -    B O T T O M    B A R 
-// ---------------------------------------------------------------------------
-
-              Container(
-                decoration: const BoxDecoration(
-                  color: Colors.grey,
-                  border: Border(top: const BorderSide(color: Colors.black,width: 1))
-                
-                ),
-                padding: const EdgeInsets.all(8),
-                height: 60,
-                child:Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    IconButton( // settings button
-                    onPressed: (){}, 
-                    icon: const Icon(Icons.settings),
-                    
-                    ),
-                    IconButton(
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                    }, 
-                    icon: const Icon(Icons.arrow_back),
-                    
-                    ),
-                    
+                      const SizedBox(
+                        width: 20,
+                      ),
+                    Text(
+                      'Garry Giggles',
+                      style: Theme.of(context).textTheme.displayLarge,
+                    )
                   ],
+                ),),
+                const SizedBox(
+                  height: 20,
                 ),
-              )
-            ],
+                Expanded(
+                  child: ListView(
+                    children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            leading: const Icon(Icons.house_outlined),
+                            title:  const Text('House Info'),
+                            onTap: (){},
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ListTile(
+                            leading: const Icon(Icons.hourglass_bottom),
+                            title:  const Text('Action Log'),
+                            onTap: (){},
+                          ),
+                        ),
+                  ],
+                  ),
+                ),
+            
+            //  DRAWER -    B O T T O M    B A R 
+            // ---------------------------------------------------------------------------
+            
+                Container(
+                  decoration: const BoxDecoration(
+                    color: Colors.grey,
+                    border: Border(top: const BorderSide(color: Colors.black,width: 1))
+                  
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  height: 60,
+                  child:Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton( // settings button
+                      onPressed: (){}, 
+                      icon: const Icon(Icons.settings),
+                      
+                      ),
+                      IconButton(
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      }, 
+                      icon: const Icon(Icons.arrow_back),
+                      
+                      ),
+                      
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
 
         ),
@@ -150,7 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             child: Center(
                               child: Text(
-                                "Calender",
+                                "Calendar",
                                 
                                 style: Theme.of(context).textTheme.displayLarge
                                 //   //color: Colors.white,
