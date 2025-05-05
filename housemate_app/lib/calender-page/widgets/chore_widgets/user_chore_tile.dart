@@ -11,7 +11,7 @@ class UserChoreTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        constraints: BoxConstraints(minHeight: 80),
+        constraints: const BoxConstraints(minHeight: 80),
         width: double.maxFinite,
         decoration: BoxDecoration(
           color: Colors.white,
@@ -22,7 +22,7 @@ class UserChoreTile extends StatelessWidget {
             // color banner
             Container(
               width: 25,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.grey,
                 border: Border(
                   right: BorderSide(color: Colors.black, width: 1),
@@ -33,18 +33,18 @@ class UserChoreTile extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       "Your Chores Today: ",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Divider(color: Colors.black),
+                  const Divider(color: Colors.black),
                   userChores.isEmpty
-                      ? Padding(
+                      ? const Padding(
                         // if the list is empty
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text("You have no Chores today"),
                       )
                       : ListView.builder(

@@ -16,7 +16,7 @@ class DateSelector extends StatelessWidget {
     - condense it down into a valid date time
 
     */
-    return Row(
+    return const Row(
       children: [
         DropdownMenu( //  day
                   dropdownMenuEntries: [

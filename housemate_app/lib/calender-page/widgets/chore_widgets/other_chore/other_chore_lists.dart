@@ -1,5 +1,4 @@
 import 'package:housemate_app/utils/calender_utils.dart';
-import 'package:housemate_app/calender-page/widgets/chore_widgets/chore_tile.dart';
 import 'package:housemate_app/calender-page//widgets/chore_widgets/other_chore/other_chore_tile.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +16,7 @@ class OtherChoreLists extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        constraints: BoxConstraints(maxHeight: 230, minHeight: 40),
+        constraints: const BoxConstraints(maxHeight: 230, minHeight: 40),
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.black, width: 1),
@@ -27,7 +26,7 @@ class OtherChoreLists extends StatelessWidget {
           children: [
             // change this to a user color later
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   right: BorderSide(color: Colors.black, width: 1),
                 ),
@@ -45,20 +44,20 @@ class OtherChoreLists extends StatelessWidget {
                     child: Text(
                       // the users name
                       userName,
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: const TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
-                  Divider(color: Colors.black),
+                  const Divider(color: Colors.black),
                   userChores.isEmpty
-                      ? Padding(
-                        padding: const EdgeInsets.all(8.0),
+                      ? const Padding(
+                        padding: EdgeInsets.all(8.0),
                         child: Text("You have no Chores today"),
                       ) // if the list is empty
                       : Padding(
                         padding: const EdgeInsets.all(4),
                         child: ListView.builder(
                           // if the list isnt empty
-                          physics: ClampingScrollPhysics(),
+                          physics: const ClampingScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: userChores.length,
                           itemBuilder: (BuildContext context, int index) {
