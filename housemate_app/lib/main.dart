@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/calender-page/calender.dart';
+import 'package:housemate_app/group_chat.dart';
 import 'package:housemate_app/home.dart';
 import 'package:housemate_app/shopping_list.dart';
 import 'package:housemate_app/user_profile.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
         '/shoppingList': (context) => const shopping_list(),
         '/userProfile': (context) => const UserProfile(),
         '/calenderPage': (context) => const CalenderPage(),
+        '/groupChat': (context) => const GroupChatPage(),
       },
     );
   }

@@ -15,7 +15,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<List<String>> pages = [
     //["Calender", '/calenderPage'],
     ["Shopping List",'/shoppingList'],
-    ["Group Chat",' '],
+    ["Group Chat",'/groupChat'],
   ];
 
   @override
