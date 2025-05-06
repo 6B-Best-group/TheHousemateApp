@@ -45,6 +45,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
       );
       house.createHouse(housename.text, address1.text, address2.text, city.text,
           county.text, postcode.text);
+      houseMember = true;
       Navigator.pushNamed(context, '/');
     }
   }

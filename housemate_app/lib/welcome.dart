@@ -5,11 +5,20 @@ class Welcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Column(
         children: [
-         // TextButton(onPressed: onPressed, child: Text("Sign Up")),
-         //  TextButton(onPressed: onPressed, child: Text("Login in"))
+          const Text("Dweller"),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/signUp');
+              },
+              child: const Text("Sign Up")),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/login');
+              },
+              child: Text("Login in"))
         ],
       ),
     );
