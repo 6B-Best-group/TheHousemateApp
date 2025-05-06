@@ -145,8 +145,6 @@ class _CalenderHomePageState extends State<CalenderPage>
     ],
   };
 
-
-
   String selectedDate = "";
 
   DateTime currentDate = DateTime.now();
