@@ -10,7 +10,8 @@ class GroupChatPage extends StatefulWidget {
 }
 
 class _GroupChatPageState extends State<GroupChatPage> {
-  @override
+
+  late MemberData currentUser; 
 
   List<MemberData> houseMembers = [
     MemberData('Dan', Colors.pink, '0111567aEd'),
@@ -20,6 +21,21 @@ class _GroupChatPageState extends State<GroupChatPage> {
     MemberData('Gurt', Colors.yellow, '6722039gTd'),
   ];
 
+  List<GCMessage> messages = [
+    GCMessage(DateTime(2025,12,5,7,30,21), 'Yo', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
+    GCMessage(DateTime(2025,12,5,7,40,21), 'Hello Gurthanial', MemberData('Craig', Colors.orange, '5689442gIc'),),
+    GCMessage(DateTime(2025,12,5,7,50,21), 'How are all of you', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
+    GCMessage(DateTime(2025,12,5,7,55,21), 'im not bad myself, what about wou how was your weekend?', MemberData('Lucy', Colors.green, '3331983jMp'),),
+  ];
+
+  
+  @override
+  void initState() {
+    super.initState();
+      currentUser = MemberData('Lucy', Colors.green, '3331983jMp');
+  }
+
+  @override
 
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +51,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
             flex: 1,
             child: Container(
               decoration: const BoxDecoration(
-                      color: Colors.purple,
+                      //color: Colors.purple,
                       border: Border(
                         right: BorderSide(color: Colors.black ,width: 2),
                       ),
@@ -43,67 +59,82 @@ class _GroupChatPageState extends State<GroupChatPage> {
               
               child: Column(
                 children: [
-                  Container( // THE HOUSE BOX
-                    height: 105,
-                    width: double.maxFinite,
-                    decoration: const BoxDecoration(
-                      color: Colors.grey,
-                      border: Border(
-                        bottom: BorderSide(color: Colors.black ,width: 1),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container( // THE HOUSE BOX
+                      height: 78,//double.minPositive,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        border: Border.all(
+                          color: Colors.black ,width: 1,
+                        ),
                       ),
-                    ),
-                    child: Row(
-                      children: [
-                        Container( // colour banner
-                            width: 25,
-                            decoration: BoxDecoration(
-                              color: Colors.grey.shade700,
-                              border: const Border(
-                                right: BorderSide(color: Colors.black, width: 2),
+                      child: Row(
+                        children: [
+                          Container( // colour banner
+                              width: 25,
+                              //height: double.infinity,
+                              decoration: BoxDecoration(
+                                color: Colors.grey.shade700,
+                                border: const Border(
+                                  right: BorderSide(color: Colors.black, width: 2),
+                                ),
                               ),
                             ),
-                          ),
-                        Expanded(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10,top: 10,bottom: 5),
-                                child: Text( // work on this next
+                          Expanded(
+                            child: Column(
+                              //mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 10,top: 5,bottom: 5),
+                                  child: Text( // work on this next
+                                  
+                                    'House',
+                                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                      fontSize: 18
+                                    ),
+                                  ),
+                                ),
+                                const Divider(
+                                  height: 0,
+                                ),
+                                Container(
+                                  color: Colors.white,
+                                  width: double.maxFinite,
+                                  
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 10,top: 10,bottom: 15),
+                                    child: Text( // house address goes here
+                                      '1 Orchard Road, P03 7HE',
+                                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                              
                                 
-                                  'House',
-                                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                                    fontSize: 18
-                                  ),
-                                ),
-                              ),
-                              const Divider(),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10,top: 10,bottom: 15),
-                                child: Text( // house address goes here
-                                  '1 Orchard Road, P03 7HE',
-                                  style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                                    fontSize: 18,
-                                  ),
-                                ),
-                              ),
-                                            
-                              
-                                            
-                              
-                            ],
+                                              
+                                
+                              ],
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Divider(),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: Colors.grey,
+                         // color: Colors.grey,
                           border: Border.all(color: Colors.black,width: 1),
                         ),
                         child: Column(
@@ -128,6 +159,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                             Expanded(
                               child: ListView.builder(
                                 itemCount: houseMembers.length,
+                                shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Padding(
                                     padding:EdgeInsets.all(8.0),
@@ -152,11 +184,29 @@ class _GroupChatPageState extends State<GroupChatPage> {
               ),
               ),
             ),
+
+
           Expanded( // -------------------- gc page ------------------------------
             flex: 4,
             child: Container(
-              color: Colors.green,
-              child: const Column()),
+              //color: Colors.green,
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: messages.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return 
+                        Align(
+                          child:Container(), 
+                        )
+                        ;
+                      },
+                    ),
+                  ),
+                  
+                ],
+              )),
             ),
         ],
       ),
