@@ -19,10 +19,14 @@ List<ShoppingItem> broughItems = [];
 List<String> housemates = []; //placeholder code
 User currentUser = User();
 House house = House();
-bool login = false;
-bool houseMember = false;
+bool login = true;
+bool houseMember = true;
 String screen = '/welcome';
 void main() {
+  currentUser.createUser(
+      "John", "Doe", "J.Doe", "Doe@email.com", DateTime.now());
+  house.createHouse(
+      "House", "Buckingham Palace", "London", "London", "London", " SW1A 1AA");
   if (login) {
     if (houseMember) {
       screen = '/';
@@ -50,7 +54,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Dweller',
       theme: defaultTheme,
       //home: const MyHomePage(title: 'Housemate App'),
-      initialRoute: screen,
+      initialRoute: '/',
       routes: {
         '/': (context) => const MyHomePage(title: 'Dweller'),
         '/shoppingList': (context) => const shopping_list(),
