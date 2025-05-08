@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/class/action_log_notification.dart';
 
 class ActionLog extends StatefulWidget {
   const ActionLog({super.key});
@@ -27,15 +28,6 @@ class MyCustomForm extends StatefulWidget {
 }
 
 class _MyCustomFormState extends State<MyCustomForm> {
-  final _formKey = GlobalKey<FormState>();
-
-  void submitButtonHandler() {
-    if (_formKey.currentState!.validate()) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Processing Data')),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
