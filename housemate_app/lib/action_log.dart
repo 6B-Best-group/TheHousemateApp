@@ -30,10 +30,6 @@ class MyCustomForm extends StatefulWidget {
 
 class _MyCustomFormState extends State<MyCustomForm> {
 
-  ActionLogNotification test1 = ActionLogNotification('Name', 'Detail');
-  ActionLogNotification test2 = ActionLogNotification('Steven added to the shopping list', '1x Dish Soap was added');
-  ActionLogNotification test3 = ActionLogNotification('Mern added a chore/event to the calendar', 'Vacuum kitchen');
-
   @override
   Widget build(BuildContext context) {
      return Scaffold(
