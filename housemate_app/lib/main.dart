@@ -13,6 +13,7 @@ import 'package:housemate_app/utils/theme.dart';
 import 'package:housemate_app/sign-in%20pages/log_in.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/welcome.dart';
+import 'package:housemate_app/action_log.dart';
 
 List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
@@ -65,7 +66,8 @@ class _MyAppState extends State<MyApp> {
         '/login': (context) => const log_In(),
         '/welcome': (context) => const Welcome(),
         '/joinHouse': (context) => const joinHouse(),
-        '/findHouse': (context) => const findHouse()
+        '/findHouse': (context) => const findHouse(),
+        '/actionLog': (context) => const ActionLog()
       },
     );
   }
