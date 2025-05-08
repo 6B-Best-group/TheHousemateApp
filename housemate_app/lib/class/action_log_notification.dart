@@ -1,7 +1,7 @@
-class Notification {
-  String notificationName;
-  String notificationDetail;
-  DateTime dateAdded = DateTime.now();
+class ActionLogNotification {
+  final String notificationName;
+  final String notificationDetail;
+  final DateTime dateAdded = DateTime.now();
 
-  Notification(this.notificationName, this.notificationDetail);
+  ActionLogNotification(this.notificationName, this.notificationDetail);
 }
