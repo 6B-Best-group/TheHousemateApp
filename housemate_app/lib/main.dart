@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/calender-page/calender.dart';
+import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/house.dart';
 import 'package:housemate_app/create_house.dart';
 import 'package:housemate_app/sign-in%20pages/findHouse.dart';
@@ -15,6 +16,7 @@ import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/welcome.dart';
 import 'package:housemate_app/action_log.dart';
 
+List<ActionLogNotification> actionsList = [];
 List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
 List<String> housemates = []; //placeholder code
@@ -67,7 +69,7 @@ class _MyAppState extends State<MyApp> {
         '/welcome': (context) => const Welcome(),
         '/joinHouse': (context) => const joinHouse(),
         '/findHouse': (context) => const findHouse(),
-        '/actionLog': (context) => const ActionLog()
+        '/actionLog': (context) => const ActionLog(),
       },
     );
   }

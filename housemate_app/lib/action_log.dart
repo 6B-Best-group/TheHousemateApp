@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
+import 'package:housemate_app/main.dart';
 
 class ActionLog extends StatefulWidget {
   const ActionLog({super.key});
@@ -35,41 +36,26 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView(
-        children: <Widget>[
-          ListTile(
-            leading: CircleAvatar(
-              backgroundColor: const Color.fromARGB(255, 200, 0, 0),
-              child: Text(test1.notificationName[0])
+     return Scaffold(
+      body: ListView.builder(
+        itemCount: actionsList.length,
+        itemBuilder: (context, i) {
+
+          return Column(
+            children: <Widget>[
+              ListTile(
+                leading: CircleAvatar(
+                  child: Text(actionsList[i].notificationName[0]),
+                ),
+                title: Text(actionsList[i].notificationName),
+                subtitle: Text(actionsList[i].notificationDetail),
+                trailing: Text(actionsList[i].dateAdded.toString()),
               ),
-            title: Text(test1.notificationName),
-            subtitle: Text(test1.notificationDetail),
-            trailing: Text(test1.dateAdded.toString()),
-          ),
-          const Divider(height: 0),
-          ListTile(
-            leading: CircleAvatar(
-              backgroundColor: const Color.fromARGB(255, 0, 200, 0),
-              child: Text(test2.notificationName[0])
-              ),
-            title: Text(test2.notificationName),
-            subtitle: Text(test2.notificationDetail),
-            trailing: Text(test2.dateAdded.toString()),
-          ),
-          const Divider(height: 0),
-          ListTile(
-            leading: CircleAvatar(
-              backgroundColor: const Color.fromARGB(255, 0, 0, 200),
-              child: Text(test3.notificationName[0])
-              ),
-            title: Text(test3.notificationName),
-            subtitle: Text(test3.notificationDetail),
-            trailing: Text(test3.dateAdded.toString()),
-          ),
-          const Divider(height: 0),
-        ],
-      ),
-    );
+              const Divider(height: 0),
+            ],
+          );
+      },
+    ),
+     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/main.dart';
 
@@ -19,6 +20,8 @@ class _shopping_listState extends State<shopping_list> {
     if (itemValid()) {
       ShoppingItem item = ShoppingItem(itemName.text, int.parse(quantity.text));
       shoppingList.add(item);
+      ActionLogNotification test4 = ActionLogNotification('Steven Mern added ${itemName.text}', '${quantity.text}x ${itemName.text}');
+      actionsList.add(test4);
       setState(() {});
     }
   }
