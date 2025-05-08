@@ -83,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: ListTile(
                           leading: const Icon(Icons.hourglass_bottom),
                           title: const Text('Action Log'),
-                          onTap: () {},
+                          onTap: () { Navigator.pushNamed(context, '/actionLog'); },
                         ),
                       ),
                     ],
