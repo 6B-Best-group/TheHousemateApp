@@ -32,20 +32,22 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
   @override
   Widget build(BuildContext context) {
+    final reversedActionsList = actionsList.reversed.toList();
+
      return Scaffold(
       body: ListView.builder(
-        itemCount: actionsList.length,
+        itemCount: reversedActionsList.length,
         itemBuilder: (context, i) {
 
           return Column(
             children: <Widget>[
               ListTile(
                 leading: CircleAvatar(
-                  child: Text(actionsList[i].notificationName[0]),
+                  child: Text(reversedActionsList[i].notificationName[0]),
                 ),
-                title: Text(actionsList[i].notificationName),
-                subtitle: Text(actionsList[i].notificationDetail),
-                trailing: Text(actionsList[i].dateAdded.toString()),
+                title: Text(reversedActionsList[i].notificationName),
+                subtitle: Text(reversedActionsList[i].notificationDetail),
+                trailing: Text(reversedActionsList[i].dateAdded.toString().substring(0, 16)),
               ),
               const Divider(height: 0),
             ],

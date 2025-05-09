@@ -20,7 +20,7 @@ class _shopping_listState extends State<shopping_list> {
     if (itemValid()) {
       ShoppingItem item = ShoppingItem(itemName.text, int.parse(quantity.text));
       shoppingList.add(item);
-      ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added ${itemName.text} to the Shopping List', '${quantity.text}x ${itemName.text}');
+      ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added to the Shopping List', '${quantity.text}x ${itemName.text}');
       actionsList.add(logAction);
       setState(() {});
     }
