@@ -1,39 +1,23 @@
 import 'package:flutter/material.dart';
+// import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/main.dart';
 
-class ActionLog extends StatefulWidget {
-  const ActionLog({super.key});
+class Rota extends StatefulWidget {
+  const Rota({super.key});
 
   @override
-  State<ActionLog> createState() => _ActionLogState();
+  State<Rota> createState() => _RotaState();
 }
 
-class _ActionLogState extends State<ActionLog> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Action Log"),
-      ),
-      body: const MyCustomForm(),
-    );
-  }
-}
-
-class MyCustomForm extends StatefulWidget {
-  const MyCustomForm({super.key});
-
-  @override
-  State<MyCustomForm> createState() => _MyCustomFormState();
-}
-
-class _MyCustomFormState extends State<MyCustomForm> {
-
+class _RotaState extends State<Rota> {
   @override
   Widget build(BuildContext context) {
     final reversedActionsList = actionsList.reversed.toList();
 
-     return Scaffold(
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Rota"),
+      ),
       body: ListView.builder(
         itemCount: reversedActionsList.length,
         itemBuilder: (context, i) {
@@ -53,6 +37,6 @@ class _MyCustomFormState extends State<MyCustomForm> {
           );
       },
     ),
-     );
+    );
   }
 }

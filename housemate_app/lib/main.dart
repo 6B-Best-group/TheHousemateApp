@@ -3,6 +3,7 @@ import 'package:housemate_app/calender-page/calender.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/house.dart';
 import 'package:housemate_app/create_house.dart';
+import 'package:housemate_app/rota.dart';
 import 'package:housemate_app/sign-in%20pages/findHouse.dart';
 import 'package:housemate_app/class/home.dart';
 import 'package:housemate_app/class/profile.dart';
@@ -70,6 +71,7 @@ class _MyAppState extends State<MyApp> {
         '/joinHouse': (context) => const joinHouse(),
         '/findHouse': (context) => const findHouse(),
         '/actionLog': (context) => const ActionLog(),
+        '/rota': (context) => const Rota(),
       },
     );
   }
