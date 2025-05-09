@@ -13,7 +13,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<List<String>> pages = [
     //["Calender", '/calenderPage'],
     ["Shopping List", '/shoppingList'],
-    ["Rota", '/rota'],
+    ["Rotas", '/rota'],
     ["Group Chat", ' '],
   ];
 

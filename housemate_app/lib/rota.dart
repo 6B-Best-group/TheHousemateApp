@@ -58,28 +58,58 @@ class _RotaState extends State<Rota> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return DefaultTabController(initialIndex: 0, length: 2,
+    child: Scaffold(
       appBar: AppBar(
-        title: const Text("Weekly Rota"),
+        title: const Text("Rotas"),
+        bottom: const TabBar(
+          tabs: <Widget>[
+            Tab(text: 'General Rota'),
+            Tab(text: 'Weekly Rota'),
+          ],
+        ),
       ),
-      body: ListView(
+      body: TabBarView(children: <Widget>[
+        ListView(
         padding: const EdgeInsets.all(8.0),
         itemExtent: 106.0,
         children: <CustomListItem>[
           CustomListItem(
-            choreName: 'Clean Kitchen Sides',
+            choreName: 'Take out Food Bin',
             assignee: '${currentUser.getFirstName()} ${currentUser.getLastName()}',
             nextAssignee: '${currentUser.getFirstName()} ${currentUser.getLastName()}',
-            thumbnail: Container(decoration: const BoxDecoration(color: Colors.green)),
+            thumbnail: Container(decoration: const BoxDecoration(color: Colors.green), 
+              child: Center(child: Text("data"))),
           ),
           CustomListItem(
-            choreName: 'Vacuum Living Room Floor',
+            choreName: 'Clean Microwave',
             assignee: 'Dash',
             nextAssignee: '884000',
             thumbnail: Container(decoration: const BoxDecoration(color: Colors.red)),
           ),
         ],
       ),
+      ListView(
+        padding: const EdgeInsets.all(8.0),
+        itemExtent: 106.0,
+        children: <CustomListItem>[
+          CustomListItem(
+            choreName: 'Cleaning Kitchen Sides',
+            assignee: '${currentUser.getFirstName()} ${currentUser.getLastName()}',
+            nextAssignee: '${currentUser.getFirstName()} ${currentUser.getLastName()}',
+            thumbnail: Container(decoration: const BoxDecoration(color: Colors.green)),
+          ),
+          CustomListItem(
+            choreName: 'Bleach Toilet',
+            assignee: 'Dash',
+            nextAssignee: '884000',
+            thumbnail: Container(decoration: const BoxDecoration(color: Colors.red)),
+          ),
+        ],
+      ),
+      ]
+    ),
+    ),
     );
   }
 }
