@@ -20,7 +20,7 @@ import 'package:housemate_app/welcome.dart';
 import 'package:housemate_app/action_log.dart';
 
 List<ActionLogNotification> actionsList = [];
-List<GeneralChoreRota> generalChoreRotaList = [];
+List<GeneralChoreRota> generalChoreRotaList = [GeneralChoreRota("choreName", ["Steven", "Mern"]), GeneralChoreRota("choreName2", ["Steven2", "Mern2"]), GeneralChoreRota("Help", ["A", "B", "C"])];
 List<WeeklyChoreRota> weeklyChoreRotaList = [];
 List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];

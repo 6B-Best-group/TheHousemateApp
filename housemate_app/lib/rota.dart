@@ -18,12 +18,14 @@ class CustomListItem extends StatelessWidget {
     required this.choreName,
     required this.assignee,
     required this.nextAssignee,
+    required this.onPressed,
   });
 
   final Widget thumbnail;
   final String choreName;
   final String assignee;
   final String nextAssignee;
+  final VoidCallback onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +51,7 @@ class CustomListItem extends StatelessWidget {
       ),
     )
           ),
-          const Icon(Icons.more_vert, size: 16.0),
+          IconButton(onPressed: onPressed, icon: const Icon(Icons.check, size: 16.0),)
         ],
       ),
     );
@@ -74,42 +76,41 @@ class _RotaState extends State<Rota> {
         ),
       ),
       body: TabBarView(children: <Widget>[
-        ListView(
+        ListView.builder(
         padding: const EdgeInsets.all(8.0),
         itemExtent: 106.0,
-        children: <CustomListItem>[
-          CustomListItem(
-            choreName: test.choreName,
-            assignee: test.choreRota[0],
-            nextAssignee: test.choreRota[1],
+        itemCount: generalChoreRotaList.length,
+        itemBuilder: (context, i) {
+          return CustomListItem(
+            onPressed: () {
+              generalChoreRotaList[i].incrementRota();
+              generalChoreRotaList[i].setLastCompleted();
+              setState(() {});
+            },
+            choreName: generalChoreRotaList[i].choreName,
+            assignee: generalChoreRotaList[i].getAssignee(),
+            nextAssignee: generalChoreRotaList[i].getNextAssignee(),
+            thumbnail: Container(decoration: const BoxDecoration(color: Colors.green), 
+              child: Center(child: Text('Last Completed: ${generalChoreRotaList[i].getLastCompleted().toString().toString().substring(0, 16)}'))),
+          );
+        },
+      ),
+        ListView.builder(
+        padding: const EdgeInsets.all(8.0),
+        itemExtent: 106.0,
+        itemCount: weeklyChoreRotaList.length,
+        itemBuilder: (context, i) {
+          return CustomListItem(
+            onPressed: () {
+              
+            },
+            choreName: weeklyChoreRotaList[i].choreName,
+            assignee: weeklyChoreRotaList[i].choreRota[0],
+            nextAssignee: weeklyChoreRotaList[i].choreRota[1],
             thumbnail: Container(decoration: const BoxDecoration(color: Colors.green), 
               child: Center(child: Text("data"))),
-          ),
-          CustomListItem(
-            choreName: 'Clean Microwave',
-            assignee: 'Dash',
-            nextAssignee: '884000',
-            thumbnail: Container(decoration: const BoxDecoration(color: Colors.red)),
-          ),
-        ],
-      ),
-      ListView(
-        padding: const EdgeInsets.all(8.0),
-        itemExtent: 106.0,
-        children: <CustomListItem>[
-          CustomListItem(
-            choreName: test2.choreName,
-            assignee: test2.choreRota[0],
-            nextAssignee: test2.choreRota[1],
-            thumbnail: Container(decoration: const BoxDecoration(color: Colors.green)),
-          ),
-          CustomListItem(
-            choreName: 'Bleach Toilet',
-            assignee: 'Dash',
-            nextAssignee: '884000',
-            thumbnail: Container(decoration: const BoxDecoration(color: Colors.red)),
-          ),
-        ],
+          );
+        },
       ),
       ]
     ),
