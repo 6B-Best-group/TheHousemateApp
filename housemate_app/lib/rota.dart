@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/class/general_chore_rota.dart';
+import 'package:housemate_app/class/weekly_chore_rota.dart';
 // import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/main.dart';
 
@@ -55,6 +57,8 @@ class CustomListItem extends StatelessWidget {
 }
 
 class _RotaState extends State<Rota> {
+  GeneralChoreRota test = GeneralChoreRota("choreName", ["Steven", "Mern"]);
+  WeeklyChoreRota test2 = WeeklyChoreRota("choreName", ["Steven", "Mern"]);
 
   @override
   Widget build(BuildContext context) {
@@ -75,9 +79,9 @@ class _RotaState extends State<Rota> {
         itemExtent: 106.0,
         children: <CustomListItem>[
           CustomListItem(
-            choreName: 'Take out Food Bin',
-            assignee: '${currentUser.getFirstName()} ${currentUser.getLastName()}',
-            nextAssignee: '${currentUser.getFirstName()} ${currentUser.getLastName()}',
+            choreName: test.choreName,
+            assignee: test.choreRota[0],
+            nextAssignee: test.choreRota[1],
             thumbnail: Container(decoration: const BoxDecoration(color: Colors.green), 
               child: Center(child: Text("data"))),
           ),
@@ -94,9 +98,9 @@ class _RotaState extends State<Rota> {
         itemExtent: 106.0,
         children: <CustomListItem>[
           CustomListItem(
-            choreName: 'Cleaning Kitchen Sides',
-            assignee: '${currentUser.getFirstName()} ${currentUser.getLastName()}',
-            nextAssignee: '${currentUser.getFirstName()} ${currentUser.getLastName()}',
+            choreName: test2.choreName,
+            assignee: test2.choreRota[0],
+            nextAssignee: test2.choreRota[1],
             thumbnail: Container(decoration: const BoxDecoration(color: Colors.green)),
           ),
           CustomListItem(

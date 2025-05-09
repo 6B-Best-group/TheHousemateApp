@@ -28,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Container(
             decoration: const BoxDecoration(
                 border: Border(
-                    right: const BorderSide(color: Colors.black, width: 1))),
+                    right: BorderSide(color: Colors.black, width: 1))),
             child: Column(
               children: [
                 Container(

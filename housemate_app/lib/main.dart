@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/calender-page/calender.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
-import 'package:housemate_app/class/choreRota.dart';
+import 'package:housemate_app/class/general_chore_rota.dart';
+import 'package:housemate_app/class/weekly_chore_rota.dart';
 import 'package:housemate_app/class/house.dart';
 import 'package:housemate_app/create_house.dart';
 import 'package:housemate_app/rota.dart';
@@ -19,7 +20,8 @@ import 'package:housemate_app/welcome.dart';
 import 'package:housemate_app/action_log.dart';
 
 List<ActionLogNotification> actionsList = [];
-List<ChoreRota> choreRotaList = [];
+List<GeneralChoreRota> generalChoreRotaList = [];
+List<WeeklyChoreRota> weeklyChoreRotaList = [];
 List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
 List<String> housemates = []; //placeholder code
