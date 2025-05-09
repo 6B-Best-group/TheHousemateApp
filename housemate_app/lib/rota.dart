@@ -90,8 +90,8 @@ class _RotaState extends State<Rota> {
             choreName: generalChoreRotaList[i].choreName,
             assignee: generalChoreRotaList[i].getAssignee(),
             nextAssignee: generalChoreRotaList[i].getNextAssignee(),
-            thumbnail: Container(decoration: const BoxDecoration(color: Colors.green), 
-              child: Center(child: Text('Last Completed: ${generalChoreRotaList[i].getLastCompleted().toString().toString().substring(0, 16)}'))),
+            thumbnail: Container(decoration: const BoxDecoration(color: Color.fromARGB(255, 165, 237, 255)), 
+              child: Center(child: Text('Last Completed: ${generalChoreRotaList[i].getLastCompleted()}\nBy: ${generalChoreRotaList[i].getLastAssignee()}'))),
           );
         },
       ),

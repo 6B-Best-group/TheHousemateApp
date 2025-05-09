@@ -2,7 +2,7 @@ class GeneralChoreRota {
   final String choreName;
   List<String> choreRota;
   int rotaIndexTracker = 0;
-  DateTime lastCompleted = DateTime.now();
+  DateTime? lastCompleted;
 
   GeneralChoreRota(this.choreName, this.choreRota);
 
@@ -26,8 +26,24 @@ class GeneralChoreRota {
     }
   }
 
-  DateTime getLastCompleted() {
-    return lastCompleted;
+  String getLastAssignee() {
+    if (lastCompleted != null) {
+      if (rotaIndexTracker == 0) {
+        return choreRota[choreRota.length - 1];
+      } else {
+        return choreRota[rotaIndexTracker - 1];
+      }
+    } else {
+      return 'N/A';
+    }
+  }
+
+  String getLastCompleted() {
+    if (lastCompleted != null) {
+      return lastCompleted.toString().substring(0, 16);
+    } else {
+      return 'Never';
+    }
   }
 
   void setLastCompleted() {
