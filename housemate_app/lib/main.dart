@@ -5,6 +5,7 @@ import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/class/weekly_chore_rota.dart';
 import 'package:housemate_app/class/house.dart';
 import 'package:housemate_app/create_house.dart';
+import 'package:housemate_app/edit_rotas.dart';
 import 'package:housemate_app/rota.dart';
 import 'package:housemate_app/sign-in%20pages/findHouse.dart';
 import 'package:housemate_app/class/home.dart';
@@ -21,7 +22,7 @@ import 'package:housemate_app/action_log.dart';
 
 List<ActionLogNotification> actionsList = [];
 List<GeneralChoreRota> generalChoreRotaList = [GeneralChoreRota("choreName", ["Steven", "Mern"]), GeneralChoreRota("choreName2", ["Steven2", "Mern2"]), GeneralChoreRota("Help", ["A", "B", "C"])];
-List<WeeklyChoreRota> weeklyChoreRotaList = [];
+List<WeeklyChoreRota> weeklyChoreRotaList = [WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])];
 List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
 List<String> housemates = []; //placeholder code
@@ -76,6 +77,7 @@ class _MyAppState extends State<MyApp> {
         '/findHouse': (context) => const findHouse(),
         '/actionLog': (context) => const ActionLog(),
         '/rota': (context) => const Rota(),
+        '/editRotas': (context) => const EditRotas(),
       },
     );
   }

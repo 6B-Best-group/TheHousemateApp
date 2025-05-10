@@ -102,12 +102,13 @@ class _RotaState extends State<Rota> {
         itemBuilder: (context, i) {
           return CustomListItem(
             onPressed: () {
-              
+              weeklyChoreRotaList[i].setCompleted();
+              setState(() {});
             },
             choreName: weeklyChoreRotaList[i].choreName,
-            assignee: weeklyChoreRotaList[i].choreRota[0],
-            nextAssignee: weeklyChoreRotaList[i].choreRota[1],
-            thumbnail: Container(decoration: const BoxDecoration(color: Colors.green), 
+            assignee: weeklyChoreRotaList[i].getAssignee(),
+            nextAssignee: weeklyChoreRotaList[i].getNextAssignee(),
+            thumbnail: Container(decoration: BoxDecoration(color: weeklyChoreRotaList[i].getColor()), 
               child: Center(child: Text("data"))),
           );
         },
