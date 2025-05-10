@@ -59,8 +59,77 @@ class CustomListItem extends StatelessWidget {
 }
 
 class _RotaState extends State<Rota> {
-  GeneralChoreRota test = GeneralChoreRota("choreName", ["Steven", "Mern"]);
-  WeeklyChoreRota test2 = WeeklyChoreRota("choreName", ["Steven", "Mern"]);
+  final generalChoreName = TextEditingController();
+
+  final List<String> users = ["Alice", "Bob", "Charlie", "David"];
+  String selectedUser = "Alice";
+  List<String> selectedUsers = [];
+
+  void addChore() {
+    GeneralChoreRota rota = GeneralChoreRota(generalChoreName.text, selectedUsers);
+    generalChoreRotaList.add(rota);
+    setState(() {});
+  }
+
+  void addChoreDialog(context) {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+                icon: const Icon(Icons.local_laundry_service_sharp),
+                title: const Text("New General Chore Rota"),
+                content: Wrap(
+                  children: [
+                    TextField(
+                      controller: generalChoreName,
+                        maxLength: 30,
+                        decoration: const InputDecoration(
+                          label: Text("Chore name:"),
+                        )),
+                    DropdownButton<String>(
+                      hint: const Text("Choose the rota"),
+                      value: selectedUser,
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          selectedUser = newValue!;
+                        });
+                      },
+                      items: users.map<DropdownMenuItem<String>>((String user) {
+                        return DropdownMenuItem<String>(
+                          value: user,
+                          child: Text(user),
+                        );
+                      }).toList(),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        if (!selectedUsers.contains(selectedUser)) {
+                          setState(() {
+                            selectedUsers.add(selectedUser);
+                          });
+                        }
+                      },
+                      child: const Text("Add to rota"),
+                    ),
+                  ],
+                ),
+                actions: [
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                    TextButton.icon(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.delete),
+                        label: const Text("discard")),
+                    TextButton.icon(
+                        onPressed: () {
+                          addChore();
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.save),
+                        label: const Text("Add to list"))
+                  ]),
+                ]));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,6 +144,13 @@ class _RotaState extends State<Rota> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          addChoreDialog(context);
+        },
+        label: const Text("Create New Rota"),
+        icon: const Icon(Icons.add),
+        ),
       body: TabBarView(children: <Widget>[
         ListView.builder(
         padding: const EdgeInsets.all(8.0),
@@ -109,7 +185,7 @@ class _RotaState extends State<Rota> {
             assignee: weeklyChoreRotaList[i].getAssignee(),
             nextAssignee: weeklyChoreRotaList[i].getNextAssignee(),
             thumbnail: Container(decoration: BoxDecoration(color: weeklyChoreRotaList[i].getColor()), 
-              child: Center(child: Text("data"))),
+              child: Center(child: weeklyChoreRotaList[i].getIcon())),
           );
         },
       ),

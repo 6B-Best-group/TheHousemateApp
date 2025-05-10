@@ -77,7 +77,7 @@ class _shopping_listState extends State<shopping_list> {
                   ],
                 ),
                 actions: [
-                  Row(children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                     TextButton.icon(
                         onPressed: () {
                           itemName.clear();

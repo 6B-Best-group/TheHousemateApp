@@ -39,4 +39,12 @@ class WeeklyChoreRota {
       return Colors.red;
     }
   }
+
+  Icon getIcon() {
+    if (completed) {
+      return const Icon(Icons.check);
+    } else {
+      return const Icon(Icons.close);
+    }
+  }
 }
