@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
+import 'package:housemate_app/inputCheck.dart';
 import 'package:housemate_app/main.dart';
 
 class shopping_list extends StatefulWidget {
@@ -16,9 +17,9 @@ class _shopping_listState extends State<shopping_list> {
   final cost = TextEditingController();
 
   void addItem() {
-    if (itemValid()) {
-      ShoppingItem item = ShoppingItem(itemName.text, int.parse(quantity.text));
-      shoppingList.add(item);
+    DataChecks itemCheck = DataChecks();
+    bool valid = itemCheck.itemValid(quantity.text, itemName.text);
+    if (valid) {
       setState(() {});
     }
   }
@@ -27,15 +28,6 @@ class _shopping_listState extends State<shopping_list> {
     shoppingList.remove(item);
     print(shoppingList);
     setState(() {});
-  }
-
-  bool itemValid() {
-    try {
-      int.parse(quantity.text);
-      return true;
-    } catch (e) {
-      return false;
-    }
   }
 
   void addCost(ShoppingItem item) {

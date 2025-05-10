@@ -1,21 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:housemate_app/dataInfo.dart';
 import 'package:housemate_app/inputCheck.dart';
 
 void main() {
   group('Test first name validity', () {
     test('Test for an empty value', () {
       DataChecks check = DataChecks();
-      expect(check.charLengthCheck("firstName", ""), equals(false));
+      expect(
+          check.charLengthCheck(usernameData["firstName"]!, ""), equals(false));
     });
     test('Test for a value thats too long', () {
       DataChecks check = DataChecks();
       expect(
-          check.charLengthCheck("firstName", "TwentyWordsIsTheLimitForAName"),
+          check.charLengthCheck(
+              usernameData["firstName"]!, "TwentyWordsIsTheLimitForAName"),
           equals(false));
     });
     test('Test for a valid name value', () {
       DataChecks check = DataChecks();
-      expect(check.charLengthCheck("firstName", "Tina"), equals(true));
+      expect(check.charLengthCheck(usernameData["firstName"]!, "Tina"),
+          equals(true));
     });
   });
 
