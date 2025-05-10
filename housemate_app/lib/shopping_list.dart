@@ -18,7 +18,7 @@ class _shopping_listState extends State<shopping_list> {
 
   void addItem() {
     DataChecks itemCheck = DataChecks();
-    bool valid = itemCheck.itemValid(quantity.text, itemName.text);
+    bool valid = itemCheck.addShoppingItem(quantity.text, itemName.text);
     if (valid) {
       setState(() {});
     }

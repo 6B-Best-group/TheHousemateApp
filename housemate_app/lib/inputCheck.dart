@@ -30,7 +30,8 @@ class DataChecks {
     return true;
   }
 
-  bool itemValid(String quantity, String name) {
+  //adding a shopping list item checks
+  bool addShoppingItem(String quantity, String name) {
     if (quantity == "") {
       quantity = "0";
     }
@@ -48,5 +49,26 @@ class DataChecks {
       return true;
     }
     return false;
+  }
+
+  bool addShoppingItemCost(String cost) {
+    if (cost == "") {
+      return false;
+    }
+    try {
+      double quant = double.parse(cost);
+      if (quant <= 0 || quant > 200) {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+    if (cost.contains(".")) {
+      String decPlaces = cost.split(".")[1];
+      if (decPlaces.length > 2) {
+        return false;
+      }
+    }
+    return true;
   }
 }
