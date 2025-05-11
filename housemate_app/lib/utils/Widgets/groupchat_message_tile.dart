@@ -48,18 +48,16 @@ class GCMessageTile extends StatelessWidget {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    //mainAxisSize: MainAxisSize.min,
+                   // mainAxisSize: MainAxisSize.max,
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Text(
-                          
                           message.user.username,
                           style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontSize: 14,
                             color: Colors.black //isMe? Colors.black: Colors.white,  
                           ),
-                          
                         ),
                       ),
                       
@@ -76,7 +74,7 @@ class GCMessageTile extends StatelessWidget {
                               
                         constraints: const BoxConstraints(
                           minWidth: 300,
-                           maxWidth: 500,
+                           maxWidth: 450,
                         ),
                         child: Text(
                           softWrap: true,
@@ -88,6 +86,24 @@ class GCMessageTile extends StatelessWidget {
                             color: Colors.black , //isMe? Colors.black: Colors.white,  
                             //backgroundColor: Colors.grey,
                           ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left:12,
+                          right: 12,
+                          top: 5,
+                          bottom: 12,
+                        ),
+                        child: Align(
+                          alignment: Alignment.centerRight,
+                          child: Text(
+                                  " ${message.timeSent.hour}:${message.timeSent.minute}  ",
+                                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                    fontSize: 13,
+                                    color: Colors.grey //isMe? Colors.black: Colors.white,  
+                                  ),
+                                ),
                         ),
                       ),
                     ],

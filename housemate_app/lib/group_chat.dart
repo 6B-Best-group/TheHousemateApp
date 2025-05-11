@@ -14,6 +14,8 @@ class _GroupChatPageState extends State<GroupChatPage> {
 
   late MemberData currentUser; 
 
+  TextEditingController myMessage = TextEditingController();
+
   List<MemberData> houseMembers = [
     MemberData('Dan', Colors.pink, '0111567aEd'),
     MemberData('Craig', Colors.orange, '5689442gIc'),
@@ -23,13 +25,22 @@ class _GroupChatPageState extends State<GroupChatPage> {
   ];
 
   List<GCMessage> messages = [
-    GCMessage(DateTime(2025,12,5,7,30,21), 'Yo', MemberData('Gurt', Colors.blue, '6722039gTd'),),
+    GCMessage(DateTime(2025,12,5,7,30,21), 'Yo', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
     GCMessage(DateTime(2025,12,5,7,40,21), 'Hello Gurthanial', MemberData('Craig', Colors.orange, '5689442gIc'),),
-    GCMessage(DateTime(2025,12,5,7,50,21), 'How are all of you', MemberData('Gurt', Colors.blue, '6722039gTd'),),
+    GCMessage(DateTime(2025,12,5,7,50,21), 'How are all of you', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
     GCMessage(DateTime(2025,12,5,7,55,21), 'im not bad myself, what about wou how was your weekend?', MemberData('Lucy', Colors.green, '3331983jMp'),),
-    GCMessage(DateTime(2025,12,5,8,50,21), 'My weekend was rather fun, i went fishing and walked my dog. Im super excited for our holiday next week, i have never been to go ape, is everyone else ready to go?', MemberData('Gurt', Colors.blue, '6722039gTd'),),
-    GCMessage(DateTime(2025,12,5,9,40,21), 'For what its worth im rather excited aswell, i feel like this holiday will be super fun', MemberData('Craig', Colors.orange, '5689442gIc'),),
+    GCMessage(DateTime(2025,12,5,8,50,21), 'My weekend was rather fun, i went fishing and walked my dog. Im super excited for our holiday next week, i have never been to go ape, is everyone else ready to go?', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
+    GCMessage(DateTime(2025,12,5,9,40,21), 'For what its worth im rather excited aswell, LOLS', MemberData('Craig', Colors.orange, '5689442gIc'),),
   ];
+
+  void sendMessage(){
+    if (myMessage.text.isNotEmpty){
+      setState(() {
+        messages.add(GCMessage(DateTime.now(), myMessage.text, currentUser));
+        myMessage.clear();
+      });
+    }
+  }
 
 
   
@@ -129,10 +140,10 @@ class _GroupChatPageState extends State<GroupChatPage> {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
-                  Divider(),
+                  const Divider(),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -157,7 +168,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                 ),
                               ),
                             ),
-                            Divider(
+                            const Divider(
                               height: 0,
                             ),
                             Expanded(
@@ -166,7 +177,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
                                   return Padding(
-                                    padding:EdgeInsets.all(8.0),
+                                    padding:const EdgeInsets.all(8.0),
                                     child: GroupchatMemberTile(
                                       memberName: houseMembers[index].username, 
                                       memberColor: houseMembers[index].userColor,
@@ -187,14 +198,15 @@ class _GroupChatPageState extends State<GroupChatPage> {
               
               ),
               ),
-            ),
+          ),
 
           Expanded( // -------------------- gc page ------------------------------
             flex: 4,
             child: Container(
-              color: Colors.green,
+              //color: Colors.green,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                //mainAxisAlignment: MainAxisAlignment.
                 //main
                 children: [
                   Expanded(
@@ -211,9 +223,63 @@ class _GroupChatPageState extends State<GroupChatPage> {
                       },
                     ),
                   ),
-                  
+                  //  ADD THE TEXT BAR AT THE BOTTOM
+                  Container(
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        right: BorderSide(color: Colors.black,width: 1,),
+                        top: BorderSide(color: Colors.black,width: 1,),
+                        bottom: BorderSide(color: Colors.black,width: 1,),
+                      )
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Flexible(
+                          child: TextField(
+                            controller: myMessage,
+                            onSubmitted:(value) => sendMessage(),
+                            decoration: const InputDecoration(
+                              hintText: "message Group Chat",
+                              focusColor: Colors.grey,
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black,width: 1),
+                                borderRadius: BorderRadius.zero
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.black,width: 1),
+                                borderRadius: BorderRadius.zero
+                              ),
+                            ),
+                            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                              fontSize: 14,
+                            ),
+                            cursorColor: Colors.black,
+                            
+                          
+                          ),
+                        ),
+                        IconButton(
+                          padding: const EdgeInsets.all(12),
+                          onPressed: sendMessage, 
+                          icon: const Icon(Icons.arrow_upward_sharp),
+                          style: IconButton.styleFrom(
+                            side: const BorderSide(color: Colors.black,width: 1),
+                            foregroundColor: Colors.black,
+                            backgroundColor: Colors.white,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                            )
+                          )
+                          )
+                      ],
+                    ),
+                  ),
                 ],
-              )),
+              ),
+              ),
             ),
         ],
       ),
