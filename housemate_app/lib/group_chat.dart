@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/utils/Widgets/groupchat_message_tile.dart';
 import 'package:housemate_app/utils/groupchat_utils.dart';
 import 'package:housemate_app/utils/widgets/groupchat_member_tile.dart';
 
@@ -22,11 +23,14 @@ class _GroupChatPageState extends State<GroupChatPage> {
   ];
 
   List<GCMessage> messages = [
-    GCMessage(DateTime(2025,12,5,7,30,21), 'Yo', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
+    GCMessage(DateTime(2025,12,5,7,30,21), 'Yo', MemberData('Gurt', Colors.blue, '6722039gTd'),),
     GCMessage(DateTime(2025,12,5,7,40,21), 'Hello Gurthanial', MemberData('Craig', Colors.orange, '5689442gIc'),),
-    GCMessage(DateTime(2025,12,5,7,50,21), 'How are all of you', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
+    GCMessage(DateTime(2025,12,5,7,50,21), 'How are all of you', MemberData('Gurt', Colors.blue, '6722039gTd'),),
     GCMessage(DateTime(2025,12,5,7,55,21), 'im not bad myself, what about wou how was your weekend?', MemberData('Lucy', Colors.green, '3331983jMp'),),
+    GCMessage(DateTime(2025,12,5,8,50,21), 'My weekend was rather fun, i went fishing and walked my dog. Im super excited for our holiday next week, i have never been to go ape, is everyone else ready to go?', MemberData('Gurt', Colors.blue, '6722039gTd'),),
+    GCMessage(DateTime(2025,12,5,9,40,21), 'For what its worth im rather excited aswell, i feel like this holiday will be super fun', MemberData('Craig', Colors.orange, '5689442gIc'),),
   ];
+
 
   
   @override
@@ -185,21 +189,24 @@ class _GroupChatPageState extends State<GroupChatPage> {
               ),
             ),
 
-
           Expanded( // -------------------- gc page ------------------------------
             flex: 4,
             child: Container(
-              //color: Colors.green,
+              color: Colors.green,
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                //main
                 children: [
                   Expanded(
                     child: ListView.builder(
                       itemCount: messages.length,
+                      shrinkWrap: false,
                       itemBuilder: (BuildContext context, int index) {
-                        return 
-                        Align(
-                          child:Container(), 
-                        )
+                        return GCMessageTile(
+                          isMe: currentUser.username == messages[index].user.username, 
+                          message: messages[index]
+                          )
+                        
                         ;
                       },
                     ),
