@@ -21,6 +21,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey.shade300,
         appBar: AppBar(
           centerTitle: true,
           title: const Text("HOME PAGE"),
@@ -131,9 +132,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: Container(
                   //width: 100,
                   padding: const EdgeInsets.only(top: 60,bottom: 40,left: 60,right: 60),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade200,
-                    border: const Border(
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    border: Border(
                       left: BorderSide(color: Colors.black,width: 1),
                       right: BorderSide(color: Colors.black,width: 1),
                     ),

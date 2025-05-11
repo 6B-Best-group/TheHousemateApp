@@ -98,9 +98,10 @@ class GCMessageTile extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Text(
-                                  " ${message.timeSent.hour}:${message.timeSent.minute}  ",
+                                  " ${message.timeSent.hour}:${message.timeSent.minute}",
                                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                                     fontSize: 13,
+                                    //wordSpacing: 0,
                                     color: Colors.grey //isMe? Colors.black: Colors.white,  
                                   ),
                                 ),

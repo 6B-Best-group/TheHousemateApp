@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/utils/Widgets/groupchat_message_tile.dart';
+import 'package:housemate_app/utils/calender_utils.dart';
 import 'package:housemate_app/utils/groupchat_utils.dart';
 import 'package:housemate_app/utils/widgets/groupchat_member_tile.dart';
 
@@ -15,6 +16,11 @@ class _GroupChatPageState extends State<GroupChatPage> {
   late MemberData currentUser; 
 
   TextEditingController myMessage = TextEditingController();
+
+  final ScrollController _scrollController = ScrollController();
+
+
+  final currentMessageDate = DateTime.now();
 
   List<MemberData> houseMembers = [
     MemberData('Dan', Colors.pink, '0111567aEd'),
@@ -53,6 +59,13 @@ class _GroupChatPageState extends State<GroupChatPage> {
   @override
 
   Widget build(BuildContext context) {
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -176,6 +189,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                 itemCount: houseMembers.length,
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
+                                  
                                   return Padding(
                                     padding:const EdgeInsets.all(8.0),
                                     child: GroupchatMemberTile(
@@ -203,86 +217,130 @@ class _GroupChatPageState extends State<GroupChatPage> {
           Expanded( // -------------------- gc page ------------------------------
             flex: 4,
             child: Container(
-              //color: Colors.green,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                //mainAxisAlignment: MainAxisAlignment.
-                //main
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: messages.length,
-                      shrinkWrap: false,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GCMessageTile(
-                          isMe: currentUser.username == messages[index].user.username, 
-                          message: messages[index]
-                          )
-                        
-                        ;
-                      },
-                    ),
-                  ),
-                  //  ADD THE TEXT BAR AT THE BOTTOM
-                  Container(
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        right: BorderSide(color: Colors.black,width: 1,),
-                        top: BorderSide(color: Colors.black,width: 1,),
-                        bottom: BorderSide(color: Colors.black,width: 1,),
-                      )
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Flexible(
-                          child: TextField(
-                            controller: myMessage,
-                            onSubmitted:(value) => sendMessage(),
-                            decoration: const InputDecoration(
-                              hintText: "message Group Chat",
-                              focusColor: Colors.grey,
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black,width: 1),
-                                borderRadius: BorderRadius.zero
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              border: OutlineInputBorder(
-                                borderSide: BorderSide(color: Colors.black,width: 1),
-                                borderRadius: BorderRadius.zero
-                              ),
-                            ),
-                            style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                              fontSize: 14,
-                            ),
-                            cursorColor: Colors.black,
-                            
+              color: Colors.grey.shade300,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  //mainAxisAlignment: MainAxisAlignment.
+                  //main
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        itemCount: messages.length,
+                        shrinkWrap: false,
+                        itemBuilder: (BuildContext context, int index) {
+                          if (checkDate(messages[index].timeSent, index == 0 ? currentMessageDate : messages[index -1].timeSent)) {
+                              return GCMessageTile(
+                                isMe: currentUser.username == messages[index].user.username, 
+                                message: messages[index]
+                                );
+                          }
+                          else {
+                            return Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Expanded(child: Divider()),
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Text('${messages[index].timeSent.year.toString()} ${convertDatetimeToMonth(messages[index].timeSent)} ${messages[index].timeSent.day.toString()}'),
+                                    ),
+                                    Expanded(child: Divider()),
+                                  ],
+                
+                                ),
+                                // Align(
+                                //   alignment: Alignment.center,
+                                //   child: Text('${messages[index].timeSent.year.toString()} ${convertDatetimeToMonth(messages[index].timeSent)} ${messages[index].timeSent.day.toString()}')),
+                                GCMessageTile(
+                                  isMe: currentUser.username == messages[index].user.username, 
+                                  message: messages[index]
+                                  )
+                              ],
+                            );
+                          }
+                
+                          // return GCMessageTile(
+                          //   isMe: currentUser.username == messages[index].user.username, 
+                          //   message: messages[index]
+                          //   );
                           
-                          ),
-                        ),
-                        IconButton(
-                          padding: const EdgeInsets.all(12),
-                          onPressed: sendMessage, 
-                          icon: const Icon(Icons.arrow_upward_sharp),
-                          style: IconButton.styleFrom(
-                            side: const BorderSide(color: Colors.black,width: 1),
-                            foregroundColor: Colors.black,
-                            backgroundColor: Colors.white,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.zero,
-                            )
-                          )
-                          )
-                      ],
+                          
+                        },
+                      ),
                     ),
-                  ),
-                ],
+                    //  ADD THE TEXT BAR AT THE BOTTOM
+                    Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black,width: 1,)
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Flexible(
+                            child: TextField(
+                              controller: myMessage,
+                              onSubmitted:(value) => sendMessage(),
+                              decoration: const InputDecoration(
+                                hintText: "message Group Chat",
+                                focusColor: Colors.grey,
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black,width: 1),
+                                  borderRadius: BorderRadius.zero
+                                ),
+                                filled: true,
+                                fillColor: Colors.white,
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide(color: Colors.black,width: 1),
+                                  borderRadius: BorderRadius.zero
+                                ),
+                              ),
+                              style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontSize: 14,
+                              ),
+                              cursorColor: Colors.black,
+                              
+                            
+                            ),
+                          ),
+                          IconButton(
+                            padding: const EdgeInsets.all(12),
+                            onPressed: sendMessage, 
+                            icon: const Icon(Icons.arrow_upward_sharp),
+                            style: IconButton.styleFrom(
+                              side: const BorderSide(color: Colors.black,width: 1),
+                              foregroundColor: Colors.black,
+                              backgroundColor: Colors.white,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.zero,
+                              )
+                            )
+                            )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
               ),
             ),
         ],
       ),
     );
+  }
+
+  bool checkDate (DateTime checkedDate, DateTime checkedDate2){
+    if ((checkedDate.year  == checkedDate2.year)&&(checkedDate.month  == checkedDate2.month)&&(checkedDate.day  == checkedDate2.day)){
+      return true;
+    } else {
+      
+        currentMessageDate == checkedDate;
+      
+      return false;
+    }
+
+   
   }
 }
