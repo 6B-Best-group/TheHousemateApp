@@ -13,8 +13,12 @@ List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
 List<User> housemates = []; //placeholder code
 Map<String, double> spendingMap = {};
+User currentUser = User();
 
 void main() {
+  currentUser.createUser(
+      "John", "Doe", "J.Doe", "Doe@email.com", DateTime.now());
+  housemates.add(currentUser);
   // Test comment.
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());

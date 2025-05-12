@@ -7,4 +7,9 @@ class ShoppingItem {
   String whoPaid = '';
 
   ShoppingItem(this.itemName, this.quanity);
+
+  void setPaid(String name, double money) {
+    cost = money;
+    whoPaid = name;
+  }
 }

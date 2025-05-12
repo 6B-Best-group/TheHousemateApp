@@ -35,6 +35,7 @@ class _shopping_listState extends State<shopping_list> {
       item.cost = double.parse(cost.text);
       broughItems.add(item);
       removeItem(item);
+      item.setPaid(currentUser.getUsername(), double.parse(cost.text));
       print(broughItems);
     } catch (e) {
       print("invalid entry");

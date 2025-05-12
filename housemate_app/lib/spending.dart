@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/main.dart';
 import 'package:housemate_app/profile.dart';
@@ -11,13 +12,20 @@ class spendingPage extends StatefulWidget {
 }
 
 class _spendingPageState extends State<spendingPage> {
+  //setState();
+  // @override
+
+  // void setState(VoidCallback fn) {
+  //   // TODO: implement setState
+  //   getSpending();
+  //   print("called");
+  // }
+
   @override
-  void setState(VoidCallback fn) {
-    // TODO: implement setState
+  void initState() {
     getSpending();
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -27,11 +35,10 @@ class _spendingPageState extends State<spendingPage> {
             itemCount: spendingMap.keys.length,
             itemBuilder: (context, i) {
               return ListTile(
-                  title: Text(housemates[i].getUsername()),
-                  subtitle: Text(
-                      "Total spent:${spendingMap[housemates[i].getUsername()]}"),
-                  trailing: IconButton(
-                      icon: const Icon(Icons.arrow_right), onPressed: () {}));
+                title: Text(housemates[i].getUsername()),
+                subtitle: Text(
+                    "Total spent:${spendingMap[housemates[i].getUsername()]}"),
+              );
             }));
   }
 }
