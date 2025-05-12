@@ -35,6 +35,7 @@ class _shopping_listState extends State<shopping_list> {
       item.cost = double.parse(cost.text);
       broughItems.add(item);
       removeItem(item);
+      print(broughItems);
     } catch (e) {
       print("invalid entry");
     }
@@ -110,7 +111,11 @@ class _shopping_listState extends State<shopping_list> {
                       icon: const Icon(Icons.delete),
                       label: const Text("discard")),
                   TextButton.icon(
-                      onPressed: () {}, // To be added
+                      onPressed: () {
+                        addCost(item);
+                        quantity.clear();
+                        Navigator.pop(context);
+                      }, // To be added
                       icon: Icon(Icons.add),
                       label: Text("Log"))
                 ])
@@ -125,7 +130,11 @@ class _shopping_listState extends State<shopping_list> {
           title: const Text("Shopping List"),
         ),
         body: Column(children: [
-          TextButton(onPressed: () {}, child: const Text("Spending page")),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/spendingPage');
+              },
+              child: const Text("Spending page")),
           Flexible(
               child: ListView.builder(
                   itemCount: shoppingList.length,

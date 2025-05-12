@@ -23,7 +23,7 @@ class _log_inState extends State<sign_up> {
     bool userValid = check.createUserChecks(
         fname.text, lname.text, username.text, userEmail.text, DateTime.now());
     if (userValid) {
-      UserProfile user = UserProfile();
+      User user = User();
       user.createUser(fname.text, lname.text, username.text, userEmail.text,
           DateTime.now());
       print("FUNCTIONS");
