@@ -34,13 +34,6 @@ class DataChecks {
     }
     return true;
   }
-
-  bool houseCheck(name, add1, add2, cit, cont, code) {
-    if (add1 == '') {
-      return false;
-    }
-    return true;
-  }
 }
 
 bool checkForNum(data) {
