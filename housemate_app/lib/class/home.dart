@@ -27,8 +27,8 @@ class _MyHomePageState extends State<MyHomePage> {
         drawer: Drawer(
           child: Container(
             decoration: const BoxDecoration(
-                border: Border(
-                    right: BorderSide(color: Colors.black, width: 1))),
+                border:
+                    Border(right: BorderSide(color: Colors.black, width: 1))),
             child: Column(
               children: [
                 Container(
@@ -82,7 +82,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: ListTile(
                           leading: const Icon(Icons.hourglass_bottom),
                           title: const Text('Action Log'),
-                          onTap: () { Navigator.pushNamed(context, '/actionLog'); },
+                          onTap: () {
+                            Navigator.pushNamed(context, '/actionLog');
+                          },
                         ),
                       ),
                       Padding(
@@ -90,7 +92,19 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: ListTile(
                           leading: const Icon(Icons.edit_note),
                           title: const Text('Edit Rotas'),
-                          onTap: () { Navigator.pushNamed(context, '/editRotas'); },
+                          onTap: () {
+                            Navigator.pushNamed(context, '/editRotas');
+                          },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          leading: const Icon(Icons.delete),
+                          title: const Text('Bin Day'),
+                          onTap: () {
+                            Navigator.pushNamed(context, '/binRota');
+                          },
                         ),
                       ),
                     ],

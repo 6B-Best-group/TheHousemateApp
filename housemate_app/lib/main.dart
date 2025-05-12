@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/binRota.dart';
 import 'package:housemate_app/calender-page/calender.dart';
+import 'package:housemate_app/class/bins.dart';
 import 'package:housemate_app/group_chat.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/general_chore_rota.dart';
@@ -22,13 +24,20 @@ import 'package:housemate_app/welcome.dart';
 import 'package:housemate_app/action_log.dart';
 
 List<ActionLogNotification> actionsList = [];
-List<GeneralChoreRota> generalChoreRotaList = [GeneralChoreRota("Take out the food bin", ["Ben", "Anna", "Matt"]), GeneralChoreRota("Clean Oven Grease", ["Dan", "Keiran"]), GeneralChoreRota("Wipe down hob", ["Cecile"])];
-List<WeeklyChoreRota> weeklyChoreRotaList = [WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])];
+List<GeneralChoreRota> generalChoreRotaList = [
+  GeneralChoreRota("Take out the food bin", ["Ben", "Anna", "Matt"]),
+  GeneralChoreRota("Clean Oven Grease", ["Dan", "Keiran"]),
+  GeneralChoreRota("Wipe down hob", ["Cecile"])
+];
+List<WeeklyChoreRota> weeklyChoreRotaList = [
+  WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])
+];
 List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
 List<String> housemates = []; //placeholder code
 User currentUser = User();
 House house = House();
+Bins bin = Bins();
 bool login = true;
 bool houseMember = true;
 String screen = '/welcome';
@@ -64,7 +73,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Dweller',
       theme: defaultTheme,
       //home: const MyHomePage(title: 'Housemate App'),
-      initialRoute: '/',
+      initialRoute: '/binRota',
       routes: {
         '/': (context) => const MyHomePage(title: 'Dweller'),
         '/shoppingList': (context) => const shopping_list(),
@@ -80,6 +89,7 @@ class _MyAppState extends State<MyApp> {
         '/actionLog': (context) => const ActionLog(),
         '/rota': (context) => const Rota(),
         '/editRotas': (context) => const EditRotas(),
+        '/binRota': (context) => const binRota(),
       },
     );
   }
