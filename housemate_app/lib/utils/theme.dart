@@ -57,6 +57,6 @@ ThemeData defaultTheme = ThemeData(
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(0)),
     
-  )
+  ),
 
 );

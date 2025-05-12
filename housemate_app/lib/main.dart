@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/calender-page/calender.dart';
+import 'package:housemate_app/group_chat.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/class/weekly_chore_rota.dart';
@@ -69,6 +70,7 @@ class _MyAppState extends State<MyApp> {
         '/shoppingList': (context) => const shopping_list(),
         '/userProfile': (context) => const UserProfile(),
         '/calenderPage': (context) => const CalenderPage(),
+        '/groupChat': (context) => const GroupChatPage(),
         '/createHouse': (context) => const CreateHouse(),
         '/signUp': (context) => const sign_up(),
         '/login': (context) => const log_In(),
