@@ -20,6 +20,8 @@ import 'package:housemate_app/sign-in%20pages/log_in.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/welcome.dart';
 import 'package:housemate_app/action_log.dart';
+import 'package:housemate_app/houseInfo.dart';
+import 'package:housemate_app/settings.dart';
 
 List<ActionLogNotification> actionsList = [];
 List<GeneralChoreRota> generalChoreRotaList = [GeneralChoreRota("Take out the food bin", ["Ben", "Anna", "Matt"]), GeneralChoreRota("Clean Oven Grease", ["Dan", "Keiran"]), GeneralChoreRota("Wipe down hob", ["Cecile"])];
@@ -80,6 +82,8 @@ class _MyAppState extends State<MyApp> {
         '/actionLog': (context) => const ActionLog(),
         '/rota': (context) => const Rota(),
         '/editRotas': (context) => const EditRotas(),
+        '/houseInfo': (context) => const HouseInfoScreen(),
+        '/settings': (context) => const Settings(),
       },
     );
   }
