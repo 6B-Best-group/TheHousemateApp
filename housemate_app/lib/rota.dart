@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/class/weekly_chore_rota.dart';
 // import 'package:housemate_app/class/action_log_notification.dart';
@@ -68,6 +69,8 @@ class _RotaState extends State<Rota> {
   void addChore() {
     GeneralChoreRota rota = GeneralChoreRota(generalChoreName.text, selectedUsers);
     generalChoreRotaList.add(rota);
+    ActionLogNotification action = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a new general chore rota', 'Rota: ${selectedUsers.join(' → ')}');
+    actionsList.add(action);
     setState(() {});
   }
 
@@ -159,6 +162,8 @@ class _RotaState extends State<Rota> {
         itemBuilder: (context, i) {
           return CustomListItem(
             onPressed: () {
+              ActionLogNotification action = ActionLogNotification('${generalChoreRotaList[i].getAssignee()} completed a task of the general chore rota', generalChoreRotaList[i].choreName);
+              actionsList.add(action);
               generalChoreRotaList[i].incrementRota();
               generalChoreRotaList[i].setLastCompleted();
               setState(() {});
