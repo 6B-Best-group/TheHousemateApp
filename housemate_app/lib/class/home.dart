@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:housemate_app/main.dart';
 
@@ -15,6 +13,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<List<String>> pages = [
     //["Calender", '/calenderPage'],
     ["Shopping List", '/shoppingList'],
+    ["Rotas", '/rota'],
     ["Group Chat", ' '],
   ];
 
@@ -29,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
           child: Container(
             decoration: const BoxDecoration(
                 border: Border(
-                    right: const BorderSide(color: Colors.black, width: 1))),
+                    right: BorderSide(color: Colors.black, width: 1))),
             child: Column(
               children: [
                 Container(
@@ -84,6 +83,14 @@ class _MyHomePageState extends State<MyHomePage> {
                           leading: const Icon(Icons.hourglass_bottom),
                           title: const Text('Action Log'),
                           onTap: () { Navigator.pushNamed(context, '/actionLog'); },
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          leading: const Icon(Icons.edit_note),
+                          title: const Text('Edit Rotas'),
+                          onTap: () { Navigator.pushNamed(context, '/editRotas'); },
                         ),
                       ),
                     ],
