@@ -1,5 +1,6 @@
-import 'package:flutter/material.dart';
-import 'package:housemate_app/main.dart';
+// Imports.
+import 'package:flutter/material.dart'; // To use flutter widgets implementing Material Design.
+import 'package:housemate_app/main.dart'; // To access the actionsList.
 
 class ActionLog extends StatefulWidget {
   const ActionLog({super.key});
@@ -31,9 +32,11 @@ class _MyCustomFormState extends State<MyCustomForm> {
 
   @override
   Widget build(BuildContext context) {
+    // Reversing the actionsList so the most recent actions appear at the top of the list.
     final reversedActionsList = actionsList.reversed.toList();
 
      return Scaffold(
+      // Builds a list of a size dependent on the length of actions in the list.
       body: ListView.builder(
         itemCount: reversedActionsList.length,
         itemBuilder: (context, i) {
@@ -42,9 +45,9 @@ class _MyCustomFormState extends State<MyCustomForm> {
             children: <Widget>[
               ListTile(
                 leading: CircleAvatar(
-                  child: Text(reversedActionsList[i].notificationName[0]),
+                  child: Text(reversedActionsList[i].notificationName[0]), // Sets the avatar to the firts letter of the user's name.
                 ),
-                title: Text(reversedActionsList[i].notificationName),
+                title: Text(reversedActionsList[i].notificationName), 
                 subtitle: Text(reversedActionsList[i].notificationDetail),
                 trailing: Text(reversedActionsList[i].dateAdded.toString().substring(0, 16)),
               ),
