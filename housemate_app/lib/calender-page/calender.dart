@@ -334,7 +334,7 @@ class _CalenderHomePageState extends State<CalenderPage>
                                     currentDate,
                                   ) // set a minimum size for this // other user chores
                                   ? ListView.builder(
-                                    shrinkWrap: true,
+                                    //shrinkWrap: true,
                                     itemCount:
                                         otherUserDateChores[currentDate]!
                                             .length,
