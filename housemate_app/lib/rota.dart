@@ -21,6 +21,7 @@ class CustomListItem extends StatelessWidget {
     required this.nextAssignee,
     required this.onCheckPressed,
     required this.onDeletePressed,
+    required this.onFullRotaPressed,
   });
 
   final Widget thumbnail;
@@ -29,6 +30,7 @@ class CustomListItem extends StatelessWidget {
   final String nextAssignee;
   final VoidCallback onCheckPressed;
   final VoidCallback onDeletePressed;
+  final VoidCallback onFullRotaPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,7 @@ class CustomListItem extends StatelessWidget {
             children: [
               IconButton(onPressed: onCheckPressed, icon: const Icon(Icons.check, size: 16.0)),
               IconButton(onPressed: onDeletePressed, icon: const Icon(Icons.delete, size: 16.0)),
+              IconButton(onPressed: onFullRotaPressed, icon: const Icon(Icons.more_vert, size: 16.0)),
             ],
             )
         ],
@@ -226,6 +229,31 @@ class _RotaState extends State<Rota> {
     actionsList.add(logAction);
   }
 
+  void showFullRota(context, rota) {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+                icon: const Icon(Icons.assignment),
+                title: const Text("Full Rota:"),
+                content: Wrap(
+                  children: [
+                    Center(child: Text(rota.choreRota.join(' → '),
+                    )
+                  ),
+                  ],
+                ),
+                actions: [
+                  Center(child: 
+                    TextButton.icon(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.close),
+                        label: const Text("Close")),
+                  ),
+                ]));
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(initialIndex: 0, length: 2,
@@ -277,6 +305,9 @@ class _RotaState extends State<Rota> {
               removeGeneralRota(generalChoreRotaList[i]);
               setState(() {});
             }, 
+            onFullRotaPressed: () {
+              showFullRota(context, generalChoreRotaList[i]);
+            },
             choreName: generalChoreRotaList[i].choreName,
             assignee: generalChoreRotaList[i].getAssignee(),
             nextAssignee: generalChoreRotaList[i].getNextAssignee(),
@@ -305,6 +336,9 @@ class _RotaState extends State<Rota> {
             onDeletePressed: () {
               removeWeeklyRota(weeklyChoreRotaList[i]);
               setState(() {});
+            },
+            onFullRotaPressed: () {
+              showFullRota(context, weeklyChoreRotaList[i]);
             },
             choreName: weeklyChoreRotaList[i].choreName,
             assignee: weeklyChoreRotaList[i].getAssignee(),
