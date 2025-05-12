@@ -20,14 +20,49 @@ void main() {
     });
   });
 
+// Test plan: 3.1
   group('Profile creation checks', () {
-    test('Test for a real user', () {
+    test('Test for valid entries', () {
       DataChecks check = DataChecks();
       expect(
           check.createUserChecks(
               "Steve", "Jones", "Username", "working@email", DateTime.now()),
           equals(true));
     });
+    test('Test for valid entries at the max entry limit', () {
+      DataChecks check = DataChecks();
+      expect(
+          check.createUserChecks(
+              "SteveSteveSteve",
+              "JonesJoneJonesJones",
+              "SteveJonesJones",
+              "workingemailworkingemail@email",
+              DateTime.now()),
+          equals(true));
+    });
+
+    test('A user with numbers in the email', () {
+      DataChecks check = DataChecks();
+      expect(
+          check.createUserChecks("Steve", "Jones", "Steve.J",
+              "workingemail123@email", DateTime.now()),
+          equals(true));
+    });
+
+    test('A user with numbers in the username', () {
+      DataChecks check = DataChecks();
+      expect(
+          check.createUserChecks("Steve", "Jones", "Steve.J123",
+              "workingemail@email", DateTime.now()),
+          equals(true));
+    });
+
+    test('A user with all minimum limit entries', () {
+      DataChecks check = DataChecks();
+      expect(check.createUserChecks("S", "J", "1", "SJ@Em", DateTime.now()),
+          equals(true));
+    });
+
     test('Test for missing first name', () {
       DataChecks check = DataChecks();
       expect(
@@ -35,11 +70,11 @@ void main() {
               "", "Jones", "Username", "working@email", DateTime.now()),
           equals(false));
     });
-    test('Test for missing last name', () {
+    test('Test for a last name with numbers', () {
       DataChecks check = DataChecks();
       expect(
           check.createUserChecks(
-              "Steve", "", "Username", "working@email", DateTime.now()),
+              "Steve", "Jones2", "Username", "working@email", DateTime.now()),
           equals(false));
     });
     test('Test for missing username', () {
@@ -54,6 +89,14 @@ void main() {
       expect(
           check.createUserChecks(
               "Steve", "Jones", "Username", "", DateTime.now()),
+          equals(false));
+    });
+
+    test('Test for to short of an email', () {
+      DataChecks check = DataChecks();
+      expect(
+          check.createUserChecks(
+              "Steve", "Jones", "Username", "@", DateTime.now()),
           equals(false));
     });
 
