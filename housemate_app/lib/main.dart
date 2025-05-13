@@ -13,6 +13,7 @@ import 'package:housemate_app/class/profile.dart';
 import 'package:housemate_app/sign-in%20pages/joinHouse.dart';
 import 'package:housemate_app/shopping_list.dart';
 import 'package:housemate_app/sign-in%20pages/sign_up.dart';
+import 'package:housemate_app/spending.dart';
 import 'package:housemate_app/user_profile.dart';
 import 'package:housemate_app/utils/theme.dart';
 import 'package:housemate_app/sign-in%20pages/log_in.dart';
@@ -23,11 +24,18 @@ import 'package:housemate_app/houseInfo.dart';
 import 'package:housemate_app/settings.dart';
 
 List<ActionLogNotification> actionsList = [];
-List<GeneralChoreRota> generalChoreRotaList = [GeneralChoreRota("Take out the food bin", ["Ben", "Anna", "Matt"]), GeneralChoreRota("Clean Oven Grease", ["Dan", "Keiran"]), GeneralChoreRota("Wipe down hob", ["Cecile"])];
-List<WeeklyChoreRota> weeklyChoreRotaList = [WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])];
+List<GeneralChoreRota> generalChoreRotaList = [
+  GeneralChoreRota("Take out the food bin", ["Ben", "Anna", "Matt"]),
+  GeneralChoreRota("Clean Oven Grease", ["Dan", "Keiran"]),
+  GeneralChoreRota("Wipe down hob", ["Cecile"])
+];
+List<WeeklyChoreRota> weeklyChoreRotaList = [
+  WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])
+];
 List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
-List<String> housemates = []; //placeholder code
+List<User> housemates = []; //placeholder code
+Map<String, double> spendingMap = {};
 User currentUser = User();
 House house = House();
 bool login = true;
@@ -38,6 +46,8 @@ void main() {
       "John", "Doe", "J.Doe", "Doe@email.com", DateTime.now());
   house.createHouse(
       "House", "Buckingham Palace", "London", "London", "London", " SW1A 1AA");
+
+  housemates.add(currentUser);
   if (login) {
     if (houseMember) {
       screen = '/';
@@ -82,6 +92,7 @@ class _MyAppState extends State<MyApp> {
         '/rota': (context) => const Rota(),
         '/houseInfo': (context) => const HouseInfoScreen(),
         '/settings': (context) => const Settings(),
+        '/spending': (context) => const spendingPage(),
       },
     );
   }
