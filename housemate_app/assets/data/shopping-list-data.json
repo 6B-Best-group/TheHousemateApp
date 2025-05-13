@@ -1,0 +1,29 @@
+[
+    {
+        "item_id": 1,
+        "house_id": 1,
+        "item_name": "Milk",
+        "item_quantity": 2,
+        "item_price": 1.50,
+        "item_bought": false,
+        "user_id": 1
+      },
+      {
+        "item_id": 2,
+        "house_id": 1,
+        "item_name": "Bread",
+        "item_quantity": 1,
+        "item_price": 2.00,
+        "item_bought": true,
+        "user_id": 3
+      },
+      {
+        "item_id": 3,
+        "house_id": 1,
+        "item_name": "Eggs",
+        "item_quantity": 12,
+        "item_price": 3.20,
+        "item_bought": false,
+        "user_id": 5
+      }
+]

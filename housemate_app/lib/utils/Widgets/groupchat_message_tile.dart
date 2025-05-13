@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
 import 'package:housemate_app/utils/groupchat_utils.dart';
 
 class GCMessageTile extends StatelessWidget {
   final bool isMe;
-  final GCMessage message;
+  final Message message;
 
   const GCMessageTile({super.key, required this.isMe, required this.message});
 
@@ -24,7 +26,7 @@ class GCMessageTile extends StatelessWidget {
             
             //width: 400,
             decoration: BoxDecoration(
-              color: message.user.userColor,   
+              color: isMe ? Colors.orange: Colors.green,
               border: Border.all(
                 color: Colors.black,width: 1,
               )
@@ -49,11 +51,11 @@ class GCMessageTile extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                    // mainAxisSize: MainAxisSize.max,
-                    children: [
+                    children: [ // messagers name
                       Padding(
                         padding: const EdgeInsets.all(12.0),
                         child: Text(
-                          message.user.username,
+                          Database().users[message.userId -1].firstName, // potentially change this
                           style: Theme.of(context).textTheme.displayLarge!.copyWith(
                             fontSize: 14,
                             color: Colors.black //isMe? Colors.black: Colors.white,  
@@ -80,7 +82,7 @@ class GCMessageTile extends StatelessWidget {
                           softWrap: true,
                           overflow: TextOverflow.clip,
                           maxLines: 7,
-                          message.message,
+                          message.messageText,
                           style: Theme.of(context).textTheme.displayMedium!.copyWith(
                             fontSize: 14,
                             color: Colors.black , //isMe? Colors.black: Colors.white,  
@@ -98,7 +100,7 @@ class GCMessageTile extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerRight,
                           child: Text(
-                                  " ${message.timeSent.hour}:${message.timeSent.minute}",
+                                  " ${message.messageDate.hour}:${message.messageDate.minute}",
                                   style: Theme.of(context).textTheme.displayLarge!.copyWith(
                                     fontSize: 13,
                                     //wordSpacing: 0,

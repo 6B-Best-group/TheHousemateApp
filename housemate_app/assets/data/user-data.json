@@ -1,0 +1,53 @@
+[
+    {
+        "user_id": 1,
+        "house_id": 1,
+        "first_name": "John",
+        "last_name": "Doe",
+        "username": "JDoe",
+        "password": "JhoePass",
+        "email": "Doe@gmail.com",
+        "date_of_birth": "2004-02-12"
+    },
+    {
+        "user_id": 2,
+        "house_id": 1,
+        "first_name": "Mary",
+        "last_name": "Alexander",
+        "username": "MArxel",
+        "password": "PasswordSecret",
+        "email": "MAlexander@gmail.com",
+        "date_of_birth": "2005-10-21"
+    },
+    {
+        "user_id": 3,
+        "house_id": 1,
+        "first_name": "Peter",
+        "last_name": "Parker",
+        "username": "PPGoop",
+        "password": "Hero140",
+        "email": "PeterParks@gmail.com",
+        "date_of_birth": "1986-07-13"
+    },
+    {
+        "user_id": 4,
+        "house_id": 1,
+        "first_name": "Iris",
+        "last_name": "Roxanne",
+        "username": "FatherMilkers",
+        "password": "CuteSheep",
+        "email": "IrisRoxy12@gmail.com",
+        "date_of_birth": "2004-09-19"
+    },
+    {
+        "user_id": 5,
+        "house_id": 1,
+        "first_name": "Gerald",
+        "last_name": "Giggles",
+        "username": "GGhuggles",
+        "password": "TickleMaster33",
+        "email": "GGiggless@gmail.com",
+        "date_of_birth": "2005-01-24"
+    }
+
+]

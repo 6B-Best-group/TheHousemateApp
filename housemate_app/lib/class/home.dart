@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/main.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -16,6 +18,15 @@ class _MyHomePageState extends State<MyHomePage> {
     ["Rotas", '/rota'],
     ["Group Chat", '/groupChat'],
   ];
+
+  late final User currentUser;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    currentUser = Database().users[0];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: 20,
                       ),
                       Text(
-                        currentUser.username,
+                        "${currentUser.firstName} ${currentUser.lastName}" ,
                         style: Theme.of(context).textTheme.displayLarge,
                       )
                     ],

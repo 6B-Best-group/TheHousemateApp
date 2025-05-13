@@ -15,6 +15,7 @@ import 'package:housemate_app/sign-in%20pages/joinHouse.dart';
 import 'package:housemate_app/shopping_list.dart';
 import 'package:housemate_app/sign-in%20pages/sign_up.dart';
 import 'package:housemate_app/user_profile.dart';
+import 'package:housemate_app/utils/database/database.dart';
 import 'package:housemate_app/utils/theme.dart';
 import 'package:housemate_app/sign-in%20pages/log_in.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
@@ -34,18 +35,29 @@ House house = House();
 bool login = true;
 bool houseMember = true;
 String screen = '/welcome';
-void main() {
-  currentUser.createUser(
-      "John", "Doe", "J.Doe", "Doe@email.com", DateTime.now());
-  house.createHouse(
-      "House", "Buckingham Palace", "London", "London", "London", " SW1A 1AA");
+final db = Database();
+
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  // currentUser.createUser(
+  //     "John", "Doe", "J.Doe", "Doe@email.com", DateTime.now());
+  // house.createHouse(
+  //     "House", "Buckingham Palace", "London", "London", "London", " SW1A 1AA");
   if (login) {
     if (houseMember) {
       screen = '/';
     }
   }
   // Test comment.
-  WidgetsFlutterBinding.ensureInitialized();
+
+  await Database().loadUsers();
+  await Database().loadHouse();
+  await Database().loadMessage();
+  await Database().loadShoppingList();
+  //await Database().loadChore();
+
+
   runApp(const MyApp());
 }
 

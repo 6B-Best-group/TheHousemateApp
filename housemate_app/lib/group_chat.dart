@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:housemate_app/utils/Widgets/groupchat_message_tile.dart';
 import 'package:housemate_app/utils/calender_utils.dart';
-import 'package:housemate_app/utils/groupchat_utils.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
 import 'package:housemate_app/utils/widgets/groupchat_member_tile.dart';
 
 class GroupChatPage extends StatefulWidget {
@@ -13,7 +15,7 @@ class GroupChatPage extends StatefulWidget {
 
 class _GroupChatPageState extends State<GroupChatPage> {
 
-  late MemberData currentUser; 
+  late User currentUser; 
 
   TextEditingController myMessage = TextEditingController();
 
@@ -22,38 +24,46 @@ class _GroupChatPageState extends State<GroupChatPage> {
 
   final currentMessageDate = DateTime.now();
 
-  List<MemberData> houseMembers = [
-    MemberData('Dan', Colors.pink, '0111567aEd'),
-    MemberData('Craig', Colors.orange, '5689442gIc'),
-    MemberData('Mark', Colors.cyan, '7829635hOp'),
-    MemberData('Lucy', Colors.green, '3331983jMp'),
-    MemberData('Gurt', Colors.yellow, '6722039gTd'),
-  ];
+  late List<User> houseMember = [];
 
-  List<GCMessage> messages = [
-    GCMessage(DateTime(2025,12,5,7,30,21), 'Yo', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
-    GCMessage(DateTime(2025,12,5,7,40,21), 'Hello Gurthanial', MemberData('Craig', Colors.orange, '5689442gIc'),),
-    GCMessage(DateTime(2025,12,5,7,50,21), 'How are all of you', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
-    GCMessage(DateTime(2025,12,5,7,55,21), 'im not bad myself, what about wou how was your weekend?', MemberData('Lucy', Colors.green, '3331983jMp'),),
-    GCMessage(DateTime(2025,12,5,8,50,21), 'My weekend was rather fun, i went fishing and walked my dog. Im super excited for our holiday next week, i have never been to go ape, is everyone else ready to go?', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
-    GCMessage(DateTime(2025,12,5,9,40,21), 'For what its worth im rather excited aswell, LOLS', MemberData('Craig', Colors.orange, '5689442gIc'),),
-  ];
+  // List<MemberData> houseMembers = [
+  //   MemberData('Dan', Colors.pink, '0111567aEd'),
+  //   MemberData('Craig', Colors.orange, '5689442gIc'),
+  //   MemberData('Mark', Colors.cyan, '7829635hOp'),
+  //   MemberData('Lucy', Colors.green, '3331983jMp'),
+  //   MemberData('Gurt', Colors.yellow, '6722039gTd'),
+  // ];
+
+  late List<Message> messages = [];
+
+  // List<GCMessage> messages = [
+  //   GCMessage(DateTime(2025,12,5,7,30,21), 'Yo', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
+  //   GCMessage(DateTime(2025,12,5,7,40,21), 'Hello Gurthanial', MemberData('Craig', Colors.orange, '5689442gIc'),),
+  //   GCMessage(DateTime(2025,12,5,7,50,21), 'How are all of you', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
+  //   GCMessage(DateTime(2025,12,5,7,55,21), 'im not bad myself, what about wou how was your weekend?', MemberData('Lucy', Colors.green, '3331983jMp'),),
+  //   GCMessage(DateTime(2025,12,5,8,50,21), 'My weekend was rather fun, i went fishing and walked my dog. Im super excited for our holiday next week, i have never been to go ape, is everyone else ready to go?', MemberData('Gurt', Colors.yellow, '6722039gTd'),),
+  //   GCMessage(DateTime(2025,12,5,9,40,21), 'For what its worth im rather excited aswell, LOLS', MemberData('Craig', Colors.orange, '5689442gIc'),),
+  // ];
 
   void sendMessage(){
     if (myMessage.text.isNotEmpty){
       setState(() {
-        messages.add(GCMessage(DateTime.now(), myMessage.text, currentUser));
+        Database().message.add(Message(messageId: Database().message.length, houseId: currentUser.houseId, userId: currentUser.userId, messageText: myMessage.text, messageDate: DateTime.now(),));
         myMessage.clear();
       });
     }
   }
+
+  
 
 
   
   @override
   void initState() {
     super.initState();
-      currentUser = MemberData('Lucy', Colors.green, '3331983jMp');
+      currentUser = Database().users[Database().currentUser]; //MemberData('Lucy', Colors.green, '3331983jMp');
+      messages = Database().message;
+      houseMember = Database().users;
   }
 
   @override
@@ -135,7 +145,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 10,top: 10,bottom: 15),
                                     child: Text( // house address goes here
-                                      '1 Orchard Road, P03 7HE',
+                                      '1 Orchard Road, P03 7HE', //                  < -- change this over as well
                                       style: Theme.of(context).textTheme.displayMedium!.copyWith(
                                         fontSize: 18,
                                       ),
@@ -186,15 +196,15 @@ class _GroupChatPageState extends State<GroupChatPage> {
                             ),
                             Expanded(
                               child: ListView.builder(
-                                itemCount: houseMembers.length,
+                                itemCount: houseMember.length,
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
                                   
                                   return Padding(
                                     padding:const EdgeInsets.all(8.0),
                                     child: GroupchatMemberTile(
-                                      memberName: houseMembers[index].username, 
-                                      memberColor: houseMembers[index].userColor,
+                                      memberName: '${houseMember[index].firstName} ${houseMember[index].lastName}', 
+                                      memberColor: Colors.cyan, // can be asked to change the datatype to accept color
                                       ),
                                   );
                                 },
@@ -231,10 +241,13 @@ class _GroupChatPageState extends State<GroupChatPage> {
                         itemCount: messages.length,
                         shrinkWrap: false,
                         itemBuilder: (BuildContext context, int index) {
-                          if (checkDate(messages[index].timeSent, index == 0 ? currentMessageDate : messages[index -1].timeSent)) {
+                          
+                          if (checkDate(messages[index].messageDate, index == 0 ? currentMessageDate : messages[index -1].messageDate)) {
+                               
+
                               return GCMessageTile(
-                                isMe: currentUser.username == messages[index].user.username, 
-                                message: messages[index]
+                                isMe: currentUser.userId == messages[index].userId, 
+                                message: messages[index],
                                 );
                           }
                           else {
@@ -245,7 +258,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                     Expanded(child: Divider()),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text('${messages[index].timeSent.year.toString()} ${convertDatetimeToMonth(messages[index].timeSent)} ${messages[index].timeSent.day.toString()}'),
+                                      child: Text('${messages[index].messageDate.year.toString()} ${convertDatetimeToMonth(messages[index].messageDate)} ${messages[index].messageDate.day.toString()}'),
                                     ),
                                     Expanded(child: Divider()),
                                   ],
@@ -255,9 +268,9 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                 //   alignment: Alignment.center,
                                 //   child: Text('${messages[index].timeSent.year.toString()} ${convertDatetimeToMonth(messages[index].timeSent)} ${messages[index].timeSent.day.toString()}')),
                                 GCMessageTile(
-                                  isMe: currentUser.username == messages[index].user.username, 
-                                  message: messages[index]
-                                  )
+                                isMe: currentUser.userId == messages[index].userId, 
+                                message: messages[index],
+                                ),
                               ],
                             );
                           }
