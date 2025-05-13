@@ -7,11 +7,10 @@ CREATE TABLE
     house_info (
         house_id SERIAL PRIMARY KEY,
         house_nickname VARCHAR(15) NOT NULL,
-        house_address VARCHAR(50) NOT NULL UNIQUE,
-        city VARCHAR(50) NOT NULL,
-        country VARCHAR(50) NOT NULL,
-        postcode CHAR(10) NOT NULL,
-        bin_code VARCHAR(30) NOT NULL
+        house_address VARCHAR(30) NOT NULL UNIQUE,
+        city VARCHAR(30) NOT NULL,
+        country VARCHAR(30) NOT NULL,
+        postcode VARCHAR(7) NOT NULL
     );
 
 -- User Information
@@ -20,10 +19,10 @@ CREATE TABLE
         user_id SERIAL PRIMARY KEY,
         house_id INT REFERENCES house_info (house_id) NOT NULL,
         user_name VARCHAR(15) NOT NULL UNIQUE,
-        first_name VARCHAR(30) NOT NULL,
-        last_name VARCHAR(30) NOT NULL,
-        username VARCHAR(30) NOT NULL UNIQUE,
-        password VARCHAR(50) NOT NULL,
+        first_name VARCHAR(15) NOT NULL,
+        last_name VARCHAR(20) NOT NULL,
+        username VARCHAR(15) NOT NULL UNIQUE,
+        password VARCHAR(128) NOT NULL,
         email VARCHAR(50) NOT NULL,
         date_of_birth DATE NOT NULL
     );
@@ -55,11 +54,12 @@ CREATE TABLE
     shopping_list (
         item_id SERIAL PRIMARY KEY,
         house_id INT REFERENCES house_info (house_id) NOT NULL,
-        item_name VARCHAR(20) NOT NULL,
+        user_id INT REFERENCES user_info (user_id) NOT NULL,
+        who_paid VARCHAR(30) NOT NULL,
+        item_name VARCHAR(100) NOT NULL,
         item_quantity INT NOT NULL,
         item_price DECIMAL(10, 2) NOT NULL,
         item_bought BOOLEAN NOT NULL DEFAULT FALSE,
-        user_id INT REFERENCES user_info (user_id) NOT NULL
     );
 
 -- Queries
