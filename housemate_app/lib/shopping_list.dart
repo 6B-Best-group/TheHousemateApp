@@ -18,19 +18,23 @@ class _shopping_listState extends State<shopping_list> {
   final cost = TextEditingController();
 
   void addItem() {
-   if (itemValid()) {
-      ShoppingItem item = ShoppingItem(itemName.text, int.parse(quantity.text));
-      shoppingList.add(item);
-      ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added to the Shopping List', '${quantity.text}x ${itemName.text}');
-      actionsList.add(logAction);
-      setState(() {});
-    }
+    //if (itemValid()) {
+    ShoppingItem item = ShoppingItem(itemName.text, int.parse(quantity.text));
+    shoppingList.add(item);
+    ActionLogNotification logAction = ActionLogNotification(
+        '${currentUser.getFirstName()} ${currentUser.getLastName()} added to the Shopping List',
+        '${quantity.text}x ${itemName.text}');
+    actionsList.add(logAction);
+    setState(() {});
+    // }
   }
 
   void removeItem(item) {
     shoppingList.remove(item);
     print(shoppingList);
-    ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} removed an item from the shopping list', 'Discover new and inciting Minecraft creations (placeholder)');
+    ActionLogNotification logAction = ActionLogNotification(
+        '${currentUser.getFirstName()} ${currentUser.getLastName()} removed an item from the shopping list',
+        'Discover new and inciting Minecraft creations (placeholder)');
     actionsList.add(logAction);
     setState(() {});
   }
@@ -71,23 +75,25 @@ class _shopping_listState extends State<shopping_list> {
                   ],
                 ),
                 actions: [
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                    TextButton.icon(
-                        onPressed: () {
-                          itemName.clear();
-                          quantity.clear();
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.delete),
-                        label: const Text("discard")),
-                    TextButton.icon(
-                        onPressed: () {
-                          addItem();
-                          Navigator.pop(context);
-                        }, // To be added
-                        icon: Icon(Icons.save),
-                        label: Text("Add to list"))
-                  ]),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton.icon(
+                            onPressed: () {
+                              itemName.clear();
+                              quantity.clear();
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(Icons.delete),
+                            label: const Text("discard")),
+                        TextButton.icon(
+                            onPressed: () {
+                              addItem();
+                              Navigator.pop(context);
+                            }, // To be added
+                            icon: Icon(Icons.save),
+                            label: Text("Add to list"))
+                      ]),
                 ]));
   }
 
@@ -138,7 +144,7 @@ class _shopping_listState extends State<shopping_list> {
         body: Column(children: [
           TextButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/spendingPage');
+                Navigator.pushNamed(context, '/spending');
               },
               child: const Text("Spending page")),
           Flexible(

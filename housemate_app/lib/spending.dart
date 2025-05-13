@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:housemate_app/class/profile.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/main.dart';
-import 'package:housemate_app/profile.dart';
+import 'package:housemate_app/class/profile.dart';
 import 'package:housemate_app/user_profile.dart';
 
 class spendingPage extends StatefulWidget {
