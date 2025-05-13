@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/general_chore_rota.dart';
@@ -74,8 +76,10 @@ class _RotaState extends State<Rota> {
   final generalChoreName = TextEditingController();
   final weeklyChoreName = TextEditingController();
   String selectedUser = "Ben";
-  final List<String> users = ["Ben", "Anna", "Kieran", "Matt", "Dan"];
   List<String> selectedUsers = [];
+  List<DropdownMenuEntry<String>> menuEntries = UnmodifiableListView<DropdownMenuEntry<String>>(
+    users1.map<DropdownMenuEntry<String>>((String name) => DropdownMenuEntry<String>(value: name, label: name)),
+  );
 
   void addGeneralChore() {
     GeneralChoreRota rota = GeneralChoreRota(generalChoreName.text, selectedUsers);
@@ -101,20 +105,14 @@ class _RotaState extends State<Rota> {
                         decoration: const InputDecoration(
                           label: Text("Chore name:"),
                         )),
-                    DropdownButton<String>(
-                      hint: const Text("Choose the rota"),
-                      value: selectedUser,
-                      onChanged: (String? user) {
+                    DropdownMenu<String>(
+                      initialSelection: users1[0],
+                      onSelected: (String? value) {
                         setState(() {
-                          selectedUser = user!;
+                          selectedUser = value!;
                         });
                       },
-                      items: users.map<DropdownMenuItem<String>>((String user) {
-                        return DropdownMenuItem<String>(
-                          value: user,
-                          child: Text(user),
-                        );
-                      }).toList(),
+                      dropdownMenuEntries: menuEntries,
                     ),
                     TextButton(
                       onPressed: () {
@@ -138,8 +136,10 @@ class _RotaState extends State<Rota> {
                         label: const Text("discard")),
                     TextButton.icon(
                         onPressed: () {
-                          addGeneralChore();
-                          Navigator.pop(context);
+                          if (selectedUsers.isNotEmpty) {
+                            addGeneralChore();
+                            Navigator.pop(context);
+                          }
                         },
                         icon: const Icon(Icons.save),
                         label: const Text("Add to list"))
@@ -171,20 +171,14 @@ class _RotaState extends State<Rota> {
                         decoration: const InputDecoration(
                           label: Text("Chore name:"),
                         )),
-                    DropdownButton<String>(
-                      hint: const Text("Choose the rota"),
-                      value: selectedUser,
-                      onChanged: (String? newValue) {
+                    DropdownMenu<String>(
+                      initialSelection: users1[0],
+                      onSelected: (String? value) {
                         setState(() {
-                          selectedUser = newValue!;
+                          selectedUser = value!;
                         });
                       },
-                      items: users.map<DropdownMenuItem<String>>((String user) {
-                        return DropdownMenuItem<String>(
-                          value: user,
-                          child: Text(user),
-                        );
-                      }).toList(),
+                      dropdownMenuEntries: menuEntries,
                     ),
                     TextButton(
                       onPressed: () {
@@ -208,8 +202,10 @@ class _RotaState extends State<Rota> {
                         label: const Text("discard")),
                     TextButton.icon(
                         onPressed: () {
-                          addWeeklyChore();
-                          Navigator.pop(context);
+                          if (selectedUsers.isNotEmpty) {
+                            addWeeklyChore();
+                            Navigator.pop(context);
+                          }
                         },
                         icon: const Icon(Icons.save),
                         label: const Text("Add to list"))

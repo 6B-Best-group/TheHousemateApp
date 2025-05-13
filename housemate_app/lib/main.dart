@@ -22,6 +22,7 @@ import 'package:housemate_app/action_log.dart';
 List<ActionLogNotification> actionsList = [];
 List<GeneralChoreRota> generalChoreRotaList = [GeneralChoreRota("Take out the food bin", ["Ben", "Anna", "Matt"]), GeneralChoreRota("Clean Oven Grease", ["Dan", "Keiran"]), GeneralChoreRota("Wipe down hob", ["Cecile"])];
 List<WeeklyChoreRota> weeklyChoreRotaList = [WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])];
+List<String> users1 = ["Ben", "Anna", "Kieran", "Matt", "Dan"];
 List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
 List<String> housemates = []; //placeholder code
