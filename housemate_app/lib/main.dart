@@ -6,7 +6,6 @@ import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/class/weekly_chore_rota.dart';
 import 'package:housemate_app/class/house.dart';
 import 'package:housemate_app/create_house.dart';
-import 'package:housemate_app/edit_rotas.dart';
 import 'package:housemate_app/rota.dart';
 import 'package:housemate_app/sign-in%20pages/findHouse.dart';
 import 'package:housemate_app/class/home.dart';
@@ -81,7 +80,6 @@ class _MyAppState extends State<MyApp> {
         '/findHouse': (context) => const findHouse(),
         '/actionLog': (context) => const ActionLog(),
         '/rota': (context) => const Rota(),
-        '/editRotas': (context) => const EditRotas(),
         '/houseInfo': (context) => const HouseInfoScreen(),
         '/settings': (context) => const Settings(),
       },
