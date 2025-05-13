@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/main.dart';
+import 'class/profile.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -27,8 +29,8 @@ class _UserProfileState extends State<UserProfile> {
                   //   bottomRight: const Radius.circular(10),
                   //   bottomLeft: Radius.circular(10),
                   // ),
-                  border: const Border(bottom: const BorderSide(color: Colors.black,width: 1))
-                  ),
+                  border: const Border(
+                      bottom: const BorderSide(color: Colors.black, width: 1))),
               child: Padding(
                 padding: const EdgeInsets.all(8),
                 child: Row(
@@ -43,24 +45,25 @@ class _UserProfileState extends State<UserProfile> {
                         maxRadius: 50.0,
                         minRadius: 50.0,
                         backgroundColor: Colors.white,
-                        backgroundImage: null,//AssetImage('Insert profile picture here'),
+                        backgroundImage:
+                            null, //AssetImage('Insert profile picture here'),
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(left: 25,top: 8,bottom:8),
+                    Padding(
+                      padding: EdgeInsets.only(left: 25, top: 8, bottom: 8),
                       child: Column(
                         children: [
                           SizedBox(
                             height: 30.0,
                           ),
                           Text(
-                            'Name Goes Here',
+                            '${currentUser.getFirstName()} ${currentUser.getLastName()}', //user.getFirstName(),
                             style: TextStyle(
                               fontSize: 27,
                             ),
                           ),
                           Text(
-                            'Address Goes Here',
+                            house.address1,
                             style: TextStyle(
                               fontSize: 23,
                             ),
@@ -82,7 +85,7 @@ class _UserProfileState extends State<UserProfile> {
                   color: Colors.black,
                   width: 1.0,
                 )),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(20.0),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -91,30 +94,18 @@ class _UserProfileState extends State<UserProfile> {
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          'Phone - Phone Number Here',
+                          currentUser.getEmail(),
                           //textAlign: TextAlign.center,
-                          style:
-                              TextStyle(fontSize: 18, color: Colors.black),
+                          style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                       ),
                       Divider(),
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          'Email - Email Address Goes Here',
+                          currentUser.getDOB(),
                           //textAlign: TextAlign.center,
-                          style:
-                              TextStyle(fontSize: 18, color: Colors.black),
-                        ),
-                      ),
-                      Divider(),
-                      Padding(
-                        padding: EdgeInsets.all(10.0),
-                        child: Text(
-                          'DOB - Data Of Birth',
-                          //textAlign: TextAlign.center,
-                          style:
-                              TextStyle(fontSize: 18, color: Colors.black),
+                          style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                       ),
                       Divider(),
@@ -123,8 +114,7 @@ class _UserProfileState extends State<UserProfile> {
                           child: Text(
                             'Rent p/m',
                             //textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 18, color: Colors.black),
+                            style: TextStyle(fontSize: 18, color: Colors.black),
                           )),
                       Divider(),
                       Padding(
@@ -132,8 +122,7 @@ class _UserProfileState extends State<UserProfile> {
                           child: Text(
                             'Payment Date',
                             //textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 18, color: Colors.black),
+                            style: TextStyle(fontSize: 18, color: Colors.black),
                           )),
                     ],
                   ),

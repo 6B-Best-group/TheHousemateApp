@@ -1,4 +1,4 @@
-class User{
+class User {
   bool loggedIn = false;
   String firstName = "";
   String lastName = "";
@@ -52,5 +52,9 @@ class User{
 
   String getUsername() {
     return username;
+  }
+
+  String getDOB() {
+    return '$dob';
   }
 }

@@ -23,7 +23,13 @@ class DataChecks {
       }
       i += 1;
     }
+    if (userEmail.length < 5) {
+      return false;
+    }
 
+    if (checkForNum(fname) || checkForNum(lname)) {
+      return false;
+    }
     if (!userEmail.contains("@")) {
       return false;
     }
@@ -71,4 +77,16 @@ class DataChecks {
     }
     return true;
   }
+}
+
+bool checkForNum(data) {
+  for (int l = 0; l < data.length; l++) {
+    try {
+      int.parse(data[l]);
+      return true;
+    } catch (e) {
+      //nothing happens
+    }
+  }
+  return false;
 }

@@ -1,3 +1,5 @@
+import 'package:housemate_app/class/action_log_notification.dart';
+import 'package:housemate_app/main.dart';
 import 'package:housemate_app/utils/calender_utils.dart';
 import 'package:housemate_app/calender-page/widgets/add_chore.dart';
 import 'package:housemate_app/calender-page/widgets/chore_widgets/other_chore/other_chore_lists.dart';
@@ -145,8 +147,6 @@ class _CalenderHomePageState extends State<CalenderPage>
     ],
   };
 
-
-
   String selectedDate = "";
 
   DateTime currentDate = DateTime.now();
@@ -204,10 +204,14 @@ class _CalenderHomePageState extends State<CalenderPage>
 
     if (userDateChores.containsKey(currentDate) &&
         newChoreName.text.isNotEmpty) {
+          ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a Chore', newChoreName.text);
+          actionsList.add(logAction);
       setState(() {
         userDateChores[currentDate]?.add(Chore(choreTitle: newChoreName.text));
       });
     } else if (newChoreName.text.isNotEmpty) {
+      ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a Chore', newChoreName.text);
+      actionsList.add(logAction);
       setState(() {
         userDateChores[currentDate] = [Chore(choreTitle: newChoreName.text)];
       });
@@ -224,7 +228,7 @@ class _CalenderHomePageState extends State<CalenderPage>
       appBar: AppBar(
         backgroundColor: Colors.grey,
         centerTitle: true,
-        title: const Text('C A L E N D E R'),
+        title: const Text('C A L E N D A R'),
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -336,7 +340,7 @@ class _CalenderHomePageState extends State<CalenderPage>
                                     currentDate,
                                   ) // set a minimum size for this // other user chores
                                   ? ListView.builder(
-                                    shrinkWrap: true,
+                                    //shrinkWrap: true,
                                     itemCount:
                                         otherUserDateChores[currentDate]!
                                             .length,

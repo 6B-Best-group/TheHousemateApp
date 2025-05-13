@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/dataInfo.dart';
-import 'package:housemate_app/profile.dart';
-import 'inputCheck.dart';
+import 'package:housemate_app/main.dart';
+import 'package:housemate_app/class/profile.dart';
+import '../inputCheck.dart';
 
 class sign_up extends StatefulWidget {
   const sign_up({super.key});
@@ -23,10 +24,10 @@ class _log_inState extends State<sign_up> {
     bool userValid = check.createUserChecks(
         fname.text, lname.text, username.text, userEmail.text, DateTime.now());
     if (userValid) {
-      User user = User();
-      user.createUser(fname.text, lname.text, username.text, userEmail.text,
-          DateTime.now());
-      print("FUNCTIONS");
+      currentUser.createUser(fname.text, lname.text, username.text,
+          userEmail.text, DateTime.now());
+      login = true;
+      Navigator.pushNamed(context, '/findHouse');
     }
   }
 
@@ -45,15 +46,15 @@ class _log_inState extends State<sign_up> {
                 decoration: const InputDecoration(labelText: "Email")),
             TextField(
                 controller: username,
-                maxLength: usernameData["userName"],
+                maxLength: inputLen["userName"],
                 decoration: InputDecoration(labelText: "Username")),
             TextField(
                 controller: fname,
-                maxLength: usernameData["firstName"],
+                maxLength: inputLen["firstName"],
                 decoration: const InputDecoration(labelText: "First name")),
             TextField(
                 controller: lname,
-                maxLength: usernameData["lastName"],
+                maxLength: inputLen["lastName"],
                 decoration: const InputDecoration(labelText: "Last name")),
             //ADD DATE OF BIRTH
             InputDatePickerFormField(
@@ -61,10 +62,10 @@ class _log_inState extends State<sign_up> {
                 lastDate: DateTime.now()),
             TextField(
                 controller: password,
-                maxLength: usernameData["password"],
+                maxLength: inputLen["password"],
                 decoration: const InputDecoration(labelText: "Password")),
             TextField(
-                maxLength: usernameData["password"],
+                maxLength: inputLen["password"],
                 decoration:
                     const InputDecoration(labelText: "Confirm password")),
             TextButton.icon(

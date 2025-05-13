@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/dataInfo.dart';
-import 'package:housemate_app/forgot_pass.dart';
-import 'package:housemate_app/sign_up.dart';
+import 'package:housemate_app/sign-in%20pages/forgot_pass.dart';
+import 'package:housemate_app/sign-in%20pages/sign_up.dart';
 
 class log_In extends StatefulWidget {
   const log_In({super.key});

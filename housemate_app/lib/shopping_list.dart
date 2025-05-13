@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/inputCheck.dart';
 import 'package:housemate_app/main.dart';
@@ -17,9 +18,11 @@ class _shopping_listState extends State<shopping_list> {
   final cost = TextEditingController();
 
   void addItem() {
-    DataChecks itemCheck = DataChecks();
-    bool valid = itemCheck.addShoppingItem(quantity.text, itemName.text);
-    if (valid) {
+   if (itemValid()) {
+      ShoppingItem item = ShoppingItem(itemName.text, int.parse(quantity.text));
+      shoppingList.add(item);
+      ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added to the Shopping List', '${quantity.text}x ${itemName.text}');
+      actionsList.add(logAction);
       setState(() {});
     }
   }
@@ -27,6 +30,8 @@ class _shopping_listState extends State<shopping_list> {
   void removeItem(item) {
     shoppingList.remove(item);
     print(shoppingList);
+    ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} removed an item from the shopping list', 'Discover new and inciting Minecraft creations (placeholder)');
+    actionsList.add(logAction);
     setState(() {});
   }
 
@@ -66,7 +71,7 @@ class _shopping_listState extends State<shopping_list> {
                   ],
                 ),
                 actions: [
-                  Row(children: [
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                     TextButton.icon(
                         onPressed: () {
                           itemName.clear();
