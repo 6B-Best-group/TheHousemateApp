@@ -34,6 +34,7 @@ class CustomListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
@@ -72,9 +73,8 @@ class CustomListItem extends StatelessWidget {
 class _RotaState extends State<Rota> {
   final generalChoreName = TextEditingController();
   final weeklyChoreName = TextEditingController();
-
-  final List<String> users = ["Ben", "Anna", "Kieran", "Matt", "Dan"];
   String selectedUser = "Ben";
+  final List<String> users = ["Ben", "Anna", "Kieran", "Matt", "Dan"];
   List<String> selectedUsers = [];
 
   void addGeneralChore() {
@@ -104,9 +104,9 @@ class _RotaState extends State<Rota> {
                     DropdownButton<String>(
                       hint: const Text("Choose the rota"),
                       value: selectedUser,
-                      onChanged: (String? newValue) {
+                      onChanged: (String? user) {
                         setState(() {
-                          selectedUser = newValue!;
+                          selectedUser = user!;
                         });
                       },
                       items: users.map<DropdownMenuItem<String>>((String user) {
