@@ -16,59 +16,79 @@ class OtherChoreLists extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Container(
-        constraints: const BoxConstraints(maxHeight: 230, minHeight: 40),
+        constraints: const BoxConstraints(
+          //maxHeight: 230, 
+          minHeight: 40
+          ),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Colors.cyan,
           border: Border.all(color: Colors.black, width: 1),
         ),
         //width: double.maxFinite,
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
             // change this to a user color later
-            Container(
-              decoration: const BoxDecoration(
-                border: Border(
-                  right: BorderSide(color: Colors.black, width: 1),
-                ),
-                color: Colors.cyanAccent,
-              ),
+            // Container(
+            //   decoration: const BoxDecoration(
+            //     border: Border(
+            //       right: BorderSide(color: Colors.black, width: 1),
+            //     ),
+            //     color: Colors.cyanAccent,
+            //   ),
+            //   width: 25,
+            // ),
+            const SizedBox(
               width: 25,
             ),
-            Expanded(
-              child: Column(
-                //mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      // the users name
-                      userName,
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+            Flexible(
+              child: Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  border: Border(
+                    left:BorderSide (color: Colors.black, width: 1)
                     ),
-                  ),
-                  const Divider(color: Colors.black),
-                  userChores.isEmpty
-                      ? const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text("You have no Chores today"),
-                      ) // if the list is empty
-                      : Padding(
-                        padding: const EdgeInsets.all(4),
-                        child: ListView.builder(
-                          // if the list isnt empty
-                          physics: const ClampingScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: userChores.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(4),
-                              child: OtherChoreTile(chore: userChores[index]),
-                            );
-                          },
-                        ),
+                ),
+                child: Column(
+                  //mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        // the users name
+                        userName,
+                        style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
-                ],
+                    ),
+                    const Divider(color: Colors.black),
+                    userChores.isEmpty
+                        ? const Padding(
+                          padding: EdgeInsets.all(8.0),
+                          child: Text("You have no Chores today"),
+                        ) // if the list is empty
+                        : Padding(
+                          padding: const EdgeInsets.only(
+                            left: 4,
+                            top: 4,
+                            bottom: 10,
+                            right: 4,
+                            ),
+                          child: ListView.builder(
+                            // if the list isnt empty
+                            physics: const ClampingScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: userChores.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.all(4),
+                                child: OtherChoreTile(chore: userChores[index]),
+                              );
+                            },
+                          ),
+                        ),
+                  ],
+                ),
               ),
             ),
           ],
