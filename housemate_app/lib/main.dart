@@ -32,6 +32,7 @@ List<GeneralChoreRota> generalChoreRotaList = [
 List<WeeklyChoreRota> weeklyChoreRotaList = [
   WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])
 ];
+List<String> users1 = ["Ben", "Anna", "Kieran", "Matt", "Dan"];
 List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
 List<User> housemates = []; //placeholder code
