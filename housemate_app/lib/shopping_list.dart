@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
+
 import 'package:housemate_app/inputCheck.dart';
 
 import 'package:housemate_app/main.dart';
@@ -22,8 +23,7 @@ class _shopping_listState extends State<shopping_list> {
 
   void addItem() {
     //if (itemValid()) {
-    ShoppingItem item = ShoppingItem(itemName.text, int.parse(quantity.text));
-    shoppingList.add(item);
+    Database().shoppingList.add(ShoppingList(itemId: Database().shoppingList.length + 1, houseId: Database().users[Database().currentUser].houseId, itemName: itemName.text, itemQuantity: int.parse(quantity.text), itemPrice: 0.00, itemBrought: false, userId: Database().users[Database().currentUser].userId));
     ActionLogNotification logAction = ActionLogNotification(
         '${currentUser.getFirstName()} ${currentUser.getLastName()} added to the Shopping List',
         '${quantity.text}x ${itemName.text}');
@@ -33,8 +33,7 @@ class _shopping_listState extends State<shopping_list> {
   }
 
   void removeItem(item) {
-    shoppingList.remove(item);
-    print(shoppingList);
+    Database().shoppingList.remove(item);
     ActionLogNotification logAction = ActionLogNotification(
         '${currentUser.getFirstName()} ${currentUser.getLastName()} removed an item from the shopping list',
         'Discover new and inciting Minecraft creations (placeholder)');
@@ -127,7 +126,7 @@ class _shopping_listState extends State<shopping_list> {
                       label: const Text("discard")),
                   TextButton.icon(
                       onPressed: () {
-                        addCost(item);
+                        Database().shoppingList[index].itemPrice = double.parse(cost.text);
                         quantity.clear();
                         Navigator.pop(context);
                       }, // To be added

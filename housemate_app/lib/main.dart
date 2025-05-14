@@ -26,7 +26,7 @@ import 'package:housemate_app/houseInfo.dart';
 import 'package:housemate_app/settings.dart';
 
 List<ActionLogNotification> actionsList = [];
-List<WeeklyChoreRota> weeklyChoreRotaList = [WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])];
+//List<WeeklyChoreRota> weeklyChoreRotaList = [WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])];
 //List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
 List<User> housemates = []; //placeholder code
