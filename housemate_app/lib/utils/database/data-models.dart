@@ -1,3 +1,11 @@
+
+/*
+this file defines the data types for all of the madjor datatypes, each
+of the classes define a .fromJson function that converts a corresponding
+Json file into a list of the according datatypes
+*/
+
+
 class House {
   final int houseId;
   final String houseNickname;

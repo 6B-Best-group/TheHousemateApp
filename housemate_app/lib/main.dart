@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:housemate_app/calender-page/calender.dart';
 import 'package:housemate_app/group_chat.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
-import 'package:housemate_app/class/general_chore_rota.dart';
-import 'package:housemate_app/class/weekly_chore_rota.dart';
 import 'package:housemate_app/class/house.dart';
 import 'package:housemate_app/create_house.dart';
 import 'package:housemate_app/rota.dart';
@@ -16,20 +14,15 @@ import 'package:housemate_app/sign-in%20pages/sign_up.dart';
 import 'package:housemate_app/spending.dart';
 import 'package:housemate_app/user_profile.dart';
 import 'package:housemate_app/utils/database/database.dart';
-import 'package:housemate_app/utils/helpers.dart';
 import 'package:housemate_app/utils/theme.dart';
 import 'package:housemate_app/sign-in%20pages/log_in.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/welcome.dart';
 import 'package:housemate_app/action_log.dart';
-import 'package:housemate_app/houseInfo.dart';
 import 'package:housemate_app/settings.dart';
 
 List<ActionLogNotification> actionsList = [];
-//List<WeeklyChoreRota> weeklyChoreRotaList = [WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])];
-//List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
-List<User> housemates = []; //placeholder code
 Map<String, double> spendingMap = {};
 User currentUser = User();
 House house = House();
@@ -41,16 +34,13 @@ final db = Database();
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
-  // currentUser.createUser(
-  //     "John", "Doe", "J.Doe", "Doe@email.com", DateTime.now());
-  // house.createHouse(
-  //     "House", "Buckingham Palace", "London", "London", "London", " SW1A 1AA");
   if (login) {
     if (houseMember) {
       screen = '/';
     }
   }
-  // Test comment.
+
+  // loads the database on initialization of the app
 
   await Database().loadUsers();
   await Database().loadHouse();
@@ -79,9 +69,8 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Dweller',
       theme: defaultTheme,
-      //home: const MyHomePage(title: 'Housemate App'),
       initialRoute: '/',
-      routes: {
+      routes: {    // -- navigates the various different pages there are
         '/': (context) => const MyHomePage(title: 'Dweller'),
         '/shoppingList': (context) => const shopping_list(),
         '/userProfile': (context) => const UserProfile(),
@@ -95,7 +84,6 @@ class _MyAppState extends State<MyApp> {
         '/findHouse': (context) => const findHouse(),
         '/actionLog': (context) => const ActionLog(),
         '/rota': (context) => const Rota(),
-        '/houseInfo': (context) => const HouseInfoScreen(),
         '/settings': (context) => const Settings(),
         '/spending': (context) => const spendingPage(),
       },

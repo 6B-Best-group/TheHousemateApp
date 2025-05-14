@@ -1,3 +1,6 @@
+
+// these are quality of life functions for formatting
+
 String convertDatetimeToMonth(DateTime time) {
     // add this to a functions list
     int month = time.month;

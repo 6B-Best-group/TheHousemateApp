@@ -100,7 +100,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container( // THE HOUSE BOX
-                      height: 78,//double.minPositive,
+                      height: 78,
                       width: double.maxFinite,
                       decoration: BoxDecoration(
                         color: Colors.grey,
@@ -112,7 +112,6 @@ class _GroupChatPageState extends State<GroupChatPage> {
                         children: [
                           Container( // colour banner
                               width: 25,
-                              //height: double.infinity,
                               decoration: BoxDecoration(
                                 color: Colors.grey.shade700,
                                 border: const Border(
@@ -122,13 +121,11 @@ class _GroupChatPageState extends State<GroupChatPage> {
                             ),
                           Expanded(
                             child: Column(
-                              //mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(left: 10,top: 5,bottom: 5),
-                                  child: Text( // work on this next
-                                  
+                                  child: Text( 
                                     'House',
                                     style: Theme.of(context).textTheme.displayLarge!.copyWith(
                                       fontSize: 18
@@ -145,17 +142,13 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                   child: Padding(
                                     padding: const EdgeInsets.only(left: 10,top: 10,bottom: 15),
                                     child: Text( // house address goes here
-                                      '1 Orchard Road, P03 7HE', //                  < -- change this over as well
+                                      '1 Orchard Road, P03 7HE',                 
                                       style: Theme.of(context).textTheme.displayMedium!.copyWith(
                                         fontSize: 18,
                                       ),
                                     ),
                                   ),
                                 ),
-                                              
-                                
-                                              
-                                
                               ],
                             ),
                           ),
@@ -195,8 +188,8 @@ class _GroupChatPageState extends State<GroupChatPage> {
                               height: 0,
                             ),
                             Expanded(
-                              child: ListView.builder(
-                                itemCount: houseMember.length,
+                              child: ListView.builder( // lists all of the members
+                                itemCount: houseMember.length, 
                                 shrinkWrap: true,
                                 itemBuilder: (BuildContext context, int index) {
                                   
@@ -204,26 +197,21 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                     padding:const EdgeInsets.all(8.0),
                                     child: GroupchatMemberTile(
                                       memberName: '${houseMember[index].firstName} ${houseMember[index].lastName}', 
-                                      memberColor: Colors.cyan, // can be asked to change the datatype to accept color
+                                      memberColor: Colors.cyan,
                                       ),
                                   );
                                 },
                               ),
                             ),
                           ],
-
-                        ),
-                        
+                        ), 
                       ),
                     )
                     )
                 ],
-              
-              
               ),
               ),
           ),
-
           Expanded( // -------------------- gc page ------------------------------
             flex: 4,
             child: Container(
@@ -232,8 +220,6 @@ class _GroupChatPageState extends State<GroupChatPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  //mainAxisAlignment: MainAxisAlignment.
-                  //main
                   children: [
                     Expanded(
                       child: ListView.builder(
@@ -241,10 +227,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                         itemCount: messages.length,
                         shrinkWrap: false,
                         itemBuilder: (BuildContext context, int index) {
-                          
                           if (checkDate(messages[index].messageDate, index == 0 ? currentMessageDate : messages[index -1].messageDate)) {
-                               
-
                               return GCMessageTile(
                                 isMe: currentUser.userId == messages[index].userId, 
                                 message: messages[index],
@@ -262,30 +245,18 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                     ),
                                     Expanded(child: Divider()),
                                   ],
-                
                                 ),
-                                // Align(
-                                //   alignment: Alignment.center,
-                                //   child: Text('${messages[index].timeSent.year.toString()} ${convertDatetimeToMonth(messages[index].timeSent)} ${messages[index].timeSent.day.toString()}')),
-                                GCMessageTile(
+                                GCMessageTile( // this is what the messages are displayed on
                                 isMe: currentUser.userId == messages[index].userId, 
                                 message: messages[index],
                                 ),
                               ],
                             );
                           }
-                
-                          // return GCMessageTile(
-                          //   isMe: currentUser.username == messages[index].user.username, 
-                          //   message: messages[index]
-                          //   );
-                          
-                          
                         },
                       ),
                     ),
-                    //  ADD THE TEXT BAR AT THE BOTTOM
-                    Container(
+                    Container( // the text bar at the bottom to allow for messaging
                       decoration: BoxDecoration(
                         border: Border.all(color: Colors.black,width: 1,)
                       ),
@@ -314,8 +285,6 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                 fontSize: 14,
                               ),
                               cursorColor: Colors.black,
-                              
-                            
                             ),
                           ),
                           IconButton(

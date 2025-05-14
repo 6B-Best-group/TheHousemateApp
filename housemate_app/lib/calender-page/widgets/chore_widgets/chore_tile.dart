@@ -1,7 +1,6 @@
-import 'package:housemate_app/utils/calender_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:housemate_app/utils/database/data-models.dart';
-import 'package:housemate_app/utils/database/database.dart';
+
 
 class ChoreTile extends StatelessWidget {
   final Chore chore;
@@ -20,7 +19,6 @@ class ChoreTile extends StatelessWidget {
         padding: const EdgeInsets.only(left: 4),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text("> ${chore.choreName}"),
             Checkbox(

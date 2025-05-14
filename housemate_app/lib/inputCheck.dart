@@ -1,7 +1,4 @@
-import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/dataInfo.dart';
-//import 'package:housemate_app/main.dart' show shoppingList;
-import 'package:housemate_app/utils/database/database.dart';
 
 class DataChecks {
   bool charLengthCheck(int field, String value) {

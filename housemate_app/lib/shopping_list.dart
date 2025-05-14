@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
 
-import 'package:housemate_app/inputCheck.dart';
-
 import 'package:housemate_app/main.dart';
 import 'package:housemate_app/utils/database/data-models.dart';
 import 'package:housemate_app/utils/database/database.dart';
@@ -16,7 +14,7 @@ class shopping_list extends StatefulWidget {
 }
 
 class _shopping_listState extends State<shopping_list> {
-  late List<ShoppingList> currentshoppingList; //this currently resets constantly, needs database loading
+  late List<ShoppingList> currentshoppingList; 
   final quantity = TextEditingController();
   final itemName = TextEditingController();
   final cost = TextEditingController();

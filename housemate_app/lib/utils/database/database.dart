@@ -21,9 +21,12 @@ class Database {
     List<Chore> chore = [];
     List<GeneralChoreRota> generalChoreRotaList = [];
     List<WeeklyChoreRota> weeklyChoreRotaList = [];
+    // the various world wide lists that store data
 
     int currentUser = 0;
 
+    
+  // all the load functions for the initial data
    Future<void> loadUsers() async {
     final userRaw = await rootBundle.loadString('data/user-data.json');
     final userData = json.decode(userRaw);
@@ -33,7 +36,7 @@ class Database {
    Future<void> loadHouse() async {
     final houseRaw = await rootBundle.loadString('data/house-data.json');
     final houseData = json.decode(houseRaw);
-    house = (houseData as List).map((item) => House.fromJson(item)).toList(); // < -------- change this to house class
+    house = (houseData as List).map((item) => House.fromJson(item)).toList(); 
    }
 
    Future<void> loadMessage() async {
@@ -48,37 +51,9 @@ class Database {
     shoppingList = (listData as List).map((item) => ShoppingList.fromJson(item)).toList();
    }
 
-
-
-//    Future<void> loadShoppingList() async {
-//     //final messageRaw = await rootBundle.loadString('data/messages-data.json');
-//     final shoppingListRaw = await rootBundle.loadString('data/shopping-list-data.json');
-//     final shoppingListData = json.decode(shoppingListRaw);
-//     shoppingList = (shoppingListData as List).map((item) => ShoppingList.fromJson(item)).toList();
-//    }
-
    Future<void> loadChore() async {
     final choreRaw = await rootBundle.loadString('data/chores-data.json');
     final choreData = json.decode(choreRaw);
     chore = (choreData as List).map((item) => Chore.fromJson(item)).toList();
    }  
 }
-
-
-// class DataManager {
-//   static final DataManager _instance = DataManager._internal();
-//   factory DataManager() => _instance;
-//   DataManager._internal();
-
-//   List<Product> _products = [];
-
-//   Future<void> loadProducts() async {
-//     final raw = await rootBundle.loadString('assets/products.json');
-//     final data = json.decode(raw);
-//     _products = (data as List)
-//         .map((item) => Product.fromJson(item))
-//         .toList();
-//   }
-
-//   List<Product> get products => _products;
-// }

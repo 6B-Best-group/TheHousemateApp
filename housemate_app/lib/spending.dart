@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:housemate_app/class/profile.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/main.dart';
-import 'package:housemate_app/class/profile.dart';
-import 'package:housemate_app/user_profile.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
+
 
 class spendingPage extends StatefulWidget {
   const spendingPage({super.key});
@@ -13,17 +12,12 @@ class spendingPage extends StatefulWidget {
 }
 
 class _spendingPageState extends State<spendingPage> {
-  //setState();
-  // @override
 
-  // void setState(VoidCallback fn) {
-  //   // TODO: implement setState
-  //   getSpending();
-  //   print("called");
-  // }
+  List<User> housemates = Database().users;
 
   @override
   void initState() {
+    super.initState();
     getSpending();
   }
 
@@ -36,17 +30,17 @@ class _spendingPageState extends State<spendingPage> {
             itemCount: spendingMap.keys.length,
             itemBuilder: (context, i) {
               return ListTile(
-                title: Text(housemates[i].getUsername()),
+                title: Text(Database().users[i].firstName),
                 subtitle: Text(
-                    "Total spent:${spendingMap[housemates[i].getUsername()]}"),
+                    "Total spent:${spendingMap[Database().users[i].firstName]}"),
               );
             }));
   }
 }
 
 void getSpending() {
-  for (User housemate in housemates) {
-    String name = housemate.getUsername();
+  for (User housemate in Database().users ) {
+    String name = housemate.firstName;
     spendingMap[name] = 0;
   }
   for (ShoppingItem item in broughItems) {

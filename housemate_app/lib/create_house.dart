@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:housemate_app/class/house.dart';
 import 'package:housemate_app/main.dart';
 
 class CreateHouse extends StatefulWidget {
@@ -136,11 +135,6 @@ class _MyCustomFormState extends State<MyCustomForm> {
           ),
           ElevatedButton.icon(
             onPressed: () async {
-              final DateTimeRange? dateTimeRange = await showDateRangePicker(
-                context: context,
-                firstDate: DateTime(2000),
-                lastDate: DateTime(2300),
-              );
             },
             icon: const Icon(Icons.calendar_month),
             label: const Text("Choose Tennancy Dates"),

@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:housemate_app/main.dart';
-import 'package:flutter/material.dart';
 
 void main() {
   testWidgets('Test calendar navigation', (WidgetTester tester) async {
