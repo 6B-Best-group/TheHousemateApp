@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/general_chore_rota.dart';
@@ -22,17 +24,22 @@ class CustomListItem extends StatelessWidget {
     required this.choreName,
     required this.assignee,
     required this.nextAssignee,
-    required this.onPressed,
+    required this.onCheckPressed,
+    required this.onDeletePressed,
+    required this.onFullRotaPressed,
   });
 
   final Widget thumbnail;
   final String choreName;
   final String assignee;
   final String nextAssignee;
-  final VoidCallback onPressed;
+  final VoidCallback onCheckPressed;
+  final VoidCallback onDeletePressed;
+  final VoidCallback onFullRotaPressed;
 
   @override
   Widget build(BuildContext context) {
+    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 5.0),
       child: Row(
@@ -55,7 +62,13 @@ class CustomListItem extends StatelessWidget {
       ),
     )
           ),
-          IconButton(onPressed: onPressed, icon: const Icon(Icons.check, size: 16.0),)
+          Row(
+            children: [
+              IconButton(onPressed: onCheckPressed, icon: const Icon(Icons.check, size: 16.0)),
+              IconButton(onPressed: onDeletePressed, icon: const Icon(Icons.delete, size: 16.0)),
+              IconButton(onPressed: onFullRotaPressed, icon: const Icon(Icons.more_vert, size: 16.0)),
+            ],
+            )
         ],
       ),
     );
@@ -64,36 +77,29 @@ class CustomListItem extends StatelessWidget {
 
 class _RotaState extends State<Rota> {
   final generalChoreName = TextEditingController();
+  final weeklyChoreName = TextEditingController();
+  String selectedUser = "Ben";
+  List<String> selectedUsers = [];
+  List<DropdownMenuEntry<String>> menuEntries = UnmodifiableListView<DropdownMenuEntry<String>>(
+    users1.map<DropdownMenuEntry<String>>((String name) => DropdownMenuEntry<String>(value: name, label: name)),
+  );
 
-  late List<User> users; // users and the current user
-  late User selectedUser ;
-
-
-  List<User> selectedUsers = [];
-
-  void addChore() {
-    GeneralChoreRota rota = GeneralChoreRota(generalChoreName.text, nextAssigned(3, selectedUser, users)); // look at this
-    Database().generalChoreRotaList.add(rota);
-    ActionLogNotification action = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a new general chore rota', 'Rota: ${selectedUsers.join(' → ')}');
+  void addGeneralChore() {
+    GeneralChoreRota rota = GeneralChoreRota(generalChoreName.text, selectedUsers);
+    generalChoreRotaList.add(rota);
+    ActionLogNotification action = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a new general chore rota: ${generalChoreName.text}', 'Rota: ${selectedUsers.join(' → ')}');
     actionsList.add(action);
-    setState(() {});
+    setState(() {
+      selectedUsers = [];
+    });
   }
 
-  @override
-  void initState() {
-    // TODO: implement initState
-    users = Database().users;
-    selectedUser = Database().users[Database().currentUser];
-
-    super.initState();
-  }
-
-  void addChoreDialog(context) {
+  void addGeneralDialog(context) {
     showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
                 icon: const Icon(Icons.local_laundry_service_sharp),
-                title: const Text("New General Chore Rota"),
+                title: const Text("New General Rota"),
                 content: Wrap(
                   children: [
                     TextField(
@@ -102,28 +108,21 @@ class _RotaState extends State<Rota> {
                         decoration: const InputDecoration(
                           label: Text("Chore name:"),
                         )),
-                    DropdownButton<User>(
-                      hint: const Text("Choose the rota"),
-                      value: selectedUser,
-                      onChanged: (User? newValue) {
+                    DropdownMenu<String>(
+                      initialSelection: users1[0],
+                      onSelected: (String? value) {
                         setState(() {
-                          selectedUser = newValue!;
+                          selectedUser = value!;
                         });
                       },
-                      items: users.map<DropdownMenuItem<User>>((User user) {
-                        return DropdownMenuItem<User>(
-                          value: user,
-                          child: Text(user.firstName),
-                        );
-                      }).toList(),
+                      dropdownMenuEntries: menuEntries,
                     ),
-                    TextButton( // add to rota
+                    TextButton(
                       onPressed: () {
                         if (!selectedUsers.contains(selectedUser)) {
                           setState(() {
                             selectedUsers.add(selectedUser);
                           });
-                          print(selectedUser.firstName);
                         }
                       },
                       child: const Text("Add to rota"),
@@ -140,12 +139,117 @@ class _RotaState extends State<Rota> {
                         label: const Text("discard")),
                     TextButton.icon(
                         onPressed: () {
-                          addChore();
-                          Navigator.pop(context);
+                          if (selectedUsers.isNotEmpty) {
+                            addGeneralChore();
+                            Navigator.pop(context);
+                          }
                         },
                         icon: const Icon(Icons.save),
                         label: const Text("Add to list"))
                   ]),
+                ]));
+  }
+
+  void addWeeklyChore() {
+    WeeklyChoreRota rota = WeeklyChoreRota(weeklyChoreName.text, selectedUsers);
+    weeklyChoreRotaList.add(rota);
+    ActionLogNotification action = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a new weekly chore rota: ${weeklyChoreName.text}', 'Rota: ${selectedUsers.join(' → ')}');
+    actionsList.add(action);
+    setState(() {
+      selectedUsers = [];
+    });
+  }
+
+  void addWeeklyDialog(context) {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+                icon: const Icon(Icons.event_repeat),
+                title: const Text("New Weekly Rota"),
+                content: Wrap(
+                  children: [
+                    TextField(
+                      controller: weeklyChoreName,
+                        maxLength: 30,
+                        decoration: const InputDecoration(
+                          label: Text("Chore name:"),
+                        )),
+                    DropdownMenu<String>(
+                      initialSelection: users1[0],
+                      onSelected: (String? value) {
+                        setState(() {
+                          selectedUser = value!;
+                        });
+                      },
+                      dropdownMenuEntries: menuEntries,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        if (!selectedUsers.contains(selectedUser)) {
+                          setState(() {
+                            selectedUsers.add(selectedUser);
+                          });
+                        }
+                      },
+                      child: const Text("Add to rota"),
+                    ),
+                  ],
+                ),
+                actions: [
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                    TextButton.icon(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.delete),
+                        label: const Text("discard")),
+                    TextButton.icon(
+                        onPressed: () {
+                          if (selectedUsers.isNotEmpty) {
+                            addWeeklyChore();
+                            Navigator.pop(context);
+                          }
+                        },
+                        icon: const Icon(Icons.save),
+                        label: const Text("Add to list"))
+                  ]),
+                ]));
+  }
+
+  void removeGeneralRota(rota) {
+    generalChoreRotaList.remove(rota);
+    ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} deleted a general chore rota', rota.choreName);
+    actionsList.add(logAction);
+  }
+
+  void removeWeeklyRota(rota) {
+    weeklyChoreRotaList.remove(rota);
+    ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} deleted a weekly chore rota', rota.choreName);
+    actionsList.add(logAction);
+  }
+
+  void showFullRota(context, rota) {
+    showDialog<String>(
+        context: context,
+        builder: (BuildContext context) => AlertDialog(
+                icon: const Icon(Icons.assignment),
+                title: const Text("Full Rota:"),
+                content: Wrap(
+                  children: [
+                    Center(child: Text(rota.choreRota.join(' → '),
+                    )
+                  ),
+                  ],
+                ),
+                actions: [
+                  Center(child: 
+                    TextButton.icon(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(Icons.close),
+                        label: const Text("Close")),
+                  ),
                 ]));
   }
 
@@ -162,30 +266,50 @@ class _RotaState extends State<Rota> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          addChoreDialog(context);
-        },
-        label: const Text("Create New Rota"),
-        icon: const Icon(Icons.add),
-        ),
-      body: TabBarView(children: <Widget>[ 
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          FloatingActionButton.extended(
+            onPressed: () {
+              addGeneralDialog(context);
+            },
+            label: const Text("General Rota"),
+            icon: const Icon(Icons.add),
+          ),
+          const Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
+          FloatingActionButton.extended(
+            onPressed: () {
+              addWeeklyDialog(context);
+            },
+            label: const Text("Weekly Rota"),
+            icon: const Icon(Icons.add),
+          ),
+        ],
+      ),
+      body: TabBarView(children: <Widget>[
         ListView.builder(
         padding: const EdgeInsets.all(8.0),
         itemExtent: 106.0,
         itemCount: Database().generalChoreRotaList.length,
         itemBuilder: (context, i) {
-          return CustomListItem( // general chore rota
-            onPressed: () {
-              ActionLogNotification action = ActionLogNotification('${Database().generalChoreRotaList[i].getAssignee()} completed a task of the general chore rota', Database().generalChoreRotaList[i].choreName);
+          return CustomListItem(
+            onCheckPressed: () {
+              ActionLogNotification action = ActionLogNotification('${generalChoreRotaList[i].getAssignee()} completed a task of the general chore rota', generalChoreRotaList[i].choreName);
               actionsList.add(action);
               Database().generalChoreRotaList[i].incrementRota();
               Database().generalChoreRotaList[i].setLastCompleted();
               setState(() {});
             },
-            choreName: Database().generalChoreRotaList[i].choreName,
-            assignee: Database().generalChoreRotaList[i].getAssignee(),
-            nextAssignee: Database().generalChoreRotaList[i].getNextAssignee(),
+            onDeletePressed: () {
+              removeGeneralRota(generalChoreRotaList[i]);
+              setState(() {});
+            }, 
+            onFullRotaPressed: () {
+              showFullRota(context, generalChoreRotaList[i]);
+            },
+            choreName: generalChoreRotaList[i].choreName,
+            assignee: generalChoreRotaList[i].getAssignee(),
+            nextAssignee: generalChoreRotaList[i].getNextAssignee(),
             thumbnail: Container(decoration: const BoxDecoration(color: Color.fromARGB(255, 165, 237, 255)), 
               child: Center(child: Text('Last Completed: ${Database().generalChoreRotaList[i].getLastCompleted()}\nBy: ${Database().generalChoreRotaList[i].getLastAssignee()}'))),
           );
@@ -197,9 +321,23 @@ class _RotaState extends State<Rota> {
         itemCount: weeklyChoreRotaList.length,
         itemBuilder: (context, i) {
           return CustomListItem(
-            onPressed: () {
+            onCheckPressed: () {
               weeklyChoreRotaList[i].setCompleted();
+              if (weeklyChoreRotaList[i].completed) {
+                ActionLogNotification action = ActionLogNotification('${weeklyChoreRotaList[i].getAssignee()} marked a weekly chore as completed', weeklyChoreRotaList[i].choreName);
+                actionsList.add(action);
+              } else {
+                ActionLogNotification action = ActionLogNotification('${weeklyChoreRotaList[i].getAssignee()} marked a weekly chore as incomplete', weeklyChoreRotaList[i].choreName);
+                actionsList.add(action);
+              }
               setState(() {});
+            },
+            onDeletePressed: () {
+              removeWeeklyRota(weeklyChoreRotaList[i]);
+              setState(() {});
+            },
+            onFullRotaPressed: () {
+              showFullRota(context, weeklyChoreRotaList[i]);
             },
             choreName: weeklyChoreRotaList[i].choreName,
             assignee: weeklyChoreRotaList[i].getAssignee(),

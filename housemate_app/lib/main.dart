@@ -6,7 +6,6 @@ import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/class/weekly_chore_rota.dart';
 import 'package:housemate_app/class/house.dart';
 import 'package:housemate_app/create_house.dart';
-import 'package:housemate_app/edit_rotas.dart';
 import 'package:housemate_app/rota.dart';
 import 'package:housemate_app/sign-in%20pages/findHouse.dart';
 import 'package:housemate_app/class/home.dart';
@@ -14,6 +13,7 @@ import 'package:housemate_app/class/profile.dart';
 import 'package:housemate_app/sign-in%20pages/joinHouse.dart';
 import 'package:housemate_app/shopping_list.dart';
 import 'package:housemate_app/sign-in%20pages/sign_up.dart';
+import 'package:housemate_app/spending.dart';
 import 'package:housemate_app/user_profile.dart';
 import 'package:housemate_app/utils/database/database.dart';
 import 'package:housemate_app/utils/helpers.dart';
@@ -29,7 +29,8 @@ List<ActionLogNotification> actionsList = [];
 List<WeeklyChoreRota> weeklyChoreRotaList = [WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])];
 //List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
-List<String> housemates = []; //placeholder code
+List<User> housemates = []; //placeholder code
+Map<String, double> spendingMap = {};
 User currentUser = User();
 House house = House();
 bool login = true;
@@ -94,9 +95,9 @@ class _MyAppState extends State<MyApp> {
         '/findHouse': (context) => const findHouse(),
         '/actionLog': (context) => const ActionLog(),
         '/rota': (context) => const Rota(),
-        '/editRotas': (context) => const EditRotas(),
         '/houseInfo': (context) => const HouseInfoScreen(),
         '/settings': (context) => const Settings(),
+        '/spending': (context) => const spendingPage(),
       },
     );
   }
