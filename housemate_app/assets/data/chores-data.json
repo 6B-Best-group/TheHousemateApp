@@ -1,0 +1,66 @@
+[
+    {
+        "chore_id": 1,
+        "user_id": 2,
+        "chore_name": "Take out trash",
+        "chore_description": "Take the trash out to the curb by 8am, dont be late",
+        "due_date": "2025-05-14",
+        "assigned_date": "2025-05-10",
+        "completed": false
+    },
+    {
+        "chore_id": 2,
+        "user_id": 3,
+        "chore_name": "Vacuum living room",
+        "chore_description": "Vacuum the entire living room carpet",
+        "due_date": "2025-05-14",
+        "assigned_date": "2025-05-13",
+        "completed": false
+      },
+      {
+        "chore_id": 3,
+        "user_id": 3,
+        "chore_name": "Laundry",
+        "chore_description": "Wash and fold all laundry",
+        "due_date": "2025-05-14",
+        "assigned_date": "2025-05-13",
+        "completed": false
+      },
+      {
+        "chore_id": 4,
+        "user_id": 1,
+        "chore_name": "Mow the lawn",
+        "chore_description": "Mow the front and backyard lawns",
+        "due_date": "2025-05-17",
+        "assigned_date": "2025-05-13",
+        "completed": true
+      },
+      {
+        "chore_id": 5,
+        "user_id": 4,
+        "chore_name": "Clean bathroom",
+        "chore_description": "Scrub the sink, toilet, and shower",
+        "due_date": "2025-05-17",
+        "assigned_date": "2025-05-13",
+        "completed": false
+      },
+      {
+        "chore_id": 7,
+        "user_id": 4,
+        "chore_name": "Organize pantry",
+        "chore_description": "Sort and arrange pantry shelves",
+        "due_date": "2025-05-14",
+        "assigned_date": "2025-05-13",
+        "completed": false
+      },
+      {
+        "chore_id": 8,
+        "user_id": 1,
+        "chore_name": "Mop the floor",
+        "chore_description": "Thoouroughly mop the downstairs floors",
+        "due_date": "2025-05-14",
+        "assigned_date": "2025-05-13",
+        "completed": false
+      }
+
+]

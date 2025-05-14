@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/main.dart';
-import 'class/profile.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
+//import 'class/profile.dart';
 
 class UserProfile extends StatefulWidget {
   const UserProfile({super.key});
@@ -11,6 +13,16 @@ class UserProfile extends StatefulWidget {
 }
 
 class _UserProfileState extends State<UserProfile> {
+
+  late User currentUser;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    currentUser = Database().users[Database().currentUser];
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,7 +69,7 @@ class _UserProfileState extends State<UserProfile> {
                             height: 30.0,
                           ),
                           Text(
-                            '${currentUser.getFirstName()} ${currentUser.getLastName()}', //user.getFirstName(),
+                            '${currentUser.firstName} ${currentUser.lastName}', //user.getFirstName(),
                             style: TextStyle(
                               fontSize: 27,
                             ),
@@ -94,7 +106,7 @@ class _UserProfileState extends State<UserProfile> {
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          currentUser.getEmail(),
+                          currentUser.email,
                           //textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
@@ -103,7 +115,7 @@ class _UserProfileState extends State<UserProfile> {
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          currentUser.getDOB(),
+                          '${currentUser.dateOfBirth.year}-${currentUser.dateOfBirth.month}-${currentUser.dateOfBirth.year}',
                           //textAlign: TextAlign.center,
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),

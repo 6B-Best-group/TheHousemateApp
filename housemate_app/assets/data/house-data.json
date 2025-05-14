@@ -1,0 +1,11 @@
+[
+    {
+        "house_id": 1,
+        "house_nickname": "uni house",
+        "house_address": "15 Buckingham",
+        "city": "London",
+        "country": "England",
+        "postcode": "SW11 1AA",
+        "bin_code": "10Ghico"
+    }
+]

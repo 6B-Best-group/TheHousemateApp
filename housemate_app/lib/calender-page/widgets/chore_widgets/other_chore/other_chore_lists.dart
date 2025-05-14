@@ -1,6 +1,7 @@
 import 'package:housemate_app/utils/calender_utils.dart';
 import 'package:housemate_app/calender-page//widgets/chore_widgets/other_chore/other_chore_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
 
 class OtherChoreLists extends StatelessWidget {
   final String userName;

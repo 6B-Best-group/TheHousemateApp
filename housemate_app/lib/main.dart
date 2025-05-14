@@ -15,6 +15,8 @@ import 'package:housemate_app/shopping_list.dart';
 import 'package:housemate_app/sign-in%20pages/sign_up.dart';
 import 'package:housemate_app/spending.dart';
 import 'package:housemate_app/user_profile.dart';
+import 'package:housemate_app/utils/database/database.dart';
+import 'package:housemate_app/utils/helpers.dart';
 import 'package:housemate_app/utils/theme.dart';
 import 'package:housemate_app/sign-in%20pages/log_in.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
@@ -24,16 +26,8 @@ import 'package:housemate_app/houseInfo.dart';
 import 'package:housemate_app/settings.dart';
 
 List<ActionLogNotification> actionsList = [];
-List<GeneralChoreRota> generalChoreRotaList = [
-  GeneralChoreRota("Take out the food bin", ["Ben", "Anna", "Matt"]),
-  GeneralChoreRota("Clean Oven Grease", ["Dan", "Keiran"]),
-  GeneralChoreRota("Wipe down hob", ["Cecile"])
-];
-List<WeeklyChoreRota> weeklyChoreRotaList = [
-  WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])
-];
-List<String> users1 = ["Ben", "Anna", "Kieran", "Matt", "Dan"];
-List<ShoppingItem> shoppingList = [];
+List<WeeklyChoreRota> weeklyChoreRotaList = [WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])];
+//List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
 List<User> housemates = []; //placeholder code
 Map<String, double> spendingMap = {};
@@ -42,20 +36,30 @@ House house = House();
 bool login = true;
 bool houseMember = true;
 String screen = '/welcome';
-void main() {
-  currentUser.createUser(
-      "John", "Doe", "J.Doe", "Doe@email.com", DateTime.now());
-  house.createHouse(
-      "House", "Buckingham Palace", "London", "London", "London", " SW1A 1AA");
+final db = Database();
 
-  housemates.add(currentUser);
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  // currentUser.createUser(
+  //     "John", "Doe", "J.Doe", "Doe@email.com", DateTime.now());
+  // house.createHouse(
+  //     "House", "Buckingham Palace", "London", "London", "London", " SW1A 1AA");
   if (login) {
     if (houseMember) {
       screen = '/';
     }
   }
   // Test comment.
-  WidgetsFlutterBinding.ensureInitialized();
+
+  await Database().loadUsers();
+  await Database().loadHouse();
+  await Database().loadMessage();
+  await Database().loadShoppingList();
+  await Database().loadChore();
+    
+
+
   runApp(const MyApp());
 }
 

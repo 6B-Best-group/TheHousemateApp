@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/inputCheck.dart';
+
 import 'package:housemate_app/main.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
 
 class shopping_list extends StatefulWidget {
   const shopping_list({super.key});
@@ -12,7 +15,7 @@ class shopping_list extends StatefulWidget {
 }
 
 class _shopping_listState extends State<shopping_list> {
-  // List<ShoppingItem> itemList =   []; //this currently resets constantly, needs database loading
+  late List<ShoppingList> currentshoppingList; //this currently resets constantly, needs database loading
   final quantity = TextEditingController();
   final itemName = TextEditingController();
   final cost = TextEditingController();
@@ -97,7 +100,7 @@ class _shopping_listState extends State<shopping_list> {
                 ]));
   }
 
-  void removeItemPopUp(context, item) {
+  void removeItemPopUp(context, int index) {
     showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -136,6 +139,15 @@ class _shopping_listState extends State<shopping_list> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    currentshoppingList = Database().shoppingList;
+
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -148,26 +160,37 @@ class _shopping_listState extends State<shopping_list> {
               },
               child: const Text("Spending page")),
           Flexible(
-              child: ListView.builder(
-                  itemCount: shoppingList.length,
-                  itemBuilder: (context, i) {
-                    return ListTile(
-                        title: Text(shoppingList[i].itemName),
-                        subtitle: Text("Quantity: ${shoppingList[i].quanity}"),
-                        trailing: Wrap(children: [
-                          IconButton(
-                              icon: const Icon(Icons.check),
-                              onPressed: () {
-                                removeItemPopUp(context, shoppingList[i]);
-                              }),
-                          IconButton(
-                              icon: const Icon(Icons.delete_forever),
-                              onPressed: () {
-                                removeItem(shoppingList[i]);
-                                //Navigator.pop(context);
-                              }),
-                        ]));
-                  }))
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10,bottom: 10),
+                child: ListView.builder(
+                    itemCount: currentshoppingList.length,
+                    itemBuilder: (context, i) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.black,width: 1),
+                            borderRadius: BorderRadius.circular(0),
+                        
+                          ),
+                            title: Text(currentshoppingList[i].itemName),
+                            subtitle: Text("Quantity: ${currentshoppingList[i].itemQuantity}"),
+                            trailing: Wrap(children: [
+                              IconButton(
+                                  icon: const Icon(Icons.check),
+                                  onPressed: () {
+                                    removeItemPopUp(context, i);
+                                  }),
+                              IconButton(
+                                  icon: const Icon(Icons.delete_forever),
+                                  onPressed: () {
+                                    removeItem(currentshoppingList[i]);
+                                    //Navigator.pop(context);
+                                  }),
+                            ])),
+                      );
+                    }),
+              ))
         ]),
         floatingActionButton: FloatingActionButton(
             onPressed: () {

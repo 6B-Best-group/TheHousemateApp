@@ -6,6 +6,9 @@ import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/class/weekly_chore_rota.dart';
 // import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/main.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
+import 'package:housemate_app/utils/helpers.dart';
 
 class Rota extends StatefulWidget {
   const Rota({super.key});
@@ -287,14 +290,14 @@ class _RotaState extends State<Rota> {
         ListView.builder(
         padding: const EdgeInsets.all(8.0),
         itemExtent: 106.0,
-        itemCount: generalChoreRotaList.length,
+        itemCount: Database().generalChoreRotaList.length,
         itemBuilder: (context, i) {
           return CustomListItem(
             onCheckPressed: () {
               ActionLogNotification action = ActionLogNotification('${generalChoreRotaList[i].getAssignee()} completed a task of the general chore rota', generalChoreRotaList[i].choreName);
               actionsList.add(action);
-              generalChoreRotaList[i].incrementRota();
-              generalChoreRotaList[i].setLastCompleted();
+              Database().generalChoreRotaList[i].incrementRota();
+              Database().generalChoreRotaList[i].setLastCompleted();
               setState(() {});
             },
             onDeletePressed: () {
@@ -308,7 +311,7 @@ class _RotaState extends State<Rota> {
             assignee: generalChoreRotaList[i].getAssignee(),
             nextAssignee: generalChoreRotaList[i].getNextAssignee(),
             thumbnail: Container(decoration: const BoxDecoration(color: Color.fromARGB(255, 165, 237, 255)), 
-              child: Center(child: Text('Last Completed: ${generalChoreRotaList[i].getLastCompleted()}\nBy: ${generalChoreRotaList[i].getLastAssignee()}'))),
+              child: Center(child: Text('Last Completed: ${Database().generalChoreRotaList[i].getLastCompleted()}\nBy: ${Database().generalChoreRotaList[i].getLastAssignee()}'))),
           );
         },
       ),
