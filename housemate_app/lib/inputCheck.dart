@@ -3,6 +3,7 @@ import 'package:housemate_app/dataInfo.dart';
 class DataChecks {
   bool charLengthCheck(String field, String value) {
     if (inputLen[field]! < value.length || value.isEmpty) {
+      print(value);
       return false;
     }
     return true;
@@ -21,10 +22,28 @@ class DataChecks {
       }
       i += 1;
     }
+    if (userEmail.length < 5) {
+      return false;
+    }
 
+    if (checkForNum(fname) || checkForNum(lname)) {
+      return false;
+    }
     if (!userEmail.contains("@")) {
       return false;
     }
     return true;
   }
+}
+
+bool checkForNum(data) {
+  for (int l = 0; l < data.length; l++) {
+    try {
+      int.parse(data[l]);
+      return true;
+    } catch (e) {
+      //nothing happens
+    }
+  }
+  return false;
 }

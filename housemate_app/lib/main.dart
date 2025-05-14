@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/calender-page/calender.dart';
+import 'package:housemate_app/group_chat.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/class/weekly_chore_rota.dart';
@@ -18,6 +19,8 @@ import 'package:housemate_app/sign-in%20pages/log_in.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/welcome.dart';
 import 'package:housemate_app/action_log.dart';
+import 'package:housemate_app/houseInfo.dart';
+import 'package:housemate_app/settings.dart';
 
 List<ActionLogNotification> actionsList = [];
 List<GeneralChoreRota> generalChoreRotaList = [GeneralChoreRota("Take out the food bin", ["Ben", "Anna", "Matt"]), GeneralChoreRota("Clean Oven Grease", ["Dan", "Keiran"]), GeneralChoreRota("Wipe down hob", ["Cecile"])];
@@ -69,6 +72,7 @@ class _MyAppState extends State<MyApp> {
         '/shoppingList': (context) => const shopping_list(),
         '/userProfile': (context) => const UserProfile(),
         '/calenderPage': (context) => const CalenderPage(),
+        '/groupChat': (context) => const GroupChatPage(),
         '/createHouse': (context) => const CreateHouse(),
         '/signUp': (context) => const sign_up(),
         '/login': (context) => const log_In(),
@@ -77,6 +81,8 @@ class _MyAppState extends State<MyApp> {
         '/findHouse': (context) => const findHouse(),
         '/actionLog': (context) => const ActionLog(),
         '/rota': (context) => const Rota(),
+        '/houseInfo': (context) => const HouseInfoScreen(),
+        '/settings': (context) => const Settings(),
       },
     );
   }

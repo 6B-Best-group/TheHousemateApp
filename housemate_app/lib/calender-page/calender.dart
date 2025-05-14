@@ -147,8 +147,6 @@ class _CalenderHomePageState extends State<CalenderPage>
     ],
   };
 
-
-
   String selectedDate = "";
 
   DateTime currentDate = DateTime.now();
@@ -230,7 +228,7 @@ class _CalenderHomePageState extends State<CalenderPage>
       appBar: AppBar(
         backgroundColor: Colors.grey,
         centerTitle: true,
-        title: const Text('C A L E N D E R'),
+        title: const Text('C A L E N D A R'),
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -342,7 +340,7 @@ class _CalenderHomePageState extends State<CalenderPage>
                                     currentDate,
                                   ) // set a minimum size for this // other user chores
                                   ? ListView.builder(
-                                    shrinkWrap: true,
+                                    //shrinkWrap: true,
                                     itemCount:
                                         otherUserDateChores[currentDate]!
                                             .length,

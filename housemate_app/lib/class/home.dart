@@ -14,7 +14,7 @@ class _MyHomePageState extends State<MyHomePage> {
     //["Calender", '/calenderPage'],
     ["Shopping List", '/shoppingList'],
     ["Rotas", '/rota'],
-    ["Group Chat", ' '],
+    ["Group Chat", '/groupChat'],
   ];
 
   @override
@@ -74,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: ListTile(
                           leading: const Icon(Icons.house_outlined),
                           title: const Text('House Info'),
-                          onTap: () {},
+                          onTap: () {Navigator.pushNamed(context, '/houseInfo'); },
                         ),
                       ),
                       Padding(
@@ -105,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       IconButton(
                         // settings button
-                        onPressed: () {},
+                        onPressed: () {Navigator.pushNamed(context, '/settings'); },
                         icon: const Icon(Icons.settings),
                       ),
                       IconButton(
