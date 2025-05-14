@@ -288,8 +288,6 @@ class _RotaState extends State<Rota> {
       floatingActionButton: Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          
-          
           FloatingActionButton.extended(
             heroTag: 'generalRotaFab',
             onPressed: () {
@@ -298,6 +296,7 @@ class _RotaState extends State<Rota> {
             label: const Text("General Rota"),
             icon: const Icon(Icons.add),
           ),
+          
           const Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
           FloatingActionButton.extended(
             heroTag: 'weeklyRotaFab',

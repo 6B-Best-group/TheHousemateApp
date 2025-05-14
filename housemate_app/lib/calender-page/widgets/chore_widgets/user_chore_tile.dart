@@ -5,7 +5,8 @@ import 'package:housemate_app/utils/database/data-models.dart';
 
 class UserChoreTile extends StatelessWidget {
   final List<Chore> userChores;
-  const UserChoreTile({super.key, required this.userChores});
+  final Function(bool,Chore)? changeCompleted;
+  const UserChoreTile({super.key, required this.userChores, this.changeCompleted});
 
   @override
   Widget build(BuildContext context) {

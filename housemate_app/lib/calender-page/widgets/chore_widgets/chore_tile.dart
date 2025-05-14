@@ -1,13 +1,16 @@
 import 'package:housemate_app/utils/calender_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
 
 class ChoreTile extends StatelessWidget {
   final Chore chore;
-  const ChoreTile({super.key, required this.chore});
+  final Function(bool,Chore)? changeCompleted;
+  const ChoreTile({super.key, required this.chore, this.changeCompleted});
 
   @override
   Widget build(BuildContext context) {
+    bool completed = chore.completed;
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -22,8 +25,10 @@ class ChoreTile extends StatelessWidget {
             Text("> ${chore.choreName}"),
             Checkbox(
               activeColor: chore.completed ? Colors.green : Colors.red,
-              value: chore.completed,
-              onChanged: (value) {},
+              value: completed,
+              onChanged: (value) => completed
+                
+              
             ),
           ],
         ),

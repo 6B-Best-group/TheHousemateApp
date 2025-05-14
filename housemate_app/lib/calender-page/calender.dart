@@ -236,6 +236,7 @@ class _CalenderHomePageState extends State<CalenderPage>
                                   ) // set a minimum size for this // user chores
                                   ? UserChoreTile(
                                     userChores: userDateChores[currentDate]!,
+                                    
                                   ) // -----
                                   : const UserChoreTile(userChores: []),
                         ),
@@ -319,6 +320,7 @@ class _CalenderHomePageState extends State<CalenderPage>
       ),
     );
   }
+
 
   // -- changing the calender
 
@@ -459,3 +461,4 @@ class _CalenderHomePageState extends State<CalenderPage>
   //   }
   // }
 }
+

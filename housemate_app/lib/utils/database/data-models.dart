@@ -177,7 +177,7 @@ class Chore {
   final String choreDescription;
   final DateTime dueDate;
   final DateTime assignedDate;
-  final bool completed;
+  bool completed;
 
   Chore({
     required this.choreId,
