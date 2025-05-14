@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
+
 import 'package:housemate_app/main.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
 
 class shopping_list extends StatefulWidget {
   const shopping_list({super.key});
@@ -11,15 +14,16 @@ class shopping_list extends StatefulWidget {
 }
 
 class _shopping_listState extends State<shopping_list> {
-  // List<ShoppingItem> itemList =   []; //this currently resets constantly, needs database loading
+  late List<ShoppingList> currentshoppingList; //this currently resets constantly, needs database loading
   final quantity = TextEditingController();
   final itemName = TextEditingController();
   final cost = TextEditingController();
 
   void addItem() {
     if (itemValid()) {
-      ShoppingItem item = ShoppingItem(itemName.text, int.parse(quantity.text));
-      shoppingList.add(item);
+      Database().shoppingList.add(ShoppingList(itemId: Database().shoppingList.length + 1, houseId: Database().users[Database().currentUser].houseId, itemName: itemName.text, itemQuantity: int.parse(quantity.text), itemPrice: 0.00, itemBrought: false, userId: Database().users[Database().currentUser].userId));
+      //ShoppingItem item = ShoppingItem(itemName.text, int.parse(quantity.text));
+      //shoppingList.add(item);
       ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added to the Shopping List', '${quantity.text}x ${itemName.text}');
       actionsList.add(logAction);
       setState(() {});
@@ -27,8 +31,8 @@ class _shopping_listState extends State<shopping_list> {
   }
 
   void removeItem(item) {
-    shoppingList.remove(item);
-    print(shoppingList);
+    Database().shoppingList.remove(item);
+    //print(currentshoppingList);
     ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} removed an item from the shopping list', 'Discover new and inciting Minecraft creations (placeholder)');
     actionsList.add(logAction);
     setState(() {});
@@ -97,7 +101,7 @@ class _shopping_listState extends State<shopping_list> {
                 ]));
   }
 
-  void removeItemPopUp(context, item) {
+  void removeItemPopUp(context, int index) {
     showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -123,12 +127,26 @@ class _shopping_listState extends State<shopping_list> {
                       icon: const Icon(Icons.delete),
                       label: const Text("discard")),
                   TextButton.icon(
-                      onPressed: () {}, // To be added
+                      onPressed: () {
+                        Database().shoppingList[index].itemPrice = double.parse(cost.text);
+                        quantity.clear();
+                        Navigator.pop(context);
+
+                      }, // To be added
                       icon: Icon(Icons.add),
                       label: Text("Log"))
                 ])
               ],
             ));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    currentshoppingList = Database().shoppingList;
+
+
   }
 
   @override
@@ -141,21 +159,21 @@ class _shopping_listState extends State<shopping_list> {
           TextButton(onPressed: () {}, child: const Text("Spending page")),
           Flexible(
               child: ListView.builder(
-                  itemCount: shoppingList.length,
+                  itemCount: currentshoppingList.length,
                   itemBuilder: (context, i) {
                     return ListTile(
-                        title: Text(shoppingList[i].itemName),
-                        subtitle: Text("Quantity: ${shoppingList[i].quanity}"),
+                        title: Text(currentshoppingList[i].itemName),
+                        subtitle: Text("Quantity: ${currentshoppingList[i].itemQuantity}"),
                         trailing: Wrap(children: [
                           IconButton(
                               icon: const Icon(Icons.check),
                               onPressed: () {
-                                removeItemPopUp(context, shoppingList[i]);
+                                removeItemPopUp(context, i);
                               }),
                           IconButton(
                               icon: const Icon(Icons.delete_forever),
                               onPressed: () {
-                                removeItem(shoppingList[i]);
+                                removeItem(currentshoppingList[i]);
                                 //Navigator.pop(context);
                               }),
                         ]));

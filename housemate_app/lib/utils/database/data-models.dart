@@ -131,7 +131,7 @@ class ShoppingList {
   final int houseId;
   final String itemName;
   final int itemQuantity;
-  final double itemPrice;
+  double itemPrice;
   final bool itemBrought;
   final int userId;
 
