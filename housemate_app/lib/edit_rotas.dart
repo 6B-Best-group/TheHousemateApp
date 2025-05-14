@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/main.dart';
+import 'package:housemate_app/utils/database/database.dart';
+import 'package:housemate_app/utils/helpers.dart';
 
 class EditRotas extends StatefulWidget {
   const EditRotas({super.key});
@@ -13,8 +15,8 @@ class _EditRotasState extends State<EditRotas> {
   final generalChoreName = TextEditingController();
 
   void addChore() {
-    GeneralChoreRota rota = GeneralChoreRota(generalChoreName.text, ["test from here"]);
-    generalChoreRotaList.add(rota);
+    GeneralChoreRota rota = GeneralChoreRota(generalChoreName.text, nextAssigned(3,Database().users[Database().currentUser], Database().users));
+    Database().generalChoreRotaList.add(rota);
     setState(() {});
   }
 

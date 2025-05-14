@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/utils/database/data-models.dart';
 import 'package:housemate_app/utils/database/database.dart';
-import 'package:housemate_app/utils/groupchat_utils.dart';
+
 
 class GCMessageTile extends StatelessWidget {
   final bool isMe;

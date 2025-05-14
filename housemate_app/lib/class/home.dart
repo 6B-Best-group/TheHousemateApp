@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/main.dart';
 import 'package:housemate_app/utils/database/data-models.dart';
 import 'package:housemate_app/utils/database/database.dart';
+import 'package:housemate_app/utils/helpers.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -25,6 +27,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     currentUser = Database().users[0];
+    Database().generalChoreRotaList.addAll(
+      [GeneralChoreRota("Take out the food bin", nextAssigned(3,Database().users[Database().currentUser], Database().users)), 
+        GeneralChoreRota("Clean Oven Grease", nextAssigned(2,Database().users[Database().currentUser], Database().users) ), 
+        GeneralChoreRota("Wipe down hob", nextAssigned(1,Database().users[Database().currentUser], Database().users))
+      ]);
     super.initState();
   }
 

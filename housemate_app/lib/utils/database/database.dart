@@ -4,6 +4,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/utils/database/data-models.dart';
 
 class Database {
@@ -17,6 +18,7 @@ class Database {
     List<Message> message = [];
     List<ShoppingList> shoppingList = [];
     List<Chore> chore = [];
+    List<GeneralChoreRota> generalChoreRotaList = [];
 
     int currentUser = 0;
 

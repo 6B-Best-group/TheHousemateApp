@@ -4,6 +4,9 @@ import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/class/weekly_chore_rota.dart';
 // import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/main.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
+import 'package:housemate_app/utils/helpers.dart';
 
 class Rota extends StatefulWidget {
   const Rota({super.key});
@@ -62,16 +65,27 @@ class CustomListItem extends StatelessWidget {
 class _RotaState extends State<Rota> {
   final generalChoreName = TextEditingController();
 
-  final List<String> users = ["Alice", "Bob", "Charlie", "David"];
-  String selectedUser = "Alice";
-  List<String> selectedUsers = [];
+  late List<User> users; // users and the current user
+  late User selectedUser ;
+
+
+  List<User> selectedUsers = [];
 
   void addChore() {
-    GeneralChoreRota rota = GeneralChoreRota(generalChoreName.text, selectedUsers);
-    generalChoreRotaList.add(rota);
+    GeneralChoreRota rota = GeneralChoreRota(generalChoreName.text, nextAssigned(3, selectedUser, users)); // look at this
+    Database().generalChoreRotaList.add(rota);
     ActionLogNotification action = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a new general chore rota', 'Rota: ${selectedUsers.join(' → ')}');
     actionsList.add(action);
     setState(() {});
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    users = Database().users;
+    selectedUser = Database().users[Database().currentUser];
+
+    super.initState();
   }
 
   void addChoreDialog(context) {
@@ -88,27 +102,28 @@ class _RotaState extends State<Rota> {
                         decoration: const InputDecoration(
                           label: Text("Chore name:"),
                         )),
-                    DropdownButton<String>(
+                    DropdownButton<User>(
                       hint: const Text("Choose the rota"),
                       value: selectedUser,
-                      onChanged: (String? newValue) {
+                      onChanged: (User? newValue) {
                         setState(() {
                           selectedUser = newValue!;
                         });
                       },
-                      items: users.map<DropdownMenuItem<String>>((String user) {
-                        return DropdownMenuItem<String>(
+                      items: users.map<DropdownMenuItem<User>>((User user) {
+                        return DropdownMenuItem<User>(
                           value: user,
-                          child: Text(user),
+                          child: Text(user.firstName),
                         );
                       }).toList(),
                     ),
-                    TextButton(
+                    TextButton( // add to rota
                       onPressed: () {
                         if (!selectedUsers.contains(selectedUser)) {
                           setState(() {
                             selectedUsers.add(selectedUser);
                           });
+                          print(selectedUser.firstName);
                         }
                       },
                       child: const Text("Add to rota"),
@@ -154,25 +169,25 @@ class _RotaState extends State<Rota> {
         label: const Text("Create New Rota"),
         icon: const Icon(Icons.add),
         ),
-      body: TabBarView(children: <Widget>[
+      body: TabBarView(children: <Widget>[ 
         ListView.builder(
         padding: const EdgeInsets.all(8.0),
         itemExtent: 106.0,
-        itemCount: generalChoreRotaList.length,
+        itemCount: Database().generalChoreRotaList.length,
         itemBuilder: (context, i) {
-          return CustomListItem(
+          return CustomListItem( // general chore rota
             onPressed: () {
-              ActionLogNotification action = ActionLogNotification('${generalChoreRotaList[i].getAssignee()} completed a task of the general chore rota', generalChoreRotaList[i].choreName);
+              ActionLogNotification action = ActionLogNotification('${Database().generalChoreRotaList[i].getAssignee()} completed a task of the general chore rota', Database().generalChoreRotaList[i].choreName);
               actionsList.add(action);
-              generalChoreRotaList[i].incrementRota();
-              generalChoreRotaList[i].setLastCompleted();
+              Database().generalChoreRotaList[i].incrementRota();
+              Database().generalChoreRotaList[i].setLastCompleted();
               setState(() {});
             },
-            choreName: generalChoreRotaList[i].choreName,
-            assignee: generalChoreRotaList[i].getAssignee(),
-            nextAssignee: generalChoreRotaList[i].getNextAssignee(),
+            choreName: Database().generalChoreRotaList[i].choreName,
+            assignee: Database().generalChoreRotaList[i].getAssignee(),
+            nextAssignee: Database().generalChoreRotaList[i].getNextAssignee(),
             thumbnail: Container(decoration: const BoxDecoration(color: Color.fromARGB(255, 165, 237, 255)), 
-              child: Center(child: Text('Last Completed: ${generalChoreRotaList[i].getLastCompleted()}\nBy: ${generalChoreRotaList[i].getLastAssignee()}'))),
+              child: Center(child: Text('Last Completed: ${Database().generalChoreRotaList[i].getLastCompleted()}\nBy: ${Database().generalChoreRotaList[i].getLastAssignee()}'))),
           );
         },
       ),

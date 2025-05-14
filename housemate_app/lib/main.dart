@@ -16,6 +16,7 @@ import 'package:housemate_app/shopping_list.dart';
 import 'package:housemate_app/sign-in%20pages/sign_up.dart';
 import 'package:housemate_app/user_profile.dart';
 import 'package:housemate_app/utils/database/database.dart';
+import 'package:housemate_app/utils/helpers.dart';
 import 'package:housemate_app/utils/theme.dart';
 import 'package:housemate_app/sign-in%20pages/log_in.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
@@ -25,7 +26,6 @@ import 'package:housemate_app/houseInfo.dart';
 import 'package:housemate_app/settings.dart';
 
 List<ActionLogNotification> actionsList = [];
-List<GeneralChoreRota> generalChoreRotaList = [GeneralChoreRota("Take out the food bin", ["Ben", "Anna", "Matt"]), GeneralChoreRota("Clean Oven Grease", ["Dan", "Keiran"]), GeneralChoreRota("Wipe down hob", ["Cecile"])];
 List<WeeklyChoreRota> weeklyChoreRotaList = [WeeklyChoreRota('Bleach Toilet', ['Anna', 'Fish', 'Kieran', 'Dan', 'Matt'])];
 List<ShoppingItem> shoppingList = [];
 List<ShoppingItem> broughItems = [];
@@ -55,7 +55,8 @@ void main() async {
   await Database().loadHouse();
   await Database().loadMessage();
   await Database().loadShoppingList();
-  //await Database().loadChore();
+  await Database().loadChore();
+    
 
 
   runApp(const MyApp());
