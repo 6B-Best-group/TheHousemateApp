@@ -1,3 +1,6 @@
+import 'package:flutter/gestures.dart';
+import 'package:flutter_calendar_carousel/classes/event.dart';
+import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/main.dart';
 import 'package:housemate_app/utils/calender_utils.dart';
@@ -6,6 +9,9 @@ import 'package:housemate_app/calender-page/widgets/chore_widgets/other_chore/ot
 import 'package:housemate_app/calender-page/widgets/chore_widgets/user_chore_tile.dart';
 import 'package:housemate_app/calender-page//widgets/heat_map_calender.dart';
 import 'package:flutter/material.dart';
+import 'package:housemate_app/utils/database/database.dart';
+import 'package:housemate_app/utils/helpers.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
 //import 'package:flutter_calendar_carousel/classes/event.dart';
 
 class CalenderPage extends StatefulWidget {
@@ -36,116 +42,13 @@ class _CalenderHomePageState extends State<CalenderPage>
   
   */
 
-  Map<DateTime, int> heatMapDataset = {
-    DateTime(2025, 04, 4): 1,
-    DateTime(2025, 04, 7): 1,
-    DateTime(2025, 04, 12): 1,
-    DateTime(2025, 04, 2): 1,
-    DateTime(2025, 04, 1): 1,
-  };
+  late EventList<Event> heatMapDataset ;
 
-  Map<DateTime, List<Chore>> userDateChores = {
-    // map for the users chores ,i could merge the two maps
-    DateTime(2025, 04, 4): [
-      Chore(choreTitle: "Clean the fridge"),
-      Chore(choreTitle: "Clean floor"),
-      Chore(choreTitle: "Wash Dishes"),
-    ],
-    DateTime(2025, 04, 7): [
-      Chore(choreTitle: "Mop the floor"),
-      Chore(choreTitle: "take out bins"),
-    ],
-    DateTime(2025, 04, 12): [Chore(choreTitle: "Clean Surfaces")],
-  };
+  late Map<DateTime, List<Chore>> allUserDateChores;
 
-  Map<DateTime, List<dynamic>> otherUserDateChores = {
-    // map for the users chores , this will 100% get changed later, its just for testing at the moment
-    DateTime(2025, 04, 4): [
-      // users map
-      [
-        "Iris",
-        [
-          // user
-          Chore(choreTitle: "buy soap"),
-          Chore(choreTitle: "clean bathroom"),
-        ],
-      ],
-      [
-        "Dave",
-        [
-          // user
-          Chore(choreTitle: "cook"),
-        ],
-      ],
-      [
-        "Nathan",
-        [
-          // user
-          Chore(choreTitle: "hoover"),
-          Chore(choreTitle: "make a list of needed things"),
-          Chore(choreTitle: "churn out some cheese"),
-        ],
-      ],
-    ],
-    DateTime(2025, 04, 7): [
-      [
-        "Charlie",
-        [
-          // user
-          Chore(choreTitle: "cook"),
-          Chore(choreTitle: "Clean the Garden"),
-        ],
-      ],
-    ],
-    DateTime(2025, 04, 22): [
-      [
-        "Charlie",
-        [
-          // user
-          Chore(choreTitle: "cook"),
-          Chore(choreTitle: "Clean the Garden"),
-        ],
-      ],
-    ],
+  late Map<DateTime, List<Chore>> userDateChores;
 
-    DateTime(2025, 04, 15): [
-      // users map
-      [
-        "Iris",
-        [
-          // user
-          Chore(choreTitle: "buy soap"),
-          Chore(choreTitle: "clean bathroom"),
-        ],
-      ],
-      [
-        "Dave",
-        [
-          // user
-          Chore(choreTitle: "cook"),
-          Chore(choreTitle: "clean bathroom 2"),
-        ],
-      ],
-      [
-        "Charlie",
-        [
-          // user
-          Chore(choreTitle: "wash up"),
-          Chore(choreTitle: "Clean the Garden"),
-        ],
-      ],
-      [
-        "Nathan",
-        [
-          // user
-          Chore(choreTitle: "hoover"),
-          Chore(choreTitle: "make a list of needed things"),
-          Chore(choreTitle: "churn out some cheese"),
-          Chore(choreTitle: "do the bins"),
-        ],
-      ],
-    ],
-  };
+  late Map<DateTime, Map<int, List<Chore>>> otherUserDateChores ;
 
   String selectedDate = "";
 
@@ -195,25 +98,22 @@ class _CalenderHomePageState extends State<CalenderPage>
   // -- Saving New Chore --
 
   void saveNewChore() {
-    if (!heatMapDataset.containsKey(currentDate) &&
-        newChoreName.text.isNotEmpty) {
-      setState(() {
-        heatMapDataset[currentDate] = 1;
-      });
-    }
-
     if (userDateChores.containsKey(currentDate) &&
         newChoreName.text.isNotEmpty) {
           ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a Chore', newChoreName.text);
           actionsList.add(logAction);
-      setState(() {
-        userDateChores[currentDate]?.add(Chore(choreTitle: newChoreName.text));
-      });
+          heatMapDataset.add(currentDate,markedDateEvent(currentDate, (userDateChores[currentDate]!.length + 1)));
+          setState(() {
+            Database().chore.add(Chore(choreId: Database().chore.length+1, userId: Database().users[Database().currentUser].userId, choreName: newChoreName.text, choreDescription: newChoreName.text, dueDate: currentDate, assignedDate: DateTime.now(), completed: false));
+            userDateChores = sortingUserChoreDates(sortingChoreDates(Database().chore));
+            print(userDateChores);
+          });
     } else if (newChoreName.text.isNotEmpty) {
       ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a Chore', newChoreName.text);
       actionsList.add(logAction);
       setState(() {
-        userDateChores[currentDate] = [Chore(choreTitle: newChoreName.text)];
+        Database().chore.add(Chore(choreId: Database().chore.length+1, userId: Database().users[Database().currentUser].userId, choreName: newChoreName.text, choreDescription: newChoreName.text, dueDate: currentDate, assignedDate: DateTime.now(), completed: false));
+        userDateChores = sortingUserChoreDates(sortingChoreDates(Database().chore));
       });
     }
 
@@ -221,6 +121,20 @@ class _CalenderHomePageState extends State<CalenderPage>
     Navigator.of(context).pop();
   }
 
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    allUserDateChores =  sortingChoreDates(Database().chore);
+    userDateChores = sortingUserChoreDates(sortingChoreDates(Database().chore));
+
+    print(userDateChores = sortingUserChoreDates(sortingChoreDates(Database().chore)));
+
+    otherUserDateChores = choresByDateAndUser(sortingChoreDates(Database().chore));
+    
+    heatMapDataset = markedChoreDays(addingToHeatMap(sortingChoreDates(Database().chore)));
+    print(otherUserDateChores = choresByDateAndUser(sortingOtherUserChoreDates(sortingChoreDates(Database().chore))));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -348,11 +262,18 @@ class _CalenderHomePageState extends State<CalenderPage>
                                       BuildContext context,
                                       int index,
                                     ) {
-                                      List currentUser =
-                                          otherUserDateChores[currentDate]?[index]!;
+
+                                      final otherUsers = otherUserDateChores[currentDate]!;
+
+                                      
+                                      final otherUserChores = otherUsers.keys.elementAt(index);
+
+                                      User currentSelectedUser = findUser(otherUserChores);
+                                      
+                                      
                                       return OtherChoreLists(
-                                        userName: currentUser[0],
-                                        userChores: currentUser[1],
+                                        userName: currentSelectedUser.firstName,
+                                        userChores:  otherUsers[otherUserChores]!,
                                       );
                                     },
                                   )
@@ -436,6 +357,36 @@ class _CalenderHomePageState extends State<CalenderPage>
       //showSideBar = heatMapDataset.containsKey(time);
     });
   }
+
+  EventList<Event> markedChoreDays (Map<DateTime,int> choresOnDay){
+    return EventList<Event>(
+      events: {
+        for (var i in choresOnDay.entries) i.key: [
+          markedDateEvent(i.key, i.value)
+        ]
+      }
+      );
+  }
+
+  Event markedDateEvent (DateTime key, int amount) =>  Event(date: key,icon: markedDayIcon(amount),dot: Container(),);
+
+  Widget markedDayIcon (int count){
+    Color color;
+    if (count*10 <= 255){
+      color = Color.fromARGB(255, 255, 255 - count*10, 0);
+    } else {
+      color = Colors.red;
+    }
+
+    return Container(
+      padding: EdgeInsets.all(6),
+      color: color,
+      child: SizedBox.expand(),
+    );
+
+  }
+
+
 
   // String convertDatetimeToWeekday(DateTime time) {
   //   // add this to a functions list

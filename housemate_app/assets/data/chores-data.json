@@ -52,5 +52,15 @@
         "due_date": "2025-05-14",
         "assigned_date": "2025-05-13",
         "completed": false
+      },
+      {
+        "chore_id": 8,
+        "user_id": 1,
+        "chore_name": "Mop the floor",
+        "chore_description": "Thoouroughly mop the downstairs floors",
+        "due_date": "2025-05-14",
+        "assigned_date": "2025-05-13",
+        "completed": false
       }
+
 ]

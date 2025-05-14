@@ -1,18 +1,3 @@
-class Chore{
-  String choreTitle;
-  bool completed = false;
-  Chore({required this.choreTitle});
-
-  void changeTitle(String newTitle){
-    choreTitle = newTitle;
-  }
-
-  void toggleCompleted(){
-    completed = !completed;
-  }
-  
-}
-
 String convertDatetimeToMonth(DateTime time) {
     // add this to a functions list
     int month = time.month;
