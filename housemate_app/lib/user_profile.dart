@@ -7,6 +7,7 @@ class UserProfile extends StatefulWidget {
 
   @override
   State<UserProfile> createState() => _UserProfileState();
+
 }
 
 class _UserProfileState extends State<UserProfile> {
