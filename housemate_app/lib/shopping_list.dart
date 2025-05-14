@@ -156,28 +156,39 @@ class _shopping_listState extends State<shopping_list> {
           title: const Text("Shopping List"),
         ),
         body: Column(children: [
-          TextButton(onPressed: () {}, child: const Text("Spending page")),
+          //TextButton(onPressed: () {}, child: const Text("Spending page")),
           Flexible(
-              child: ListView.builder(
-                  itemCount: currentshoppingList.length,
-                  itemBuilder: (context, i) {
-                    return ListTile(
-                        title: Text(currentshoppingList[i].itemName),
-                        subtitle: Text("Quantity: ${currentshoppingList[i].itemQuantity}"),
-                        trailing: Wrap(children: [
-                          IconButton(
-                              icon: const Icon(Icons.check),
-                              onPressed: () {
-                                removeItemPopUp(context, i);
-                              }),
-                          IconButton(
-                              icon: const Icon(Icons.delete_forever),
-                              onPressed: () {
-                                removeItem(currentshoppingList[i]);
-                                //Navigator.pop(context);
-                              }),
-                        ]));
-                  }))
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10,bottom: 10),
+                child: ListView.builder(
+                    itemCount: currentshoppingList.length,
+                    itemBuilder: (context, i) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.black,width: 1),
+                            borderRadius: BorderRadius.circular(0),
+                        
+                          ),
+                            title: Text(currentshoppingList[i].itemName),
+                            subtitle: Text("Quantity: ${currentshoppingList[i].itemQuantity}"),
+                            trailing: Wrap(children: [
+                              IconButton(
+                                  icon: const Icon(Icons.check),
+                                  onPressed: () {
+                                    removeItemPopUp(context, i);
+                                  }),
+                              IconButton(
+                                  icon: const Icon(Icons.delete_forever),
+                                  onPressed: () {
+                                    removeItem(currentshoppingList[i]);
+                                    //Navigator.pop(context);
+                                  }),
+                            ])),
+                      );
+                    }),
+              ))
         ]),
         floatingActionButton: FloatingActionButton(
             onPressed: () {

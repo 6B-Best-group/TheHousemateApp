@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
 
-void main() => runApp(const RoommateApp());
 
-class RoommateApp extends StatelessWidget {
-  const RoommateApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const HouseInfoScreen(),
-      theme: ThemeData(primarySwatch: Colors.blue),
-    );
-  }
-}
 
 class HouseInfoScreen extends StatefulWidget {
   const HouseInfoScreen({super.key});
@@ -29,6 +18,10 @@ class _HouseInfoScreenState extends State<HouseInfoScreen> {
   final jobController = TextEditingController();
   String? error;
   Map<String, String>? roommate;
+
+  late User loggedInUser;
+
+  late House currentHouse;
 
   bool validate() {
     if (nameController.text.isEmpty ||
@@ -72,35 +65,135 @@ class _HouseInfoScreenState extends State<HouseInfoScreen> {
   }
 
   @override
+  void initState() {
+    // TODO: implement initState
+    loggedInUser = Database().users[Database().currentUser];
+    currentHouse = Database().house[Database().currentUser];
+
+    super.initState();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('House Info')),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _buildInputField(houseController, 'House Name'),
-            const SizedBox(height: 20),
-            const Text('Roommate Information', style: TextStyle(fontSize: 18)),
-            _buildInputField(nameController, 'Name'),
-            _buildInputField(ageController, 'Age', number: true),
-            _buildInputField(jobController, 'Profession'),
-            if (error != null)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
-                child: Text(error!, style: const TextStyle(color: Colors.red)),
-              ),
-            ElevatedButton(
-              onPressed: saveInfo,
-              child: const Text('Save'),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black,width: 1),
+                ),
+                
+                child: Column(
+                  //mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      color: Colors.grey,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              currentHouse.houseNickname,
+                              style: Theme.of(context).textTheme.displayLarge!.copyWith(
+                                fontSize: 18,
+                              ),
+                              ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(
+                      thickness: 1,
+                      height: 0,
+                      
+                    ),
+                    ListView(
+                      shrinkWrap: true,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Address: ${currentHouse.houseAddress}',
+                            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontSize: 18,
+                              ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Address: ${currentHouse.houseAddress}',
+                            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontSize: 18,
+                              ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Address: ${currentHouse.houseAddress}',
+                            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontSize: 18,
+                              ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            'Address: ${currentHouse.houseAddress}',
+                            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                                fontSize: 18,
+                              ),
+                          ),
+                        ),
+
+                      ],
+                    )
+                    
+                  ],
+                )
+                ),
             ),
-            if (roommate != null) _buildInfoCard(),
-          ],
-        ),
+          ),
+          Expanded(
+            flex: 3,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black,width: 1),
+                ),
+                          ),
+            )),
+          const SizedBox(height: 20),
+          //const Text('Roommate Information', style: TextStyle(fontSize: 18)),
+          // _buildInputField(nameController, 'Name'),
+          // _buildInputField(ageController, 'Age', number: true),
+          // _buildInputField(jobController, 'Profession'),
+          // if (error != null)
+          //   Padding(
+          //     padding: const EdgeInsets.symmetric(vertical: 10),
+          //     child: Text(error!, style: const TextStyle(color: Colors.red)),
+          //   ),
+          // ElevatedButton(
+          //   onPressed: saveInfo,
+          //   child: const Text('Save'),
+          // ),
+          // if (roommate != null) _buildInfoCard(),
+        ],
       ),
     );
   }
+
+  
 
   Widget _buildInputField(TextEditingController controller, String label,
       {bool number = false}) {
