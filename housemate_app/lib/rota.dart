@@ -1,10 +1,8 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/general_chore_rota.dart';
 import 'package:housemate_app/class/weekly_chore_rota.dart';
-// import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/main.dart';
 import 'package:housemate_app/utils/database/data-models.dart';
 import 'package:housemate_app/utils/database/database.dart';
