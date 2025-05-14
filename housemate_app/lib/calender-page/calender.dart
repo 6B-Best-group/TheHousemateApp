@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
@@ -12,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:housemate_app/utils/database/database.dart';
 import 'package:housemate_app/utils/helpers.dart';
 import 'package:housemate_app/utils/database/data-models.dart';
-//import 'package:flutter_calendar_carousel/classes/event.dart';
 
 class CalenderPage extends StatefulWidget {
   const CalenderPage({super.key});
@@ -23,24 +21,6 @@ class CalenderPage extends StatefulWidget {
 
 class _CalenderHomePageState extends State<CalenderPage>
     with TickerProviderStateMixin {
-  /*
-  TO DO:
-  - when the database is make, merge the map data into one map
-
-  - have the ability to tick off chores in the database
-  - make it so the text is lined out
-
-  - make the calenders month changing buttons rectangular
-
-  - other list view builder varying in size
-  - make the check box work
-  - change my calender over to the carousel
-
-  - make this so the date title isnt restricted my screen size
-  - check if the same chore is already added
-  - fix overflow issue for user chores
-  
-  */
 
   late EventList<Event> heatMapDataset ;
 
@@ -61,23 +41,8 @@ class _CalenderHomePageState extends State<CalenderPage>
 
   bool showSideBar = false;
 
-  // -- dateTime picker
-
-  // Future<void> selectDate() async {
-  //   final DateTime? pickedDate = await showDatePicker(
-  //     context: context,
-  //     initialDate: DateTime(2021, 7, 25),
-  //     firstDate: DateTime(2021),
-  //     lastDate: DateTime(2022),
-  //   );
-
-  //   setState(() {
-  //     newChoreDatetime = pickedDate!;
-  //   });
-  // }
-
+  
   // -- adding chore widget --
-
   void addNewChore() {
     showDialog(
       context: context,
@@ -96,9 +61,8 @@ class _CalenderHomePageState extends State<CalenderPage>
   }
 
   // -- Saving New Chore --
-
   void saveNewChore() {
-    if (userDateChores.containsKey(currentDate) &&
+    if (userDateChores.containsKey(currentDate) && // checks the data then saves it to the database, it also adds the actions to the action log
         newChoreName.text.isNotEmpty) {
           ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a Chore', newChoreName.text);
           actionsList.add(logAction);
@@ -106,7 +70,6 @@ class _CalenderHomePageState extends State<CalenderPage>
           setState(() {
             Database().chore.add(Chore(choreId: Database().chore.length+1, userId: Database().users[Database().currentUser].userId, choreName: newChoreName.text, choreDescription: newChoreName.text, dueDate: currentDate, assignedDate: DateTime.now(), completed: false));
             userDateChores = sortingUserChoreDates(sortingChoreDates(Database().chore));
-            print(userDateChores);
           });
     } else if (newChoreName.text.isNotEmpty) {
       ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a Chore', newChoreName.text);
@@ -125,15 +88,13 @@ class _CalenderHomePageState extends State<CalenderPage>
   void initState() {
     // TODO: implement initState
     super.initState();
+
+    // these load all of the user data and formats it for easier use
     allUserDateChores =  sortingChoreDates(Database().chore);
     userDateChores = sortingUserChoreDates(sortingChoreDates(Database().chore));
-
-    print(userDateChores = sortingUserChoreDates(sortingChoreDates(Database().chore)));
-
-    otherUserDateChores = choresByDateAndUser(sortingChoreDates(Database().chore));
-    
+    otherUserDateChores = choresByDateAndUser(sortingChoreDates(Database().chore)); 
     heatMapDataset = markedChoreDays(addingToHeatMap(sortingChoreDates(Database().chore)));
-    print(otherUserDateChores = choresByDateAndUser(sortingOtherUserChoreDates(sortingChoreDates(Database().chore))));
+    
   }
 
   @override
@@ -146,16 +107,11 @@ class _CalenderHomePageState extends State<CalenderPage>
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
-        //crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //Container(color: Colors.orange, width: 250, height: double.maxFinite,),
-
-          // THE CALENDER
+          // ---------- THE CALENDAR
           Expanded(
-            // the calender
-            flex: 7, //flex: 6, -- this for when the side bar is added
+            flex: 7,
             child: Container(
-              //color: Colors.purple,
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.all(20),
@@ -165,20 +121,13 @@ class _CalenderHomePageState extends State<CalenderPage>
                     child: 
                     Padding(
                       padding: const EdgeInsets.all(20),
-                      child: MyHeatMap(
-                        currentDate: currentDate, //DateTime(
-                        //DateTime.now().year, // year
-                        //DateTime.april, // month // day
-                        //),
-                        
-                      
+                      child: MyHeatMap( // ---- the Calendar widget
+                        currentDate: currentDate, 
                         heatMapDataset: heatMapDataset,
                         calenderSelected: pressedCalender, 
                         targetDate: targetDate, 
                         currentMonth: currentMonth, 
-                        calendarChange: calenderChange, 
-                        
-                        
+                        calendarChange: calenarChange, 
                       ),
                     ),
                   ),
@@ -191,7 +140,6 @@ class _CalenderHomePageState extends State<CalenderPage>
           showSideBar
               ? Expanded(
                 flex: 2,
-
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black, width: 1),
@@ -212,10 +160,8 @@ class _CalenderHomePageState extends State<CalenderPage>
                           children: [
                             Container(color: Colors.grey, width: 20),
                             Padding(
-                              // ------
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                // the title text
                                 selectedDate,
                                 style: const TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -233,28 +179,23 @@ class _CalenderHomePageState extends State<CalenderPage>
                           child:
                               userDateChores.containsKey(
                                     currentDate,
-                                  ) // set a minimum size for this // user chores
+                                  ) // -- user chores
                                   ? UserChoreTile(
                                     userChores: userDateChores[currentDate]!,
+                                    
                                   ) // -----
                                   : const UserChoreTile(userChores: []),
                         ),
                       ),
                       const Divider(color: Colors.black),
-
-                      // otherUserDateChores.containsKey(currentDate) // set a minimum size for this
-                      //       ? OtherChoreLists(userName:otherUserDateChores[currentDate]![0][0] ,  userChores: otherUserDateChores[currentDate]![0][1])
-                      //       : OtherChoreLists(userName: "", userChores: [ ]),
-                      // other users lists, display nothing if there are no users
                       Expanded(
                         flex: 5,
                         child: Container(
                           child:
                               otherUserDateChores.containsKey(
                                     currentDate,
-                                  ) // set a minimum size for this // other user chores
+                                  ) // the other housemates chores
                                   ? ListView.builder(
-                                    //shrinkWrap: true,
                                     itemCount:
                                         otherUserDateChores[currentDate]!
                                             .length,
@@ -262,14 +203,12 @@ class _CalenderHomePageState extends State<CalenderPage>
                                       BuildContext context,
                                       int index,
                                     ) {
-
+                                      // seperates the other users into their seperate chores
                                       final otherUsers = otherUserDateChores[currentDate]!;
 
-                                      
                                       final otherUserChores = otherUsers.keys.elementAt(index);
 
                                       User currentSelectedUser = findUser(otherUserChores);
-                                      
                                       
                                       return OtherChoreLists(
                                         userName: currentSelectedUser.firstName,
@@ -301,8 +240,7 @@ class _CalenderHomePageState extends State<CalenderPage>
                                     color: Colors.black,
                                     width: 1,
                                   ),
-                                ),
-                                // ------------------------------- make a rectangle
+                                ),                  
                                 onPressed: addNewChore,
                                 icon: const Icon(Icons.add, color: Colors.black),
                               ),
@@ -320,17 +258,16 @@ class _CalenderHomePageState extends State<CalenderPage>
     );
   }
 
-  // -- changing the calender
 
-  void calenderChange(DateTime time) {
+  // -- changing the calendar
+  void calenarChange(DateTime time) {
     setState(() {
       targetDate = time;
       currentMonth = convertToMonthYear(targetDate);
     });
   } 
 
-  // -- changing what happens when a day is pressed on the calender
-
+  // -- changing what happens when a day is pressed on the calendar
   void pressedCalender(DateTime time) {
     // condense this section
     String textDate =
@@ -358,6 +295,7 @@ class _CalenderHomePageState extends State<CalenderPage>
     });
   }
 
+  // -- for adding dots to the calendar
   EventList<Event> markedChoreDays (Map<DateTime,int> choresOnDay){
     return EventList<Event>(
       events: {
@@ -385,77 +323,5 @@ class _CalenderHomePageState extends State<CalenderPage>
     );
 
   }
-
-
-
-  // String convertDatetimeToWeekday(DateTime time) {
-  //   // add this to a functions list
-  //   int weekday = time.weekday;
-
-  //   switch (weekday) {
-  //     case 1:
-  //       return "Monday";
-  //     case 2:
-  //       return "Tuesday";
-  //     case 3:
-  //       return "Wednesday";
-  //     case 4:
-  //       return "Thursday";
-  //     case 5:
-  //       return "Friday";
-  //     case 6:
-  //       return "Saturday";
-  //     case 7:
-  //       return "Sunday";
-  //     default:
-  //       return "Error, Try again";
-  //   }
-  // }
-
-  // String convertDatetimeToMonth(DateTime time) {
-  //   // add this to a functions list
-  //   int month = time.month;
-
-  //   switch (month) {
-  //     case 1:
-  //       return "Jan";
-  //     case 2:
-  //       return "Feb";
-  //     case 3:
-  //       return "Mar";
-  //     case 4:
-  //       return "Apr";
-  //     case 5:
-  //       return "May";
-  //     case 6:
-  //       return "Jun";
-  //     case 7:
-  //       return "Jul";
-  //     case 8:
-  //       return "Aug";
-  //     case 9:
-  //       return "Sep";
-  //     case 10:
-  //       return "Oct";
-  //     case 11:
-  //       return "Nov";
-  //     case 12:
-  //       return "Dec";
-  //     default:
-  //       return "Error, Try again";
-  //   }
-  // }
-
-  // String convertDayToTh(int day) {
-  //   switch (day) {
-  //     case 1:
-  //       return "st";
-  //     case 2:
-  //       return "nd";
-  //     case 3:
-  //       return "rd";
-  //     default:
-  //       return "th";
-  //   }
-  // }
 }
+

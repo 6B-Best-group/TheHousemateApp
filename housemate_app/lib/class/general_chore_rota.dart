@@ -3,10 +3,11 @@ import 'package:housemate_app/utils/database/data-models.dart';
 class GeneralChoreRota {
   final String choreName;
   List<User> choreRota;
+  User assignee;
   int rotaIndexTracker = 0;
   DateTime? lastCompleted;
 
-  GeneralChoreRota(this.choreName, this.choreRota);
+  GeneralChoreRota(this.choreName, this.choreRota,this.assignee);
 
   void incrementRota() {
     if (rotaIndexTracker == choreRota.length - 1) {

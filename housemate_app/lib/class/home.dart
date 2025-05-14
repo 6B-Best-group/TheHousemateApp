@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/class/general_chore_rota.dart';
-import 'package:housemate_app/main.dart';
 import 'package:housemate_app/utils/database/data-models.dart';
 import 'package:housemate_app/utils/database/database.dart';
 import 'package:housemate_app/utils/helpers.dart';
@@ -15,7 +14,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<List<String>> pages = [
-    //["Calender", '/calenderPage'],
     ["Shopping List", '/shoppingList'],
     ["Rotas", '/rota'],
     ["Group Chat", '/groupChat'],
@@ -26,11 +24,12 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     // TODO: implement initState
+    
     currentUser = Database().users[0];
     Database().generalChoreRotaList.addAll(
-      [GeneralChoreRota("Take out the food bin", nextAssigned(3,Database().users[Database().currentUser], Database().users)), 
-        GeneralChoreRota("Clean Oven Grease", nextAssigned(2,Database().users[Database().currentUser], Database().users) ), 
-        GeneralChoreRota("Wipe down hob", nextAssigned(1,Database().users[Database().currentUser], Database().users))
+      [GeneralChoreRota("Take out the food bin", nextAssigned(3,Database().users[Database().currentUser], Database().users),Database().users[0]), 
+        GeneralChoreRota("Clean Oven Grease", nextAssigned(2,Database().users[Database().currentUser], Database().users),Database().users[1] ), 
+        GeneralChoreRota("Wipe down hob", nextAssigned(1,Database().users[Database().currentUser], Database().users),Database().users[3])
       ]);
     super.initState();
   }
@@ -87,14 +86,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                   child: ListView(
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          leading: const Icon(Icons.house_outlined),
-                          title: const Text('House Info'),
-                          onTap: () {Navigator.pushNamed(context, '/houseInfo'); },
-                        ),
-                      ),
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(

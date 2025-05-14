@@ -48,14 +48,12 @@ class AddChoreWidget extends StatelessWidget {
             const SizedBox(height: 20),
 
             Row(
-              // make a seperate button class
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                // SAVE
+                // -- save
                 OutlinedButton(
                   onPressed: onSave,
                   style: OutlinedButton.styleFrom(
-                    //backgroundColor: Colors.grey.shade300,
                     foregroundColor: Colors.green,
                     side: const BorderSide(color: Colors.black, width: 1),
                     shape: const RoundedRectangleBorder(
@@ -64,9 +62,8 @@ class AddChoreWidget extends StatelessWidget {
                   ),
                   child: const Text("SAVE"),
                 ),
-                //SizedBox(width: 20),
 
-                // CANCEL
+                // -- cancel
                 OutlinedButton(
                   onPressed: onCancel,
                   style: OutlinedButton.styleFrom(

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/dataInfo.dart';
 import 'package:housemate_app/main.dart';
-import 'package:housemate_app/class/profile.dart';
 import '../inputCheck.dart';
 
 class sign_up extends StatefulWidget {

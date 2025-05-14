@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+
 
 class WeeklyChoreRota {
   final String choreName;
-  List<String> choreRota;
+  List<User> choreRota;
+  User assignee;
   int rotaIndexTracker = 0;
   bool completed = false;
 
-  WeeklyChoreRota(this.choreName, this.choreRota);
+  WeeklyChoreRota(this.choreName, this.choreRota, this.assignee);
 
   void incrementRota() {
     if (rotaIndexTracker == choreRota.length - 1) {
@@ -16,11 +19,11 @@ class WeeklyChoreRota {
     }
   }
 
-  String getAssignee() {
+  User getAssignee() {
     return choreRota[rotaIndexTracker];
   }
 
-  String getNextAssignee() {
+  User getNextAssignee() {
     if (rotaIndexTracker == choreRota.length - 1) {
       return choreRota[0];
     } else {
