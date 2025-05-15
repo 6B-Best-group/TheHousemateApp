@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:housemate_app/main.dart';
+import 'package:housemate_app/class/general_chore_rota.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
+import 'package:housemate_app/utils/helpers.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -11,11 +14,25 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   List<List<String>> pages = [
-    //["Calender", '/calenderPage'],
     ["Shopping List", '/shoppingList'],
     ["Rotas", '/rota'],
-    ["Group Chat", ' '],
+    ["Group Chat", '/groupChat'],
   ];
+
+  late final User currentUser;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    
+    currentUser = Database().users[0];
+    Database().generalChoreRotaList.addAll(
+      [GeneralChoreRota("Take out the food bin", nextAssigned(3,Database().users[Database().currentUser], Database().users),Database().users[0]), 
+        GeneralChoreRota("Clean Oven Grease", nextAssigned(2,Database().users[Database().currentUser], Database().users),Database().users[1] ), 
+        GeneralChoreRota("Wipe down hob", nextAssigned(1,Database().users[Database().currentUser], Database().users),Database().users[3])
+      ]);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: 20,
                       ),
                       Text(
-                        currentUser.username,
+                        "${currentUser.firstName} ${currentUser.lastName}" ,
                         style: Theme.of(context).textTheme.displayLarge,
                       )
                     ],
@@ -72,28 +89,10 @@ class _MyHomePageState extends State<MyHomePage> {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: ListTile(
-                          leading: const Icon(Icons.house_outlined),
-                          title: const Text('House Info'),
-                          onTap: () {},
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
                           leading: const Icon(Icons.hourglass_bottom),
                           title: const Text('Action Log'),
                           onTap: () {
                             Navigator.pushNamed(context, '/actionLog');
-                          },
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          leading: const Icon(Icons.edit_note),
-                          title: const Text('Edit Rotas'),
-                          onTap: () {
-                            Navigator.pushNamed(context, '/editRotas');
                           },
                         ),
                       ),
@@ -127,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       IconButton(
                         // settings button
-                        onPressed: () {},
+                        onPressed: () {Navigator.pushNamed(context, '/settings'); },
                         icon: const Icon(Icons.settings),
                       ),
                       IconButton(

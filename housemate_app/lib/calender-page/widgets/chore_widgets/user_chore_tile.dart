@@ -1,10 +1,11 @@
-import 'package:housemate_app/utils/calender_utils.dart';
 import 'package:housemate_app/calender-page/widgets/chore_widgets/chore_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
 
 class UserChoreTile extends StatelessWidget {
   final List<Chore> userChores;
-  const UserChoreTile({super.key, required this.userChores});
+  final Function(bool,Chore)? changeCompleted;
+  const UserChoreTile({super.key, required this.userChores, this.changeCompleted});
 
   @override
   Widget build(BuildContext context) {

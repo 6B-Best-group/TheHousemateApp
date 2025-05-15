@@ -1,21 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart';
-//import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
-//import 'package:google_fonts/google_fonts.dart';
 
 class MyHeatMap extends StatelessWidget {
   final DateTime currentDate;
   final DateTime targetDate;
   final String currentMonth;
-  // final   List<MarkedDate> markedDate = [
-  //     MarkedDate(color: Colors.cyan, date: DateTime(2025, 4, 20)),
-  //     MarkedDate(color: Colors.cyan, date: DateTime(2025, 20, 20)),
-  //   ];
 
-  final Map<DateTime, int> heatMapDataset;
+  final EventList<Event> heatMapDataset;
   final Function(DateTime)? calenderSelected;
   final Function(DateTime)? calendarChange;
-
 
   const MyHeatMap({
     super.key,
@@ -25,11 +19,7 @@ class MyHeatMap extends StatelessWidget {
     required this.calendarChange, required this.targetDate, required this.currentMonth,
   });
 
-  // List<DateTime> markedDate = [
-  //   DateTime(2025, 4, 20), 
-  //   DateTime(2025, 14, 2)
-  //   ];
-
+ @override
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +44,7 @@ class MyHeatMap extends StatelessWidget {
               IconButton(
                 onPressed: (){
                   calendarChange!(DateTime(targetDate.year,targetDate.month -1));
+                  print(calenderSelected);
                 }, 
                 iconSize: 20,
                 icon: const Icon(Icons.arrow_back_ios),
@@ -80,7 +71,7 @@ class MyHeatMap extends StatelessWidget {
                 calenderSelected!(date);
               },
               targetDateTime: targetDate,
-              onCalendarChanged: (DateTime time) { // when the change screen arrows are pressed
+              onCalendarChanged: (DateTime time) { // changes the screen when the arrows are clicked
                 calendarChange!(time);
               },
               selectedDateTime: currentDate,
@@ -107,30 +98,5 @@ class MyHeatMap extends StatelessWidget {
         ),
       ],
     );
-
-    //   return HeatMapCalendar(
-    //     initDate: currentDate,
-    //     //endDate: DateTime currentDate.year currentDate.month,0),
-    //     colorMode: ColorMode.color,
-    //     defaultColor: Colors.grey.shade200,
-    //     textColor: Colors.black,
-
-    //     flexible: true,
-    //     monthFontSize: 20,
-    //     fontSize: 16,
-    //     margin: EdgeInsets.all(8.0),
-    //     borderRadius: 0,
-    //     //showText: true,
-    //     //scrollable: true,
-    //     showColorTip: false,
-    //     //size: 50,
-    //     onClick: (value) {
-    //       calenderSelected!(value);
-    //     },
-
-    //     datasets: heatMapDataset,
-    //     colorsets: const {1: Colors.red},
-    //   );
-    // }
   }
 }

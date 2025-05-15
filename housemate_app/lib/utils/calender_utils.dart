@@ -1,17 +1,5 @@
-class Chore{
-  String choreTitle;
-  bool completed = false;
-  Chore({required this.choreTitle});
 
-  void changeTitle(String newTitle){
-    choreTitle = newTitle;
-  }
-
-  void toggleCompleted(){
-    completed = !completed;
-  }
-  
-}
+// these are quality of life functions for formatting
 
 String convertDatetimeToMonth(DateTime time) {
     // add this to a functions list

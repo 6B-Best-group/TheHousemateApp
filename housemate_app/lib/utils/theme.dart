@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+// this is the overall theme of the entire app,
+// its used to make styling easier
+
 ThemeData defaultTheme = ThemeData(
   colorScheme: ColorScheme.fromSeed(
     seedColor: Colors.cyan,

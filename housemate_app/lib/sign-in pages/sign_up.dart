@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/dataInfo.dart';
 import 'package:housemate_app/main.dart';
-import 'package:housemate_app/class/profile.dart';
 import '../inputCheck.dart';
 
 class sign_up extends StatefulWidget {
@@ -46,15 +45,15 @@ class _log_inState extends State<sign_up> {
                 decoration: const InputDecoration(labelText: "Email")),
             TextField(
                 controller: username,
-                maxLength: inputLen["userName"],
+                maxLength: usernameData["userName"],
                 decoration: InputDecoration(labelText: "Username")),
             TextField(
                 controller: fname,
-                maxLength: inputLen["firstName"],
+                maxLength: usernameData["firstName"],
                 decoration: const InputDecoration(labelText: "First name")),
             TextField(
                 controller: lname,
-                maxLength: inputLen["lastName"],
+                maxLength: usernameData["lastName"],
                 decoration: const InputDecoration(labelText: "Last name")),
             //ADD DATE OF BIRTH
             InputDatePickerFormField(
@@ -62,10 +61,10 @@ class _log_inState extends State<sign_up> {
                 lastDate: DateTime.now()),
             TextField(
                 controller: password,
-                maxLength: inputLen["password"],
+                maxLength: usernameData["password"],
                 decoration: const InputDecoration(labelText: "Password")),
             TextField(
-                maxLength: inputLen["password"],
+                maxLength: usernameData["password"],
                 decoration:
                     const InputDecoration(labelText: "Confirm password")),
             TextButton.icon(

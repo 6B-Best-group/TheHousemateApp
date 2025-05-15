@@ -1,9 +1,8 @@
 import 'package:housemate_app/dataInfo.dart';
 
 class DataChecks {
-  bool charLengthCheck(String field, String value) {
-    if (inputLen[field]! < value.length || value.isEmpty) {
-      print(value);
+  bool charLengthCheck(int field, String value) {
+    if (field < value.length || value.isEmpty) {
       return false;
     }
     return true;
@@ -16,7 +15,7 @@ class DataChecks {
     int i = 0;
 
     for (String key in keys) {
-      bool lenCheck = charLengthCheck(key, inputs[i]);
+      bool lenCheck = charLengthCheck(usernameData[key]!, inputs[i]);
       if (!lenCheck) {
         return false;
       }
@@ -31,6 +30,48 @@ class DataChecks {
     }
     if (!userEmail.contains("@")) {
       return false;
+    }
+    return true;
+  }
+
+  //adding a shopping list item checks
+  bool addShoppingItem(String quantity, String name) {
+    if (quantity == "") {
+      quantity = "0";
+    }
+    try {
+      int quant = int.parse(quantity);
+      if (quant < 0 || quant > 50) {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+    if (charLengthCheck(shoppingItemData["itemName"]!, name)) {
+      //ShoppingItem item = ShoppingItem(name, int.parse(quantity));
+      //Database().shoppingList.add(item);
+      return true;
+    }
+    return false;
+  }
+
+  bool addShoppingItemCost(String cost) {
+    if (cost == "") {
+      return false;
+    }
+    try {
+      double quant = double.parse(cost);
+      if (quant <= 0 || quant > 200) {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+    if (cost.contains(".")) {
+      String decPlaces = cost.split(".")[1];
+      if (decPlaces.length > 2) {
+        return false;
+      }
     }
     return true;
   }

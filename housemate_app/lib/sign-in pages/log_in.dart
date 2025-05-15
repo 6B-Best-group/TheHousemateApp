@@ -13,6 +13,7 @@ class log_In extends StatefulWidget {
 class _log_inState extends State<log_In> {
   final username = TextEditingController();
   final password = TextEditingController();
+
   void submit() async {
     //password check
     //send to next screen
@@ -29,11 +30,11 @@ class _log_inState extends State<log_In> {
           children: [
             TextField(
                 controller: username,
-                maxLength: inputLen["userName"],
+                maxLength: usernameData["userName"],
                 decoration: InputDecoration(labelText: "Email")),
             TextField(
                 controller: password,
-                maxLength: inputLen["password"],
+                maxLength: usernameData["password"],
                 decoration: const InputDecoration(labelText: "password")),
             TextButton.icon(
               onPressed: () {

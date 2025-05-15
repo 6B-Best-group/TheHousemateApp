@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
+
 import 'package:housemate_app/main.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
 
 class shopping_list extends StatefulWidget {
   const shopping_list({super.key});
@@ -11,36 +14,29 @@ class shopping_list extends StatefulWidget {
 }
 
 class _shopping_listState extends State<shopping_list> {
-  // List<ShoppingItem> itemList =   []; //this currently resets constantly, needs database loading
+  late List<ShoppingList> currentshoppingList; 
   final quantity = TextEditingController();
   final itemName = TextEditingController();
   final cost = TextEditingController();
 
   void addItem() {
-    if (itemValid()) {
-      ShoppingItem item = ShoppingItem(itemName.text, int.parse(quantity.text));
-      shoppingList.add(item);
-      ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added to the Shopping List', '${quantity.text}x ${itemName.text}');
-      actionsList.add(logAction);
-      setState(() {});
-    }
+    //if (itemValid()) {
+    Database().shoppingList.add(ShoppingList(itemId: Database().shoppingList.length + 1, houseId: Database().users[Database().currentUser].houseId, itemName: itemName.text, itemQuantity: int.parse(quantity.text), itemPrice: 0.00, itemBrought: false, userId: Database().users[Database().currentUser].userId));
+    ActionLogNotification logAction = ActionLogNotification(
+        '${currentUser.firstName} ${currentUser.lastName} added to the Shopping List',
+        '${quantity.text}x ${itemName.text}');
+    actionsList.add(logAction);
+    setState(() {});
+    // }
   }
 
   void removeItem(item) {
-    shoppingList.remove(item);
-    print(shoppingList);
-    ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} removed an item from the shopping list', 'Discover new and inciting Minecraft creations (placeholder)');
+    Database().shoppingList.remove(item);
+    ActionLogNotification logAction = ActionLogNotification(
+        '${currentUser.firstName} ${currentUser.lastName} removed an item from the shopping list',
+        'Discover new and inciting Minecraft creations (placeholder)');
     actionsList.add(logAction);
     setState(() {});
-  }
-
-  bool itemValid() {
-    try {
-      int.parse(quantity.text);
-      return true;
-    } catch (e) {
-      return false;
-    }
   }
 
   void addCost(ShoppingItem item) {
@@ -48,6 +44,8 @@ class _shopping_listState extends State<shopping_list> {
       item.cost = double.parse(cost.text);
       broughItems.add(item);
       removeItem(item);
+      item.setPaid(currentUser.getUsername(), double.parse(cost.text));
+      print(broughItems);
     } catch (e) {
       print("invalid entry");
     }
@@ -77,27 +75,29 @@ class _shopping_listState extends State<shopping_list> {
                   ],
                 ),
                 actions: [
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                    TextButton.icon(
-                        onPressed: () {
-                          itemName.clear();
-                          quantity.clear();
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(Icons.delete),
-                        label: const Text("discard")),
-                    TextButton.icon(
-                        onPressed: () {
-                          addItem();
-                          Navigator.pop(context);
-                        }, // To be added
-                        icon: Icon(Icons.save),
-                        label: Text("Add to list"))
-                  ]),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton.icon(
+                            onPressed: () {
+                              itemName.clear();
+                              quantity.clear();
+                              Navigator.pop(context);
+                            },
+                            icon: const Icon(Icons.delete),
+                            label: const Text("discard")),
+                        TextButton.icon(
+                            onPressed: () {
+                              addItem();
+                              Navigator.pop(context);
+                            }, // To be added
+                            icon: Icon(Icons.save),
+                            label: Text("Add to list"))
+                      ]),
                 ]));
   }
 
-  void removeItemPopUp(context, item) {
+  void removeItemPopUp(context, int index) {
     showDialog<String>(
         context: context,
         builder: (BuildContext context) => AlertDialog(
@@ -123,12 +123,25 @@ class _shopping_listState extends State<shopping_list> {
                       icon: const Icon(Icons.delete),
                       label: const Text("discard")),
                   TextButton.icon(
-                      onPressed: () {}, // To be added
+                      onPressed: () {
+                        Database().shoppingList[index].itemPrice = double.parse(cost.text);
+                        quantity.clear();
+                        Navigator.pop(context);
+                      }, // To be added
                       icon: Icon(Icons.add),
                       label: Text("Log"))
                 ])
               ],
             ));
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    currentshoppingList = Database().shoppingList;
+
+
   }
 
   @override
@@ -138,33 +151,50 @@ class _shopping_listState extends State<shopping_list> {
           title: const Text("Shopping List"),
         ),
         body: Column(children: [
-          TextButton(onPressed: () {}, child: const Text("Spending page")),
+          TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/spending');
+              },
+              child: const Text("Spending page")),
           Flexible(
-              child: ListView.builder(
-                  itemCount: shoppingList.length,
-                  itemBuilder: (context, i) {
-                    return ListTile(
-                        title: Text(shoppingList[i].itemName),
-                        subtitle: Text("Quantity: ${shoppingList[i].quanity}"),
-                        trailing: Wrap(children: [
-                          IconButton(
-                              icon: const Icon(Icons.check),
-                              onPressed: () {
-                                removeItemPopUp(context, shoppingList[i]);
-                              }),
-                          IconButton(
-                              icon: const Icon(Icons.delete_forever),
-                              onPressed: () {
-                                removeItem(shoppingList[i]);
-                                //Navigator.pop(context);
-                              }),
-                        ]));
-                  }))
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10,bottom: 10),
+                child: ListView.builder(
+                    itemCount: currentshoppingList.length,
+                    itemBuilder: (context, i) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: ListTile(
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(color: Colors.black,width: 1),
+                            borderRadius: BorderRadius.circular(0),
+                        
+                          ),
+                            title: Text(currentshoppingList[i].itemName),
+                            subtitle: Text("Quantity: ${currentshoppingList[i].itemQuantity}"),
+                            trailing: Wrap(children: [
+                              IconButton(
+                                  icon: const Icon(Icons.check),
+                                  onPressed: () {
+                                    removeItemPopUp(context, i);
+                                  }),
+                              IconButton(
+                                  icon: const Icon(Icons.delete_forever),
+                                  onPressed: () {
+                                    removeItem(currentshoppingList[i]);
+                                    //Navigator.pop(context);
+                                  }),
+                            ])),
+                      );
+                    }),
+              ))
         ]),
         floatingActionButton: FloatingActionButton(
             onPressed: () {
               addItemPopUp(context);
             },
-            child: const Icon(Icons.add)));
+            hoverColor: Colors.cyan,
+            child: const Icon(Icons.add),
+            ));
   }
 }
