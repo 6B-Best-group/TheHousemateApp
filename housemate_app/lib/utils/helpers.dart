@@ -38,7 +38,7 @@ Map<DateTime, List<Chore>> sortingUserChoreDates(Map<DateTime, List<Chore>> allU
 
 Map<DateTime, List<Chore>> sortingOtherUserChoreDates(Map<DateTime, List<Chore>> allUserData) {
   final int userID = Database().currentUser + 1;
-  print(userID);
+  
   final Map<DateTime, List<Chore>> result = {};
 
   allUserData.forEach((date, chores) {
