@@ -91,7 +91,7 @@ class _UserProfileState extends State<UserProfile> {
               padding: const EdgeInsets.all(20.0),
               child: Container(
                 width: MediaQuery.of(context).size.width / 2,
-                height: 500,
+                height: 400,
                 decoration: BoxDecoration(
                     border: Border.all(
                   color: Colors.black,

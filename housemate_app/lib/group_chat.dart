@@ -100,7 +100,7 @@ class _GroupChatPageState extends State<GroupChatPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container( // THE HOUSE BOX
-                      height: 78,
+                      height: 100,
                       width: double.maxFinite,
                       decoration: BoxDecoration(
                         color: Colors.grey,

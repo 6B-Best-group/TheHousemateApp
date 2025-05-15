@@ -42,11 +42,11 @@ void main() async {
 
   // loads the database on initialization of the app
 
-  await Database().loadUsers();
-  await Database().loadHouse();
-  await Database().loadMessage();
-  await Database().loadShoppingList();
-  await Database().loadChore();
+  await db.loadHouse();
+  await db.loadUsers();
+  await db.loadMessage();
+  await db.loadShoppingList();
+  await db.loadChore();
     
 
 

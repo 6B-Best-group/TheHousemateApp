@@ -15,8 +15,8 @@ class Rota extends StatefulWidget {
   State<Rota> createState() => _RotaState();
 }
 
-class CustomListItem extends StatelessWidget {
-  const CustomListItem({
+class RotaItem extends StatelessWidget {
+  const RotaItem({
     super.key,
     required this.thumbnail,
     required this.choreName,
@@ -293,6 +293,7 @@ class _RotaState extends State<Rota> {
             },
             label: const Text("General Rota"),
             icon: const Icon(Icons.add),
+            hoverColor: Colors.cyan,
           ),
 
           const Padding(padding: EdgeInsets.fromLTRB(0, 0, 10, 0)),
@@ -303,6 +304,7 @@ class _RotaState extends State<Rota> {
             },
             label: const Text("Weekly Rota"),
             icon: const Icon(Icons.add),
+            hoverColor: Colors.cyan,
           ),
         ],
       ),
@@ -312,7 +314,7 @@ class _RotaState extends State<Rota> {
         itemExtent: 106.0,
         itemCount: Database().generalChoreRotaList.length,
         itemBuilder: (context, i) {
-          return CustomListItem( // the general chore rota
+          return RotaItem( // the general chore rota
             onCheckPressed: () {
               ActionLogNotification action = ActionLogNotification('${currentUser.firstName} completed a task of the general chore rota', generalChoreRota[i].choreName);
               actionsList.add(action);
@@ -328,11 +330,11 @@ class _RotaState extends State<Rota> {
               showFullRota(context, generalChoreRota[i].choreRota);
             },
             choreName: generalChoreRota[i].choreName,
-            assignee: generalChoreRota[i].assignee.firstName,
-            nextAssignee: generalChoreRota[i].choreRota.first.firstName,
+            assignee: generalChoreRota[i].getAssignee(),
+            nextAssignee: generalChoreRota[i].getNextAssignee(),
             thumbnail: Container(
               decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 165, 237, 255),
+                color: Colors.cyan,
                 //border: Border(right: const BorderSide(color: Colors.black, width: 2)),
                 ), 
               child: Center(child: Text('Last Completed: ${Database().generalChoreRotaList[i].getLastCompleted()}\nBy: ${Database().generalChoreRotaList[i].getLastAssignee()}'))),
@@ -344,7 +346,7 @@ class _RotaState extends State<Rota> {
         itemExtent: 106.0,
         itemCount: weeklyChoreRota.length,
         itemBuilder: (context, i) {
-          return CustomListItem(
+          return RotaItem(
             onCheckPressed: () {
               weeklyChoreRota[i].setCompleted();
               if (weeklyChoreRota[i].completed) {

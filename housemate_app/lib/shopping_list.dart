@@ -23,7 +23,7 @@ class _shopping_listState extends State<shopping_list> {
     //if (itemValid()) {
     Database().shoppingList.add(ShoppingList(itemId: Database().shoppingList.length + 1, houseId: Database().users[Database().currentUser].houseId, itemName: itemName.text, itemQuantity: int.parse(quantity.text), itemPrice: 0.00, itemBrought: false, userId: Database().users[Database().currentUser].userId));
     ActionLogNotification logAction = ActionLogNotification(
-        '${currentUser.getFirstName()} ${currentUser.getLastName()} added to the Shopping List',
+        '${currentUser.firstName} ${currentUser.lastName} added to the Shopping List',
         '${quantity.text}x ${itemName.text}');
     actionsList.add(logAction);
     setState(() {});
@@ -33,7 +33,7 @@ class _shopping_listState extends State<shopping_list> {
   void removeItem(item) {
     Database().shoppingList.remove(item);
     ActionLogNotification logAction = ActionLogNotification(
-        '${currentUser.getFirstName()} ${currentUser.getLastName()} removed an item from the shopping list',
+        '${currentUser.firstName} ${currentUser.lastName} removed an item from the shopping list',
         'Discover new and inciting Minecraft creations (placeholder)');
     actionsList.add(logAction);
     setState(() {});
@@ -193,6 +193,8 @@ class _shopping_listState extends State<shopping_list> {
             onPressed: () {
               addItemPopUp(context);
             },
-            child: const Icon(Icons.add)));
+            hoverColor: Colors.cyan,
+            child: const Icon(Icons.add),
+            ));
   }
 }
