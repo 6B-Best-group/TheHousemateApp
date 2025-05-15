@@ -57,6 +57,7 @@ class User {
   final String lastName;
   final String username;
   final String password;
+  double spending = 0.00;
   final String email;
   final DateTime dateOfBirth;
 
@@ -67,6 +68,7 @@ class User {
     required this.lastName,
     required this.username,
     required this.password,
+    required this.spending,
     required this.email,
     required this.dateOfBirth,
   });
@@ -79,6 +81,7 @@ class User {
       lastName: json['last_name'] as String,
       username: json['username'] as String,
       password: json['password'] as String,
+      spending: json['spending'] as double,
       email: json['email'] as String,
       dateOfBirth: DateTime.parse(json['date_of_birth'] as String)
     );
@@ -92,6 +95,7 @@ class User {
       'last_name': lastName,
       'username': username,
       'password': password,
+      'spending': spending,
       'email': email,
       'date_of_birth': dateOfBirth.toIso8601String(),
     };

@@ -6,6 +6,7 @@
         "last_name": "Doe",
         "username": "JDoe",
         "password": "JhoePass",
+        "spending": 0.0,
         "email": "Doe@gmail.com",
         "date_of_birth": "2004-02-12"
     },
@@ -16,6 +17,7 @@
         "last_name": "Alexander",
         "username": "MArxel",
         "password": "PasswordSecret",
+        "spending": 0.0,
         "email": "MAlexander@gmail.com",
         "date_of_birth": "2005-10-21"
     },
@@ -26,6 +28,7 @@
         "last_name": "Parker",
         "username": "PPGoop",
         "password": "Hero140",
+        "spending": 0.0,
         "email": "PeterParks@gmail.com",
         "date_of_birth": "1986-07-13"
     },
@@ -36,6 +39,7 @@
         "last_name": "Roxane",
         "username": "FatherMilkers",
         "password": "CuteSheep",
+        "spending": 0.0,
         "email": "IrisRoxy12@gmail.com",
         "date_of_birth": "2004-09-19"
     },
@@ -46,6 +50,7 @@
         "last_name": "Giggles",
         "username": "GGhuggles",
         "password": "TickleMaster33",
+        "spending": 0.0,
         "email": "GGiggless@gmail.com",
         "date_of_birth": "2005-01-24"
     }

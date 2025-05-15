@@ -104,7 +104,17 @@ class _RotaState extends State<Rota> {
   void addGeneralChore() {
     GeneralChoreRota rota = GeneralChoreRota(generalChoreName.text, selectedUsers,currentUser);
     Database().generalChoreRotaList.add(rota);
-    ActionLogNotification action = ActionLogNotification('${currentUser.firstName} ${currentUser.lastName} added a new general chore rota: ${generalChoreName.text}', 'Rota: ${selectedUsers.join(' → ')}');
+    String rotaNames = '';
+    bool first = true;
+    for (User i in selectedUsers) {
+      if (first) {
+        rotaNames += i.firstName;
+        first = false;
+      } else {
+        rotaNames += ' → ${i.firstName}';
+      }
+    }
+    ActionLogNotification action = ActionLogNotification('${currentUser.firstName} ${currentUser.lastName} added a new general chore rota: ${generalChoreName.text}', 'Rota: $rotaNames');
     actionsList.add(action);
     setState(() {
       selectedUsers = [];
@@ -170,7 +180,17 @@ class _RotaState extends State<Rota> {
   void addWeeklyChore() {
     WeeklyChoreRota rota = WeeklyChoreRota(weeklyChoreName.text, selectedUsers, currentUser);
     Database().weeklyChoreRotaList.add(rota);
-    ActionLogNotification action = ActionLogNotification('${currentUser.firstName} ${currentUser.lastName} added a new weekly chore rota: ${weeklyChoreName.text}', 'Rota: ${selectedUsers.join(' → ')}');
+    String rotaNames = '';
+    bool first = true;
+    for (User i in selectedUsers) {
+      if (first) {
+        rotaNames += i.firstName;
+        first = false;
+      } else {
+        rotaNames += ' → ${i.firstName}';
+      }
+    }
+    ActionLogNotification action = ActionLogNotification('${currentUser.firstName} ${currentUser.lastName} added a new weekly chore rota: ${weeklyChoreName.text}', 'Rota: $rotaNames');
     actionsList.add(action);
     setState(() {
       selectedUsers = [];
@@ -350,10 +370,10 @@ class _RotaState extends State<Rota> {
             onCheckPressed: () {
               weeklyChoreRota[i].setCompleted();
               if (weeklyChoreRota[i].completed) {
-                ActionLogNotification action = ActionLogNotification('${weeklyChoreRota[i].assignee} marked a weekly chore as completed', weeklyChoreRota[i].choreName);
+                ActionLogNotification action = ActionLogNotification('${currentUser.firstName} ${currentUser.lastName} marked a weekly chore as completed', weeklyChoreRota[i].choreName);
                 actionsList.add(action);
               } else {
-                ActionLogNotification action = ActionLogNotification('${weeklyChoreRota[i].assignee} marked a weekly chore as incomplete', weeklyChoreRota[i].choreName);
+                ActionLogNotification action = ActionLogNotification('${currentUser.firstName} ${currentUser.lastName} marked a weekly chore as incomplete', weeklyChoreRota[i].choreName);
                 actionsList.add(action);
               }
               setState(() {});

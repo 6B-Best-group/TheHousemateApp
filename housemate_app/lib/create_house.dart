@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/main.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
 
 class CreateHouse extends StatefulWidget {
   const CreateHouse({super.key});
@@ -32,7 +34,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
   final address1 = TextEditingController();
   final address2 = TextEditingController();
   final city = TextEditingController();
-  final county = TextEditingController();
+  final country = TextEditingController();
   final postcode = TextEditingController();
 
   final _formKey = GlobalKey<FormState>();
@@ -42,8 +44,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('Processing Data')),
       );
-      house.createHouse(housename.text, address1.text, address2.text, city.text,
-          county.text, postcode.text);
+      Database().house.add(House(houseId: Database().house.length, houseNickname: housename.text, houseAddress: "${address1.text}, ${address2.text}", city: city.text, country: country.text, postcode: postcode.text, binCode: 'N/A',));
       houseMember = true;
       Navigator.pushNamed(context, '/');
     }
@@ -115,16 +116,16 @@ class _MyCustomFormState extends State<MyCustomForm> {
               }
               return null;
             },
-            controller: county,
+            controller: country,
             decoration: const InputDecoration(
-              hintText: "County",
+              hintText: "Country",
             ),
           ),
           TextFormField(
             // Postcode.
             validator: (value) {
               if (value == null || value.isEmpty) {
-                return "Please enter a valid postcode.";
+                return "Please enter a valid country";
               }
               return null;
             },

@@ -41,6 +41,8 @@ class _CalenderHomePageState extends State<CalenderPage>
 
   bool showSideBar = false;
 
+  late User currentUser;
+
   
   // -- adding chore widget --
   void addNewChore() {
@@ -64,7 +66,7 @@ class _CalenderHomePageState extends State<CalenderPage>
   void saveNewChore() {
     if (userDateChores.containsKey(currentDate) && // checks the data then saves it to the database, it also adds the actions to the action log
         newChoreName.text.isNotEmpty) {
-          ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a Chore', newChoreName.text);
+          ActionLogNotification logAction = ActionLogNotification('${currentUser.firstName} ${currentUser.lastName} added a Chore', newChoreName.text);
           actionsList.add(logAction);
           heatMapDataset.add(currentDate,markedDateEvent(currentDate, (userDateChores[currentDate]!.length + 1)));
           setState(() {
@@ -72,7 +74,7 @@ class _CalenderHomePageState extends State<CalenderPage>
             userDateChores = sortingUserChoreDates(sortingChoreDates(Database().chore));
           });
     } else if (newChoreName.text.isNotEmpty) {
-      ActionLogNotification logAction = ActionLogNotification('${currentUser.getFirstName()} ${currentUser.getLastName()} added a Chore', newChoreName.text);
+      ActionLogNotification logAction = ActionLogNotification('${currentUser.firstName} ${currentUser.lastName} added a Chore', newChoreName.text);
       actionsList.add(logAction);
       setState(() {
         Database().chore.add(Chore(choreId: Database().chore.length+1, userId: Database().users[Database().currentUser].userId, choreName: newChoreName.text, choreDescription: newChoreName.text, dueDate: currentDate, assignedDate: DateTime.now(), completed: false));
@@ -94,6 +96,7 @@ class _CalenderHomePageState extends State<CalenderPage>
     userDateChores = sortingUserChoreDates(sortingChoreDates(Database().chore));
     otherUserDateChores = choresByDateAndUser(sortingOtherUserChoreDates(sortingChoreDates(Database().chore))); 
     heatMapDataset = markedChoreDays(addingToHeatMap(sortingChoreDates(Database().chore)));
+    currentUser = Database().users[Database().currentUser];
     
   }
 

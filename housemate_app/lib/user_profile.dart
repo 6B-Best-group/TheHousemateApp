@@ -75,7 +75,7 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                           ),
                           Text(
-                            house.address1,
+                            Database().house[0].houseAddress,
                             style: TextStyle(
                               fontSize: 23,
                             ),

@@ -18,6 +18,7 @@ class _shopping_listState extends State<shopping_list> {
   final quantity = TextEditingController();
   final itemName = TextEditingController();
   final cost = TextEditingController();
+  late User currentUser;
 
   void addItem() {
     //if (itemValid()) {
@@ -34,7 +35,7 @@ class _shopping_listState extends State<shopping_list> {
     Database().shoppingList.remove(item);
     ActionLogNotification logAction = ActionLogNotification(
         '${currentUser.firstName} ${currentUser.lastName} removed an item from the shopping list',
-        'Discover new and inciting Minecraft creations (placeholder)');
+        '');
     actionsList.add(logAction);
     setState(() {});
   }
@@ -44,8 +45,10 @@ class _shopping_listState extends State<shopping_list> {
       item.cost = double.parse(cost.text);
       broughItems.add(item);
       removeItem(item);
-      item.setPaid(currentUser.getUsername(), double.parse(cost.text));
+      item.setPaid(currentUser.username, double.parse(cost.text));
       print(broughItems);
+      currentUser.spending = currentUser.spending + double.parse(cost.text);
+      print(currentUser.spending);
     } catch (e) {
       print("invalid entry");
     }
@@ -140,7 +143,7 @@ class _shopping_listState extends State<shopping_list> {
     // TODO: implement initState
     super.initState();
     currentshoppingList = Database().shoppingList;
-
+    currentUser = Database().users[Database().currentUser];
 
   }
 
