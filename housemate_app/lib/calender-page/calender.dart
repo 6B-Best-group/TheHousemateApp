@@ -92,7 +92,9 @@ class _CalenderHomePageState extends State<CalenderPage>
     // these load all of the user data and formats it for easier use
     allUserDateChores =  sortingChoreDates(Database().chore);
     userDateChores = sortingUserChoreDates(sortingChoreDates(Database().chore));
-    otherUserDateChores = choresByDateAndUser(sortingChoreDates(Database().chore)); 
+    print(userDateChores);
+    otherUserDateChores = choresByDateAndUser(sortingOtherUserChoreDates(sortingChoreDates(Database().chore))); 
+    print(otherUserDateChores);
     heatMapDataset = markedChoreDays(addingToHeatMap(sortingChoreDates(Database().chore)));
     
   }
@@ -205,8 +207,10 @@ class _CalenderHomePageState extends State<CalenderPage>
                                     ) {
                                       // seperates the other users into their seperate chores
                                       final otherUsers = otherUserDateChores[currentDate]!;
+                                      print(otherUsers);
 
                                       final otherUserChores = otherUsers.keys.elementAt(index);
+                                      print(otherUserChores);
 
                                       User currentSelectedUser = findUser(otherUserChores);
                                       
