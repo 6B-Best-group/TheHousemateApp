@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:housemate_app/class/profile.dart';
+import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/dataInfo.dart';
 
 class DataChecks {
@@ -70,6 +73,71 @@ class DataChecks {
     if (cost.contains(".")) {
       String decPlaces = cost.split(".")[1];
       if (decPlaces.length > 2) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  bool houseCheck(name, add1, add2, cit, cont, code) {
+    String address2 = add2;
+    if (add2 == "") {
+      address2 = cit;
+    }
+    List<String> values = [name, add1, address2, cit, cont, code];
+    List<String> fields = [
+      "name",
+      "add1",
+      "add2",
+      "city",
+      "county",
+      "postcode"
+    ];
+
+    for (int i = 0; i < values.length; i++) {
+      if (values[i] == " ") {
+        return false;
+      }
+
+      if (!charLengthCheck(houseInputLen[fields[i]]!, values[i])) {
+        return false;
+      }
+    }
+    if (checkForNum(cit) || checkForNum(cont)) {
+      return false;
+    }
+    return true;
+  }
+
+  bool chatMessage(String message, sender, time) {
+    if (!(sender is User)) {
+      return false;
+    }
+    if (message == "") {
+      return false;
+    }
+    try {
+      if (time.difference(DateTime.now()).inSeconds > 0) {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+    if (!charLengthCheck(chatData["message"]!, message)) {
+      return false;
+    }
+    return true;
+  }
+
+  bool chore(name, List users) {
+    if (!charLengthCheck(choreData["name"]!, name)) {
+      return false;
+    }
+    if (users.isEmpty) {
+      return false;
+    }
+    for (dynamic user in users) {
+      if (user is! User) {
         return false;
       }
     }
