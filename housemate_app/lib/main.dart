@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/binRota.dart';
 import 'package:housemate_app/calender-page/calender.dart';
+import 'package:housemate_app/class/bins.dart';
 import 'package:housemate_app/group_chat.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/house.dart';
@@ -26,6 +28,7 @@ List<ShoppingItem> broughItems = [];
 Map<String, double> spendingMap = {};
 User currentUser = User();
 House house = House();
+Bins bin = Bins();
 bool login = true;
 bool houseMember = true;
 String screen = '/welcome';
@@ -84,6 +87,7 @@ class _MyAppState extends State<MyApp> {
         '/findHouse': (context) => const findHouse(),
         '/actionLog': (context) => const ActionLog(),
         '/rota': (context) => const Rota(),
+        '/binRota': (context) => const binRota(),
         '/settings': (context) => const Settings(),
         '/spending': (context) => const spendingPage(),
       },
