@@ -16,6 +16,7 @@ class Rota extends StatefulWidget {
   State<Rota> createState() => _RotaState();
 }
 
+// Defining the custom Widget that's essentially a ListTile() from flutter but specialised for choare rotas.
 class RotaItem extends StatelessWidget {
   const RotaItem({
     super.key,
@@ -51,9 +52,8 @@ class RotaItem extends StatelessWidget {
           children: <Widget>[
             Expanded(flex: 1, child: thumbnail),
             Expanded(
-                flex: 2, // flex 1
+                flex: 2,
                 child: Padding(
-                  //padding: const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 0.0),
                   padding: EdgeInsets.all(8),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,7 +112,7 @@ class _RotaState extends State<Rota> {
         DropdownMenuEntry<User>(value: name, label: name.firstName)),
   );
 
-  //Creates a general chore
+  // Creates a general chore.
   void addGeneralChore() {
     DataChecks checks = DataChecks();
     if (checks.chore(generalChoreName.text, selectedUsers)) {
@@ -284,6 +284,7 @@ class _RotaState extends State<Rota> {
                 ]));
   }
 
+  // Removes selected general chore rota.
   void removeGeneralRota(rota) {
     Database().generalChoreRotaList.remove(rota);
     ActionLogNotification logAction = ActionLogNotification(
@@ -292,6 +293,7 @@ class _RotaState extends State<Rota> {
     actionsList.add(logAction);
   }
 
+  // Removes selected weekly chore rota.
   void removeWeeklyRota(rota) {
     Database().weeklyChoreRotaList.remove(rota);
     ActionLogNotification logAction = ActionLogNotification(
@@ -300,6 +302,7 @@ class _RotaState extends State<Rota> {
     actionsList.add(logAction);
   }
 
+  // Show the entire rota for the chore.
   void showFullRota(context, List<User> rota) {
     showDialog<String>(
         context: context,
@@ -334,13 +337,14 @@ class _RotaState extends State<Rota> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Rotas"),
-          bottom: const TabBar(
+          bottom: const TabBar( // Adding tabs.
             tabs: <Widget>[
               Tab(text: 'General Rota'),
               Tab(text: 'Weekly Rota'),
             ],
           ),
         ),
+        // Create chore rota buttons.
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
@@ -365,8 +369,8 @@ class _RotaState extends State<Rota> {
             ),
           ],
         ),
-        body: TabBarView(children: <Widget>[
-          ListView.builder(
+        body: TabBarView(children: <Widget>[ // Declaring what will appear under each tab.
+          ListView.builder( // Creating the list of general chore rotas.
             padding: const EdgeInsets.all(8.0),
             itemExtent: 106.0,
             itemCount: Database().generalChoreRotaList.length,
@@ -395,7 +399,6 @@ class _RotaState extends State<Rota> {
                 thumbnail: Container(
                     decoration: const BoxDecoration(
                       color: Colors.cyan,
-                      //border: Border(right: const BorderSide(color: Colors.black, width: 2)),
                     ),
                     child: Center(
                         child: Text(
@@ -403,7 +406,7 @@ class _RotaState extends State<Rota> {
               );
             },
           ),
-          ListView.builder(
+          ListView.builder( // Creating the list of weekly chore rotas.
             padding: const EdgeInsets.all(8.0),
             itemExtent: 106.0,
             itemCount: weeklyChoreRota.length,
