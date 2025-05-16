@@ -4,41 +4,41 @@
         "house_id": 1,
         "user_id": 3,
         "message_text": "Hi guys, can we not leave a mess in the kitchen",
-        "message_date": "2025-05-13T19:30:00"
+        "message_date": "2025-05-13T16:30:00"
       },
       {
         "message_id": 2,
         "house_id": 1,
         "user_id": 4,
         "message_text": "Don't forget to lock the door tonight.",
-        "message_date": "2025-05-13T20:00:00"
+        "message_date": "2025-05-13T17:16:00"
       },
       {
         "message_id": 3,
         "house_id": 1,
         "user_id": 3,
         "message_text": "Can someone pick up groceries on the way home?",
-        "message_date": "2025-05-13T18:45:00"
+        "message_date": "2025-05-13T17:45:00"
       },
       {
         "message_id": 4,
         "house_id": 1,
         "user_id": 2,
         "message_text": "i can pick them up! BTW, The plumber is coming tomorrow at 10am.",
-        "message_date": "2025-05-13T17:30:00"
+        "message_date": "2025-05-13T18:30:00"
       },
       {
         "message_id": 5,
         "house_id": 1,
         "user_id": 1,
         "message_text": "Game night this Friday??",
-        "message_date": "2025-05-14T21:15:00"
+        "message_date": "2025-05-14T19:50:00"
       },
       {
         "message_id": 6,
         "house_id": 1,
         "user_id": 5,
         "message_text": "im so down for game, can we play monopoly or some poker?",
-        "message_date": "2025-05-14T19:50:00"
+        "message_date": "2025-05-14T21:15:00"
       }
 ]
