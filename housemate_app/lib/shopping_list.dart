@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
 import 'package:housemate_app/class/shoppingItem.dart';
+import 'package:housemate_app/inputCheck.dart';
 
 import 'package:housemate_app/main.dart';
 import 'package:housemate_app/utils/database/data-models.dart';
@@ -14,40 +15,57 @@ class shopping_list extends StatefulWidget {
 }
 
 class _shopping_listState extends State<shopping_list> {
-  late List<ShoppingList> currentshoppingList; 
+  late List<ShoppingList> currentshoppingList;
   final quantity = TextEditingController();
   final itemName = TextEditingController();
   final cost = TextEditingController();
-
+  late User currentUser;
+  //adds item to the shopping list
   void addItem() {
-    //if (itemValid()) {
-    Database().shoppingList.add(ShoppingList(itemId: Database().shoppingList.length + 1, houseId: Database().users[Database().currentUser].houseId, itemName: itemName.text, itemQuantity: int.parse(quantity.text), itemPrice: 0.00, itemBrought: false, userId: Database().users[Database().currentUser].userId));
-    ActionLogNotification logAction = ActionLogNotification(
-        '${currentUser.getFirstName()} ${currentUser.getLastName()} added to the Shopping List',
-        '${quantity.text}x ${itemName.text}');
-    actionsList.add(logAction);
-    setState(() {});
-    // }
+    DataChecks check = DataChecks();
+    if (check.addShoppingItem(quantity.text, itemName.text)) {
+      Database().shoppingList.add(ShoppingList(
+          itemId: Database().shoppingList.length + 1,
+          houseId: Database().users[Database().currentUser].houseId,
+          itemName: itemName.text,
+          itemQuantity: int.parse(quantity.text),
+          itemPrice: 0.00,
+          itemBrought: false,
+          userId: Database().users[Database().currentUser].userId));
+      ActionLogNotification logAction = ActionLogNotification(
+          '${currentUser.firstName} ${currentUser.lastName} added to the Shopping List',
+          '${quantity.text}x ${itemName.text}');
+      actionsList.add(logAction);
+      setState(() {});
+    }
   }
 
+  //Parameter: shopping list item
+  //removes item from list
   void removeItem(item) {
     Database().shoppingList.remove(item);
     ActionLogNotification logAction = ActionLogNotification(
-        '${currentUser.getFirstName()} ${currentUser.getLastName()} removed an item from the shopping list',
-        'Discover new and inciting Minecraft creations (placeholder)');
+        '${currentUser.firstName} ${currentUser.lastName} removed an item from the shopping list',
+        '');
     actionsList.add(logAction);
     setState(() {});
   }
 
+  //add costs to the user and list
   void addCost(ShoppingItem item) {
-    try {
-      item.cost = double.parse(cost.text);
-      broughItems.add(item);
-      removeItem(item);
-      item.setPaid(currentUser.getUsername(), double.parse(cost.text));
-      print(broughItems);
-    } catch (e) {
-      print("invalid entry");
+    DataChecks check = DataChecks();
+    if (check.addShoppingItemCost(cost.text)) {
+      try {
+        item.cost = double.parse(cost.text);
+        broughItems.add(item);
+        removeItem(item);
+        item.setPaid(currentUser.username, double.parse(cost.text));
+        print(broughItems);
+        currentUser.spending = currentUser.spending + double.parse(cost.text);
+        print(currentUser.spending);
+      } catch (e) {
+        print("invalid entry");
+      }
     }
   }
 
@@ -124,7 +142,8 @@ class _shopping_listState extends State<shopping_list> {
                       label: const Text("discard")),
                   TextButton.icon(
                       onPressed: () {
-                        Database().shoppingList[index].itemPrice = double.parse(cost.text);
+                        Database().shoppingList[index].itemPrice =
+                            double.parse(cost.text);
                         quantity.clear();
                         Navigator.pop(context);
                       }, // To be added
@@ -137,11 +156,9 @@ class _shopping_listState extends State<shopping_list> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     currentshoppingList = Database().shoppingList;
-
-
+    currentUser = Database().users[Database().currentUser];
   }
 
   @override
@@ -158,41 +175,43 @@ class _shopping_listState extends State<shopping_list> {
               child: const Text("Spending page")),
           Flexible(
               child: Padding(
-                padding: const EdgeInsets.only(top: 10,bottom: 10),
-                child: ListView.builder(
-                    itemCount: currentshoppingList.length,
-                    itemBuilder: (context, i) {
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ListTile(
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(color: Colors.black,width: 1),
-                            borderRadius: BorderRadius.circular(0),
-                        
-                          ),
-                            title: Text(currentshoppingList[i].itemName),
-                            subtitle: Text("Quantity: ${currentshoppingList[i].itemQuantity}"),
-                            trailing: Wrap(children: [
-                              IconButton(
-                                  icon: const Icon(Icons.check),
-                                  onPressed: () {
-                                    removeItemPopUp(context, i);
-                                  }),
-                              IconButton(
-                                  icon: const Icon(Icons.delete_forever),
-                                  onPressed: () {
-                                    removeItem(currentshoppingList[i]);
-                                    //Navigator.pop(context);
-                                  }),
-                            ])),
-                      );
-                    }),
-              ))
+            padding: const EdgeInsets.only(top: 10, bottom: 10),
+            child: ListView.builder(
+                itemCount: currentshoppingList.length,
+                itemBuilder: (context, i) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListTile(
+                        shape: RoundedRectangleBorder(
+                          side: BorderSide(color: Colors.black, width: 1),
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        title: Text(currentshoppingList[i].itemName),
+                        subtitle: Text(
+                            "Quantity: ${currentshoppingList[i].itemQuantity}"),
+                        trailing: Wrap(children: [
+                          IconButton(
+                              icon: const Icon(Icons.check),
+                              onPressed: () {
+                                removeItemPopUp(context, i);
+                              }),
+                          IconButton(
+                              icon: const Icon(Icons.delete_forever),
+                              onPressed: () {
+                                removeItem(currentshoppingList[i]);
+                                //Navigator.pop(context);
+                              }),
+                        ])),
+                  );
+                }),
+          ))
         ]),
         floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              addItemPopUp(context);
-            },
-            child: const Icon(Icons.add)));
+          onPressed: () {
+            addItemPopUp(context);
+          },
+          hoverColor: Colors.cyan,
+          child: const Icon(Icons.add),
+        ));
   }
 }

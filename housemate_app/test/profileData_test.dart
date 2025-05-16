@@ -3,6 +3,9 @@ import 'package:housemate_app/dataInfo.dart';
 import 'package:housemate_app/inputCheck.dart';
 import 'package:housemate_app/class/profile.dart';
 
+/* 
+Test plan: 2.1 user creation
+*/
 void main() {
   group('Test first name validity', () {
     test('Test for an empty value', () {

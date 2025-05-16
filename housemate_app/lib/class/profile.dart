@@ -1,3 +1,5 @@
+//Author: Anna
+//Parameters: None
 class User {
   bool loggedIn = false;
   String firstName = "";
@@ -7,6 +9,7 @@ class User {
   DateTime dob = DateTime(2025);
   User();
 
+  // resets values
   void logOut() {
     loggedIn = false;
     firstName = "";
@@ -14,7 +17,13 @@ class User {
     email = "";
     username = "";
   }
-
+  /* Parameters
+  fname - first name 
+  lname - last name 
+  user - username 
+  userEmail - user email
+  date - date of birth
+  */
   void createUser(String fname, String lname, String user, String userEmail,
       DateTime date) {
     loggedIn = true;
@@ -53,7 +62,7 @@ class User {
   String getUsername() {
     return username;
   }
-
+  // gets date of birth
   String getDOB() {
     return '$dob';
   }

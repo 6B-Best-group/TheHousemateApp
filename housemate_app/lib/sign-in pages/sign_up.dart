@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:housemate_app/dataInfo.dart';
 import 'package:housemate_app/main.dart';
+import 'package:housemate_app/utils/database/data-models.dart';
+import 'package:housemate_app/utils/database/database.dart';
 import '../inputCheck.dart';
 
 class sign_up extends StatefulWidget {
@@ -23,8 +25,7 @@ class _log_inState extends State<sign_up> {
     bool userValid = check.createUserChecks(
         fname.text, lname.text, username.text, userEmail.text, DateTime.now());
     if (userValid) {
-      currentUser.createUser(fname.text, lname.text, username.text,
-          userEmail.text, DateTime.now());
+      Database().users.add(User(userId: Database().users.length, houseId: Database().house.length, firstName: fname.text, lastName: lname.text, username: username.text, password: '', spending: 0.0, email: userEmail.text, dateOfBirth: DateTime.now(),));
       login = true;
       Navigator.pushNamed(context, '/findHouse');
     }

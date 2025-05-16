@@ -1,5 +1,11 @@
 import 'package:housemate_app/utils/database/data-models.dart';
 
+//Author: Ben
+//Parameters:
+//choreName - name of the chore object
+//choreRota - List of users assigned to chore
+//assignee - Who assigned the chore
+// Return value - none
 class GeneralChoreRota {
   final String choreName;
   List<User> choreRota;
@@ -7,8 +13,9 @@ class GeneralChoreRota {
   int rotaIndexTracker = 0;
   DateTime? lastCompleted;
 
-  GeneralChoreRota(this.choreName, this.choreRota,this.assignee);
+  GeneralChoreRota(this.choreName, this.choreRota, this.assignee);
 
+  // Pushes the chore index up by one for the next person
   void incrementRota() {
     if (rotaIndexTracker == choreRota.length - 1) {
       rotaIndexTracker = 0;
@@ -17,10 +24,12 @@ class GeneralChoreRota {
     }
   }
 
+  //returns: chore assigned to person
   String getAssignee() {
     return choreRota[rotaIndexTracker].firstName;
   }
 
+  //returns: the next person to get the chore
   String getNextAssignee() {
     if (rotaIndexTracker == choreRota.length - 1) {
       return choreRota[0].firstName;
@@ -29,6 +38,7 @@ class GeneralChoreRota {
     }
   }
 
+  //returns: the final person in the chore list before it restarts
   String getLastAssignee() {
     if (lastCompleted != null) {
       if (rotaIndexTracker == 0) {
@@ -41,6 +51,7 @@ class GeneralChoreRota {
     }
   }
 
+  //Returns: when the chire was last completed
   String getLastCompleted() {
     if (lastCompleted != null) {
       return lastCompleted.toString().substring(0, 16);

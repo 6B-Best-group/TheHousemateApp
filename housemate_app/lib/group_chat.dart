@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/inputCheck.dart';
 
 import 'package:housemate_app/utils/Widgets/groupchat_message_tile.dart';
 import 'package:housemate_app/utils/calender_utils.dart';
 import 'package:housemate_app/utils/database/data-models.dart';
 import 'package:housemate_app/utils/database/database.dart';
 import 'package:housemate_app/utils/widgets/groupchat_member_tile.dart';
+
+//Author: Matt
 
 class GroupChatPage extends StatefulWidget {
   const GroupChatPage({super.key});
@@ -14,13 +17,11 @@ class GroupChatPage extends StatefulWidget {
 }
 
 class _GroupChatPageState extends State<GroupChatPage> {
-
-  late User currentUser; 
+  late User currentUser;
 
   TextEditingController myMessage = TextEditingController();
 
   final ScrollController _scrollController = ScrollController();
-
 
   final currentMessageDate = DateTime.now();
 
@@ -45,31 +46,34 @@ class _GroupChatPageState extends State<GroupChatPage> {
   //   GCMessage(DateTime(2025,12,5,9,40,21), 'For what its worth im rather excited aswell, LOLS', MemberData('Craig', Colors.orange, '5689442gIc'),),
   // ];
 
-  void sendMessage(){
-    if (myMessage.text.isNotEmpty){
+  void sendMessage() {
+    DataChecks check = DataChecks();
+    if (check.chatMessage(
+        myMessage.text, currentUser.username, DateTime.now())) {
       setState(() {
-        Database().message.add(Message(messageId: Database().message.length, houseId: currentUser.houseId, userId: currentUser.userId, messageText: myMessage.text, messageDate: DateTime.now(),));
+        Database().message.add(Message(
+              messageId: Database().message.length,
+              houseId: currentUser.houseId,
+              userId: currentUser.userId,
+              messageText: myMessage.text,
+              messageDate: DateTime.now(),
+            ));
         myMessage.clear();
       });
     }
   }
 
-  
-
-
-  
   @override
   void initState() {
     super.initState();
-      currentUser = Database().users[Database().currentUser]; //MemberData('Lucy', Colors.green, '3331983jMp');
-      messages = Database().message;
-      houseMember = Database().users;
+    currentUser = Database().users[Database()
+        .currentUser]; //MemberData('Lucy', Colors.green, '3331983jMp');
+    messages = Database().message;
+    houseMember = Database().users;
   }
 
   @override
-
   Widget build(BuildContext context) {
-
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
@@ -85,51 +89,57 @@ class _GroupChatPageState extends State<GroupChatPage> {
       ),
       body: Row(
         children: [
-          Flexible( // --------------------- side bar ----------------------------
+          Flexible(
+            // --------------------- side bar ----------------------------
             flex: 1,
             child: Container(
               decoration: const BoxDecoration(
-                      //color: Colors.purple,
-                      border: Border(
-                        right: BorderSide(color: Colors.black ,width: 2),
-                      ),
-                    ),
-              
+                //color: Colors.purple,
+                border: Border(
+                  right: BorderSide(color: Colors.black, width: 2),
+                ),
+              ),
               child: Column(
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Container( // THE HOUSE BOX
-                      height: 78,
+                    child: Container(
+                      // THE HOUSE BOX
+                      height: 100,
                       width: double.maxFinite,
                       decoration: BoxDecoration(
                         color: Colors.grey,
                         border: Border.all(
-                          color: Colors.black ,width: 1,
+                          color: Colors.black,
+                          width: 1,
                         ),
                       ),
                       child: Row(
                         children: [
-                          Container( // colour banner
-                              width: 25,
-                              decoration: BoxDecoration(
-                                color: Colors.grey.shade700,
-                                border: const Border(
-                                  right: BorderSide(color: Colors.black, width: 2),
-                                ),
+                          Container(
+                            // colour banner
+                            width: 25,
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade700,
+                              border: const Border(
+                                right:
+                                    BorderSide(color: Colors.black, width: 2),
                               ),
                             ),
+                          ),
                           Expanded(
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: const EdgeInsets.only(left: 10,top: 5,bottom: 5),
-                                  child: Text( 
+                                  padding: const EdgeInsets.only(
+                                      left: 10, top: 5, bottom: 5),
+                                  child: Text(
                                     'House',
-                                    style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                                      fontSize: 18
-                                    ),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayLarge!
+                                        .copyWith(fontSize: 18),
                                   ),
                                 ),
                                 const Divider(
@@ -138,14 +148,18 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                 Container(
                                   color: Colors.white,
                                   width: double.maxFinite,
-                                  
                                   child: Padding(
-                                    padding: const EdgeInsets.only(left: 10,top: 10,bottom: 15),
-                                    child: Text( // house address goes here
-                                      '1 Orchard Road, P03 7HE',                 
-                                      style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                                        fontSize: 18,
-                                      ),
+                                    padding: const EdgeInsets.only(
+                                        left: 10, top: 10, bottom: 15),
+                                    child: Text(
+                                      // house address goes here
+                                      '1 Orchard Road, P03 7HE',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium!
+                                          .copyWith(
+                                            fontSize: 18,
+                                          ),
                                     ),
                                   ),
                                 ),
@@ -161,58 +175,61 @@ class _GroupChatPageState extends State<GroupChatPage> {
                   ),
                   const Divider(),
                   Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                         // color: Colors.grey,
-                          border: Border.all(color: Colors.black,width: 1),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              color: Colors.grey.shade600,
-                              width: double.maxFinite,
-                              child: Padding(
-                                padding: const EdgeInsets.only(left: 10,top: 10,bottom: 10),
-                                child: Text(
-                                  'Members',
-                                  style: Theme.of(context).textTheme.displayLarge!.copyWith(
-                                    fontSize: 18
-                                  ),
-                                ),
-                              ),
-                            ),
-                            const Divider(
-                              height: 0,
-                            ),
-                            Expanded(
-                              child: ListView.builder( // lists all of the members
-                                itemCount: houseMember.length, 
-                                shrinkWrap: true,
-                                itemBuilder: (BuildContext context, int index) {
-                                  
-                                  return Padding(
-                                    padding:const EdgeInsets.all(8.0),
-                                    child: GroupchatMemberTile(
-                                      memberName: '${houseMember[index].firstName} ${houseMember[index].lastName}', 
-                                      memberColor: Colors.cyan,
-                                      ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ), 
+                      child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        // color: Colors.grey,
+                        border: Border.all(color: Colors.black, width: 1),
                       ),
-                    )
-                    )
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            color: Colors.grey.shade600,
+                            width: double.maxFinite,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  left: 10, top: 10, bottom: 10),
+                              child: Text(
+                                'Members',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge!
+                                    .copyWith(fontSize: 18),
+                              ),
+                            ),
+                          ),
+                          const Divider(
+                            height: 0,
+                          ),
+                          Expanded(
+                            child: ListView.builder(
+                              // lists all of the members
+                              itemCount: houseMember.length,
+                              shrinkWrap: true,
+                              itemBuilder: (BuildContext context, int index) {
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GroupchatMemberTile(
+                                    memberName:
+                                        '${houseMember[index].firstName} ${houseMember[index].lastName}',
+                                    memberColor: Colors.cyan,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ))
                 ],
               ),
-              ),
+            ),
           ),
-          Expanded( // -------------------- gc page ------------------------------
+          Expanded(
+            // -------------------- gc page ------------------------------
             flex: 4,
             child: Container(
               color: Colors.grey.shade300,
@@ -227,13 +244,17 @@ class _GroupChatPageState extends State<GroupChatPage> {
                         itemCount: messages.length,
                         shrinkWrap: false,
                         itemBuilder: (BuildContext context, int index) {
-                          if (checkDate(messages[index].messageDate, index == 0 ? currentMessageDate : messages[index -1].messageDate)) {
-                              return GCMessageTile(
-                                isMe: currentUser.userId == messages[index].userId, 
-                                message: messages[index],
-                                );
-                          }
-                          else {
+                          if (checkDate(
+                              messages[index].messageDate,
+                              index == 0
+                                  ? currentMessageDate
+                                  : messages[index - 1].messageDate)) {
+                            return GCMessageTile(
+                              isMe:
+                                  currentUser.userId == messages[index].userId,
+                              message: messages[index],
+                            );
+                          } else {
                             return Column(
                               children: [
                                 Row(
@@ -241,14 +262,17 @@ class _GroupChatPageState extends State<GroupChatPage> {
                                     Expanded(child: Divider()),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: Text('${messages[index].messageDate.year.toString()} ${convertDatetimeToMonth(messages[index].messageDate)} ${messages[index].messageDate.day.toString()}'),
+                                      child: Text(
+                                          '${messages[index].messageDate.year.toString()} ${convertDatetimeToMonth(messages[index].messageDate)} ${messages[index].messageDate.day.toString()}'),
                                     ),
                                     Expanded(child: Divider()),
                                   ],
                                 ),
-                                GCMessageTile( // this is what the messages are displayed on
-                                isMe: currentUser.userId == messages[index].userId, 
-                                message: messages[index],
+                                GCMessageTile(
+                                  // this is what the messages are displayed on
+                                  isMe: currentUser.userId ==
+                                      messages[index].userId,
+                                  message: messages[index],
                                 ),
                               ],
                             );
@@ -256,73 +280,77 @@ class _GroupChatPageState extends State<GroupChatPage> {
                         },
                       ),
                     ),
-                    Container( // the text bar at the bottom to allow for messaging
+                    Container(
+                      // the text bar at the bottom to allow for messaging
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.black,width: 1,)
-                      ),
+                          border: Border.all(
+                        color: Colors.black,
+                        width: 1,
+                      )),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Flexible(
                             child: TextField(
                               controller: myMessage,
-                              onSubmitted:(value) => sendMessage(),
+                              onSubmitted: (value) => sendMessage(),
                               decoration: const InputDecoration(
                                 hintText: "message Group Chat",
                                 focusColor: Colors.grey,
                                 focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black,width: 1),
-                                  borderRadius: BorderRadius.zero
-                                ),
+                                    borderSide: BorderSide(
+                                        color: Colors.black, width: 1),
+                                    borderRadius: BorderRadius.zero),
                                 filled: true,
                                 fillColor: Colors.white,
                                 border: OutlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.black,width: 1),
-                                  borderRadius: BorderRadius.zero
-                                ),
+                                    borderSide: BorderSide(
+                                        color: Colors.black, width: 1),
+                                    borderRadius: BorderRadius.zero),
                               ),
-                              style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                                fontSize: 14,
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium!
+                                  .copyWith(
+                                    fontSize: 14,
+                                  ),
                               cursorColor: Colors.black,
                             ),
                           ),
                           IconButton(
-                            padding: const EdgeInsets.all(12),
-                            onPressed: sendMessage, 
-                            icon: const Icon(Icons.arrow_upward_sharp),
-                            style: IconButton.styleFrom(
-                              side: const BorderSide(color: Colors.black,width: 1),
-                              foregroundColor: Colors.black,
-                              backgroundColor: Colors.white,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.zero,
-                              )
-                            )
-                            )
+                              padding: const EdgeInsets.all(12),
+                              onPressed: sendMessage,
+                              icon: const Icon(Icons.arrow_upward_sharp),
+                              style: IconButton.styleFrom(
+                                  side: const BorderSide(
+                                      color: Colors.black, width: 1),
+                                  foregroundColor: Colors.black,
+                                  backgroundColor: Colors.white,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.zero,
+                                  )))
                         ],
                       ),
                     ),
                   ],
                 ),
               ),
-              ),
             ),
+          ),
         ],
       ),
     );
   }
 
-  bool checkDate (DateTime checkedDate, DateTime checkedDate2){
-    if ((checkedDate.year  == checkedDate2.year)&&(checkedDate.month  == checkedDate2.month)&&(checkedDate.day  == checkedDate2.day)){
+  bool checkDate(DateTime checkedDate, DateTime checkedDate2) {
+    if ((checkedDate.year == checkedDate2.year) &&
+        (checkedDate.month == checkedDate2.month) &&
+        (checkedDate.day == checkedDate2.day)) {
       return true;
     } else {
-      
-        currentMessageDate == checkedDate;
-      
+      currentMessageDate == checkedDate;
+
       return false;
     }
-
-   
   }
 }

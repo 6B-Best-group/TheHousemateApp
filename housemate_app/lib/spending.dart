@@ -13,11 +13,14 @@ class spendingPage extends StatefulWidget {
 
 class _spendingPageState extends State<spendingPage> {
 
+  late User currentUser;
+
   List<User> housemates = Database().users;
 
   @override
   void initState() {
     super.initState();
+    currentUser = Database().users[Database().currentUser];
     getSpending();
   }
 
@@ -32,7 +35,7 @@ class _spendingPageState extends State<spendingPage> {
               return ListTile(
                 title: Text(Database().users[i].firstName),
                 subtitle: Text(
-                    "Total spent:${spendingMap[Database().users[i].firstName]}"),
+                    "Total spent: ${currentUser.spending}"),
               );
             }));
   }
@@ -45,6 +48,7 @@ void getSpending() {
   }
   for (ShoppingItem item in broughItems) {
     String buyer = item.whoPaid;
-    spendingMap[buyer] = item.cost;
+    double currentTot = spendingMap[buyer] ?? 0;
+    spendingMap[buyer] = currentTot + item.cost;
   }
 }

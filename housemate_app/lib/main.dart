@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:housemate_app/binRota.dart';
 import 'package:housemate_app/calender-page/calender.dart';
+import 'package:housemate_app/class/bins.dart';
 import 'package:housemate_app/group_chat.dart';
 import 'package:housemate_app/class/action_log_notification.dart';
-import 'package:housemate_app/class/house.dart';
 import 'package:housemate_app/create_house.dart';
 import 'package:housemate_app/rota.dart';
 import 'package:housemate_app/sign-in%20pages/findHouse.dart';
 import 'package:housemate_app/class/home.dart';
-import 'package:housemate_app/class/profile.dart';
 import 'package:housemate_app/sign-in%20pages/joinHouse.dart';
 import 'package:housemate_app/shopping_list.dart';
 import 'package:housemate_app/sign-in%20pages/sign_up.dart';
@@ -24,8 +24,7 @@ import 'package:housemate_app/settings.dart';
 List<ActionLogNotification> actionsList = [];
 List<ShoppingItem> broughItems = [];
 Map<String, double> spendingMap = {};
-User currentUser = User();
-House house = House();
+Bins bin = Bins();
 bool login = true;
 bool houseMember = true;
 String screen = '/welcome';
@@ -42,11 +41,11 @@ void main() async {
 
   // loads the database on initialization of the app
 
-  await Database().loadUsers();
-  await Database().loadHouse();
-  await Database().loadMessage();
-  await Database().loadShoppingList();
-  await Database().loadChore();
+  await db.loadHouse();
+  await db.loadUsers();
+  await db.loadMessage();
+  await db.loadShoppingList();
+  await db.loadChore();
     
 
 
@@ -69,6 +68,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Dweller',
       theme: defaultTheme,
+      //Routing information
       initialRoute: '/',
       routes: {    // -- navigates the various different pages there are
         '/': (context) => const MyHomePage(title: 'Dweller'),
@@ -84,6 +84,7 @@ class _MyAppState extends State<MyApp> {
         '/findHouse': (context) => const findHouse(),
         '/actionLog': (context) => const ActionLog(),
         '/rota': (context) => const Rota(),
+        '/binRota': (context) => const binRota(),
         '/settings': (context) => const Settings(),
         '/spending': (context) => const spendingPage(),
       },

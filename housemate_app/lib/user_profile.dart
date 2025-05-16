@@ -33,8 +33,8 @@ class _UserProfileState extends State<UserProfile> {
         body: Column(
           children: [
             Container(
-              width: double.infinity,
-              height: 150,
+              // width: double.infinity,
+              //height: 150,
               decoration: BoxDecoration(
                   color: Colors.grey.shade400,
                   // borderRadius: const BorderRadius.only(
@@ -75,7 +75,7 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                           ),
                           Text(
-                            house.address1,
+                            Database().house[0].houseAddress,
                             style: TextStyle(
                               fontSize: 23,
                             ),
@@ -91,7 +91,7 @@ class _UserProfileState extends State<UserProfile> {
               padding: const EdgeInsets.all(20.0),
               child: Container(
                 width: MediaQuery.of(context).size.width / 2,
-                height: 500,
+                height: 400,
                 decoration: BoxDecoration(
                     border: Border.all(
                   color: Colors.black,
@@ -124,7 +124,7 @@ class _UserProfileState extends State<UserProfile> {
                       Padding(
                           padding: EdgeInsets.all(10.0),
                           child: Text(
-                            'Rent p/m',
+                            'General waste bin day is ${bin.genDay} ${bin.genTime}',
                             //textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18, color: Colors.black),
                           )),
@@ -132,7 +132,7 @@ class _UserProfileState extends State<UserProfile> {
                       Padding(
                           padding: EdgeInsets.all(10.0),
                           child: Text(
-                            'Payment Date',
+                            'Recycling bin day is ${bin.recDay} ${bin.recTime}',
                             //textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 18, color: Colors.black),
                           )),
