@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
 import 'package:housemate_app/class/profile.dart';
-import 'package:housemate_app/class/shoppingItem.dart';
 import 'package:housemate_app/dataInfo.dart';
+
 //Author: Anna
 //Purpose: This is the testing checks file for all user inputs
 //Returns: all methods return a true or false to be used as pass/fail
@@ -16,6 +15,7 @@ class DataChecks {
     }
     return true;
   }
+
 /*Parameters:
   fname - first name 
   lname - last name 
@@ -71,6 +71,7 @@ class DataChecks {
     }
     return false;
   }
+
   /*Parameters:
   name - name of user who paid
   money - the cost of the item */
@@ -94,6 +95,7 @@ class DataChecks {
     }
     return true;
   }
+
   /* Parameters:
    name - house username
    add1 - address line 1 
@@ -130,6 +132,7 @@ class DataChecks {
     }
     return true;
   }
+
   /* Parameter:
   message - message content
   sender - the user sending the message
