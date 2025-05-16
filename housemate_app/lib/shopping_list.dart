@@ -21,14 +21,12 @@ class _shopping_listState extends State<shopping_list> {
   late User currentUser;
 
   void addItem() {
-    //if (itemValid()) {
     Database().shoppingList.add(ShoppingList(itemId: Database().shoppingList.length + 1, houseId: Database().users[Database().currentUser].houseId, itemName: itemName.text, itemQuantity: int.parse(quantity.text), itemPrice: 0.00, itemBrought: false, userId: Database().users[Database().currentUser].userId));
     ActionLogNotification logAction = ActionLogNotification(
         '${currentUser.firstName} ${currentUser.lastName} added to the Shopping List',
         '${quantity.text}x ${itemName.text}');
     actionsList.add(logAction);
     setState(() {});
-    // }
   }
 
   void removeItem(item) {
