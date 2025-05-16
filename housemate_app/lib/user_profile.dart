@@ -9,17 +9,15 @@ class UserProfile extends StatefulWidget {
 
   @override
   State<UserProfile> createState() => _UserProfileState();
-
 }
 
 class _UserProfileState extends State<UserProfile> {
-
   late User currentUser;
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
+    // Retrives the current user from the database
     currentUser = Database().users[Database().currentUser];
   }
 
@@ -27,20 +25,13 @@ class _UserProfileState extends State<UserProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          //backgroundColor: Colors.blue,
           title: const Text('My Profile'),
         ),
         body: Column(
           children: [
             Container(
-              // width: double.infinity,
-              //height: 150,
               decoration: BoxDecoration(
                   color: Colors.grey.shade400,
-                  // borderRadius: const BorderRadius.only(
-                  //   bottomRight: const Radius.circular(10),
-                  //   bottomLeft: Radius.circular(10),
-                  // ),
                   border: const Border(
                       bottom: const BorderSide(color: Colors.black, width: 1))),
               child: Padding(
@@ -58,10 +49,11 @@ class _UserProfileState extends State<UserProfile> {
                         minRadius: 50.0,
                         backgroundColor: Colors.white,
                         backgroundImage:
-                            null, //AssetImage('Insert profile picture here'),
+                            null, //AssetImage('Insert profile picture here'), When fully operational this will be the profile picture
                       ),
                     ),
                     Padding(
+                      // User name and address displayed beside profiel picture
                       padding: EdgeInsets.only(left: 25, top: 8, bottom: 8),
                       child: Column(
                         children: [
@@ -69,13 +61,15 @@ class _UserProfileState extends State<UserProfile> {
                             height: 30.0,
                           ),
                           Text(
-                            '${currentUser.firstName} ${currentUser.lastName}', //user.getFirstName(),
+                            '${currentUser.firstName} ${currentUser.lastName}', //user.getFirstName(), Gets user's first and last name to be shown on the user profile
                             style: TextStyle(
                               fontSize: 27,
                             ),
                           ),
                           Text(
-                            Database().house[0].houseAddress,
+                            Database()
+                                .house[0]
+                                .houseAddress, // Gets the address of the house to be shown on the user profile
                             style: TextStyle(
                               fontSize: 23,
                             ),
@@ -87,6 +81,7 @@ class _UserProfileState extends State<UserProfile> {
                 ),
               ),
             ),
+            // Displays main Infomation bellow header: users email address, Date of birth, general waste bin collection day and time, recycling bin collection day and time
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: Container(
@@ -106,34 +101,33 @@ class _UserProfileState extends State<UserProfile> {
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          currentUser.email,
-                          //textAlign: TextAlign.center,
+                          currentUser.email, // Displays users email address
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                       ),
                       Divider(),
+                      // Date Of Birth
                       Padding(
                         padding: EdgeInsets.all(10.0),
                         child: Text(
-                          '${currentUser.dateOfBirth.year}-${currentUser.dateOfBirth.month}-${currentUser.dateOfBirth.year}',
-                          //textAlign: TextAlign.center,
+                          '${currentUser.dateOfBirth.year}-${currentUser.dateOfBirth.month}-${currentUser.dateOfBirth.year}', // Gets the users date of birth to be shown on the user profile
                           style: TextStyle(fontSize: 18, color: Colors.black),
                         ),
                       ),
                       Divider(),
+                      // General waste bin collection day and time
                       Padding(
                           padding: EdgeInsets.all(10.0),
                           child: Text(
-                            'General waste bin day is ${bin.genDay} ${bin.genTime}',
-                            //textAlign: TextAlign.center,
+                            'General waste bin day is ${bin.genDay} ${bin.genTime}', // gets the date and time for when the general waste bin is collected and shown on the user profile
                             style: TextStyle(fontSize: 18, color: Colors.black),
                           )),
                       Divider(),
+                      // Recycling bin collection day and time
                       Padding(
                           padding: EdgeInsets.all(10.0),
                           child: Text(
-                            'Recycling bin day is ${bin.recDay} ${bin.recTime}',
-                            //textAlign: TextAlign.center,
+                            'Recycling bin day is ${bin.recDay} ${bin.recTime}', // gets the date and time for when the recycling bin is collected and shown on the user profile
                             style: TextStyle(fontSize: 18, color: Colors.black),
                           )),
                     ],
