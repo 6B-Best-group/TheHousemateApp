@@ -20,11 +20,14 @@ class binRota extends StatefulWidget {
 }
 
 class _binRota extends State<binRota> {
+  //Each drop down is directly linked to the class
   String binDay = bin.genDay;
   String recDay = bin.recDay;
   String recTime = bin.recTime;
   String binTime = bin.genTime;
   @override
+  //Returns: 4 drop downs containing days and times for bin/recycling
+  //days
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -107,11 +110,6 @@ class _binRota extends State<binRota> {
               ),
             ],
           ),
-          // TextButton(
-          //     onPressed: () {
-          //       update(binDay, recDay, recTime, binTime);
-          //     },
-          //     child: Text("Update Bin Days"))
         ]));
   }
 }

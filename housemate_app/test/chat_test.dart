@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:housemate_app/class/profile.dart';
 import 'package:housemate_app/inputCheck.dart';
 
+// Testing plan 2.1 user creation
 User testUser = User();
 void main() {
   group('chat tests', () {

@@ -1,6 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:housemate_app/inputCheck.dart';
 
+/* 
+Test plan: 3.1 house creation
+*/
 void main() {
   group('House creation test', () {
     //valid tests

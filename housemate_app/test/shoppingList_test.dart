@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:housemate_app/inputCheck.dart';
 
 /* 
-Test file: shopping list 
+Test plan: 1.1 and 1.2 shopping list
 */
 void main() {
   // Testing plan unit: Being able to add an item to the shopping list
@@ -59,6 +59,7 @@ void main() {
     });
   });
 
+//testing plan 1.2 Adding an item cost
   group('Test: adding an item cost', () {
     //valid tests
     test('add a small cost to the item with no decimals', () {

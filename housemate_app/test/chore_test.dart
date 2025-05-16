@@ -4,6 +4,9 @@ import 'package:housemate_app/inputCheck.dart';
 
 User testUser = User();
 User testUser2 = User();
+/* 
+Test plan: 5.1 chore creation
+*/
 void main() {
   group('chore creation tests', () {
     //valid tests

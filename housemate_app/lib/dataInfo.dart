@@ -1,3 +1,7 @@
+//Author: Anna
+//Constrain information
+//Holds letter limits for most inputs to make changing them easier
+
 Map<String, int> usernameData = {
   "firstName": 15,
   "lastName": 20,

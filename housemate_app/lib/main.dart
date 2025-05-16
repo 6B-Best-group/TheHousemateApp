@@ -68,6 +68,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Dweller',
       theme: defaultTheme,
+      //Routing information
       initialRoute: '/',
       routes: {    // -- navigates the various different pages there are
         '/': (context) => const MyHomePage(title: 'Dweller'),

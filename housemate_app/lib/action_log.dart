@@ -40,12 +40,13 @@ class _MyCustomFormState extends State<MyCustomForm> {
       body: ListView.builder(
         itemCount: reversedActionsList.length,
         itemBuilder: (context, i) {
-
+          //returns: a complete list of actions
           return Column(
             children: <Widget>[
               ListTile(
                 leading: CircleAvatar(
-                  child: Text(reversedActionsList[i].notificationName[0]), // Sets the avatar to the firts letter of the user's name.
+                  // Sets the avatar to the first letter of the user's name.
+                  child: Text(reversedActionsList[i].notificationName[0]), 
                 ),
                 title: Text(reversedActionsList[i].notificationName), 
                 subtitle: Text(reversedActionsList[i].notificationDetail),
