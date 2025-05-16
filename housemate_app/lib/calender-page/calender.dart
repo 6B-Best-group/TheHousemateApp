@@ -94,7 +94,6 @@ class _CalenderHomePageState extends State<CalenderPage>
     userDateChores = sortingUserChoreDates(sortingChoreDates(Database().chore));
     otherUserDateChores = choresByDateAndUser(sortingOtherUserChoreDates(sortingChoreDates(Database().chore))); 
     heatMapDataset = markedChoreDays(addingToHeatMap(sortingChoreDates(Database().chore)));
-    
   }
 
   @override
